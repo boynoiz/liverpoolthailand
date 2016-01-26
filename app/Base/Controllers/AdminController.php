@@ -33,12 +33,6 @@ abstract class AdminController extends Controller
     protected $language;
 
     /**
-     * Image category for uploader
-     *
-     * @var mixed
-     */
-
-    /**
      * AdminController constructor.
      */
     public function __construct()
