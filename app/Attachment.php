@@ -3,10 +3,11 @@
 namespace LTF;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Query\Builder;
 /**
  * LTF\Attachment
  *
+ * @mixin \Eloquent
  * @property integer $attach_id
  * @property string $attach_ext
  * @property string $attach_file
@@ -26,7 +27,27 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $attach_img_height
  * @property integer $attach_parent_id
  * @property integer $attach_is_archived
+ * @method static Builder|Attachment whereAttachId($value)
+ * @method static Builder|Attachment whereAttachExt($value)
+ * @method static Builder|Attachment whereAttachFile($value)
+ * @method static Builder|Attachment whereAttachLocation($value)
+ * @method static Builder|Attachment whereAttachThumbLocation($value)
+ * @method static Builder|Attachment whereAttachThumbWidth($value)
+ * @method static Builder|Attachment whereAttachThumbHeight($value)
+ * @method static Builder|Attachment whereAttachIsImage($value)
+ * @method static Builder|Attachment whereAttachHits($value)
+ * @method static Builder|Attachment whereAttachDate($value)
+ * @method static Builder|Attachment whereAttachPostKey($value)
+ * @method static Builder|Attachment whereAttachMemberId($value)
+ * @method static Builder|Attachment whereAttachFilesize($value)
+ * @method static Builder|Attachment whereAttachRelId($value)
+ * @method static Builder|Attachment whereAttachRelModule($value)
+ * @method static Builder|Attachment whereAttachImgWidth($value)
+ * @method static Builder|Attachment whereAttachImgHeight($value)
+ * @method static Builder|Attachment whereAttachParentId($value)
+ * @method static Builder|Attachment whereAttachIsArchived($value)
  */
+
 class Attachment extends Model
 {
     /**
