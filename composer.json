@@ -1,6 +1,6 @@
 {
-	"name": "ozdemirburak/laravel-5-simple-cms",
-	"description": "Simple Laravel 5 content management system for starters.",
+	"name": "boynoiz/liverpoolthailand",
+	"description": "Base website for www.liverpoolthailand.com",
 	"keywords": ["framework", "laravel", "cms"],
 	"license": "MIT",
 	"type": "project",
