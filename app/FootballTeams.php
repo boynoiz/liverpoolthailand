@@ -19,7 +19,7 @@ use Illuminate\Database\Query\Builder;
  * @property string $team_logo
  * @property integer $team_lastmatch
  * @property string $team_nextmatch
- * @property-read \Illuminate\Database\Eloquent\Collection|\FootballPlayer[] $players
+ * @property-read \Illuminate\Database\Eloquent\Collection|FootballPlayer[] $players
  * @method static Builder|FootballTeams whereId($value)
  * @method static Builder|FootballTeams whereCreatedAt($value)
  * @method static Builder|FootballTeams whereUpdatedAt($value)
