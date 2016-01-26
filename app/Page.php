@@ -2,14 +2,14 @@
 
 namespace LTF;
 
-use LTF\Language;
 use Baum\Node;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use Illuminate\Database\Query\Builder;
 
 /**
  * LTF\Page
- *
+ * @mixin \Eloquent
  * @property integer $id
  * @property integer $language_id
  * @property integer $parent_id
@@ -23,24 +23,24 @@ use Cviebrock\EloquentSluggable\SluggableTrait;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \LTF\Language $language
- * @property-read LTF\Page $parent
- * @property-read \Illuminate\Database\Eloquent\Collection|LTF\Page[] $children
- * @method static \Illuminate\Database\Query\Builder|\LTF\Page whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Page whereLanguageId($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Page whereParentId($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Page whereLft($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Page whereRgt($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Page whereDepth($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Page whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Page whereSlug($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Page whereContent($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Page whereDescription($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Page whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Page whereUpdatedAt($value)
- * @method static \Baum\Node withoutNode($node)
- * @method static \Baum\Node withoutSelf()
- * @method static \Baum\Node withoutRoot()
- * @method static \Baum\Node limitDepth($limit)
+ * @property-read Page $parent
+ * @property-read \Illuminate\Database\Eloquent\Collection|Page[] $children
+ * @method static Builder|Page whereId($value)
+ * @method static Builder|Page whereLanguageId($value)
+ * @method static Builder|Page whereParentId($value)
+ * @method static Builder|Page whereLft($value)
+ * @method static Builder|Page whereRgt($value)
+ * @method static Builder|Page whereDepth($value)
+ * @method static Builder|Page whereTitle($value)
+ * @method static Builder|Page whereSlug($value)
+ * @method static Builder|Page whereContent($value)
+ * @method static Builder|Page whereDescription($value)
+ * @method static Builder|Page whereCreatedAt($value)
+ * @method static Builder|Page whereUpdatedAt($value)
+ * @method static Node withoutNode($node)
+ * @method static Node withoutSelf()
+ * @method static Node withoutRoot()
+ * @method static Node limitDepth($limit)
  */
 class Page extends Node implements SluggableInterface
 {
