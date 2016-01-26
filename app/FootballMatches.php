@@ -3,10 +3,11 @@
 namespace LTF;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Query\Builder;
 /**
  * LTF\FootballMatches
  *
+ * @mixin \Eloquent
  * @property integer $id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -34,8 +35,36 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $match_ht_score
  * @property string $match_ft_score
  * @property string $match_et_score
- * @property-read \Illuminate\Database\Eloquent\Collection|\LTF\FootballMatchEvents[] $MatchOfEvents
+ * @property-read \Illuminate\Database\Eloquent\Collection|FootballMatchEvents[] $events
+ * @method static Builder|FootballMatches whereId($value)
+ * @method static Builder|FootballMatches whereCreatedAt($value)
+ * @method static Builder|FootballMatches whereUpdatedAt($value)
+ * @method static Builder|FootballMatches whereMatchId($value)
+ * @method static Builder|FootballMatches whereMatchStaticId($value)
+ * @method static Builder|FootballMatches whereMatchCompId($value)
+ * @method static Builder|FootballMatches whereMatchEventId($value)
+ * @method static Builder|FootballMatches whereMatchDate($value)
+ * @method static Builder|FootballMatches whereMatchFormattedDate($value)
+ * @method static Builder|FootballMatches whereMatchSeason($value)
+ * @method static Builder|FootballMatches whereMatchWeek($value)
+ * @method static Builder|FootballMatches whereMatchVenue($value)
+ * @method static Builder|FootballMatches whereMatchVenueId($value)
+ * @method static Builder|FootballMatches whereMatchVenueCity($value)
+ * @method static Builder|FootballMatches whereMatchStatus($value)
+ * @method static Builder|FootballMatches whereMatchTimer($value)
+ * @method static Builder|FootballMatches whereMatchTime($value)
+ * @method static Builder|FootballMatches whereMatchCommentaryId($value)
+ * @method static Builder|FootballMatches whereMatchLocalteamId($value)
+ * @method static Builder|FootballMatches whereMatchLocalteamName($value)
+ * @method static Builder|FootballMatches whereMatchLocalteamScore($value)
+ * @method static Builder|FootballMatches whereMatchVisitorteamId($value)
+ * @method static Builder|FootballMatches whereMatchVisitorteamName($value)
+ * @method static Builder|FootballMatches whereMatchVisitorteamScore($value)
+ * @method static Builder|FootballMatches whereMatchHtScore($value)
+ * @method static Builder|FootballMatches whereMatchFtScore($value)
+ * @method static Builder|FootballMatches whereMatchEtScore($value)
  */
+
 class FootballMatches extends Model
 {
     /**
@@ -79,7 +108,7 @@ class FootballMatches extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function MatchOfEvents()
+    public function events()
     {
         return $this->hasMany(FootballMatchEvents::class, 'match_id');
     }

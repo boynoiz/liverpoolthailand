@@ -3,10 +3,12 @@
 namespace LTF;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 
 /**
  * LTF\FootballPLayerStats
  *
+ * @mixin \Eloquent
  * @property integer $id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -16,7 +18,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $player_shortname
  * @property integer $player_goal
  * @property integer $player_assist
- * @property-read \LTF\FootballPlayer $StatsPlayer
+ * @property-read FootballPlayer $player
+ * @method static Builder|FootballPLayerStats whereId($value)
+ * @method static Builder|FootballPLayerStats whereCreatedAt($value)
+ * @method static Builder|FootballPLayerStats whereUpdatedAt($value)
+ * @method static Builder|FootballPLayerStats wherePlayerId($value)
+ * @method static Builder|FootballPLayerStats wherePlayerCompetitionId($value)
+ * @method static Builder|FootballPLayerStats wherePlayerSeason($value)
+ * @method static Builder|FootballPLayerStats wherePlayerShortname($value)
+ * @method static Builder|FootballPLayerStats wherePlayerGoal($value)
+ * @method static Builder|FootballPLayerStats wherePlayerAssist($value)
  */
 class FootballPLayerStats extends Model
 {
@@ -43,7 +54,7 @@ class FootballPLayerStats extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function StatsPlayer()
+    public function player()
     {
         return $this->belongsTo(FootballPlayer::class, 'id');
     }

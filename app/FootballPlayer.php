@@ -3,12 +3,18 @@
 namespace LTF;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 
 /**
  * LTF\FootballPlayer
  *
- * @property-read \Illuminate\Database\Eloquent\Collection|\LTF\FootballPLayerStats[] $PlayerOfStats
- * @property-read \LTF\FootballTeams $PlayersOfTeam
+ * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\LTF\FootballPLayerStats[] $stats
+ * @property-read \LTF\FootballTeams $team
+ * @method static Builder|FootballPlayer whereId($value)
+ * @method static Builder|FootballPlayer wherePlayerStatId($value)
+ * @method static Builder|FootballPlayer wherePlayerTeamId($value)
+ * @method static Builder|FootballPlayer whereShortname($value)
  */
 class FootballPlayer extends Model
 {
@@ -35,7 +41,7 @@ class FootballPlayer extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function PlayerOfStats()
+    public function stats()
     {
         return $this->hasMany(FootballPlayerStats::class, 'id');
     }
@@ -43,7 +49,7 @@ class FootballPlayer extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function PlayersOfTeam()
+    public function team()
     {
         return$this->belongsTo(FootballTeams::class, 'player_team_id');
     }

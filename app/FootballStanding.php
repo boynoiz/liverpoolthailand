@@ -3,10 +3,12 @@
 namespace LTF;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 
 /**
  * LTF\FootballStanding
  *
+ * @mixin \Eloquent
  * @property integer $id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -43,6 +45,42 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $stand_gd
  * @property integer $stand_points
  * @property string $stand_desc
+ * @method static Builder|FootballStanding whereId($value)
+ * @method static Builder|FootballStanding whereCreatedAt($value)
+ * @method static Builder|FootballStanding whereUpdatedAt($value)
+ * @method static Builder|FootballStanding whereStandId($value)
+ * @method static Builder|FootballStanding whereStandCompetitionId($value)
+ * @method static Builder|FootballStanding whereStandSeason($value)
+ * @method static Builder|FootballStanding whereStandRound($value)
+ * @method static Builder|FootballStanding whereStandStageId($value)
+ * @method static Builder|FootballStanding whereStandGroup($value)
+ * @method static Builder|FootballStanding whereStandCountry($value)
+ * @method static Builder|FootballStanding whereStandTeamId($value)
+ * @method static Builder|FootballStanding whereStandTeamName($value)
+ * @method static Builder|FootballStanding whereStandStatus($value)
+ * @method static Builder|FootballStanding whereStandRecentForm($value)
+ * @method static Builder|FootballStanding whereStandPosition($value)
+ * @method static Builder|FootballStanding whereStandOverallGp($value)
+ * @method static Builder|FootballStanding whereStandOverallW($value)
+ * @method static Builder|FootballStanding whereStandOverallD($value)
+ * @method static Builder|FootballStanding whereStandOverallL($value)
+ * @method static Builder|FootballStanding whereStandOverallGs($value)
+ * @method static Builder|FootballStanding whereStandOverallGa($value)
+ * @method static Builder|FootballStanding whereStandHomeGp($value)
+ * @method static Builder|FootballStanding whereStandHomeW($value)
+ * @method static Builder|FootballStanding whereStandHomeD($value)
+ * @method static Builder|FootballStanding whereStandHomeL($value)
+ * @method static Builder|FootballStanding whereStandHomeGs($value)
+ * @method static Builder|FootballStanding whereStandHomeGa($value)
+ * @method static Builder|FootballStanding whereStandAwayGp($value)
+ * @method static Builder|FootballStanding whereStandAwayW($value)
+ * @method static Builder|FootballStanding whereStandAwayD($value)
+ * @method static Builder|FootballStanding whereStandAwayL($value)
+ * @method static Builder|FootballStanding whereStandAwayGs($value)
+ * @method static Builder|FootballStanding whereStandAwayGa($value)
+ * @method static Builder|FootballStanding whereStandGd($value)
+ * @method static Builder|FootballStanding whereStandPoints($value)
+ * @method static Builder|FootballStanding whereStandDesc($value)
  */
 class FootballStanding extends Model
 {

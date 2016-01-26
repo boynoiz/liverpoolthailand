@@ -3,10 +3,12 @@
 namespace LTF;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 
 /**
  * LTF\FootballTeams
  *
+ * @mixin \Eloquent
  * @property integer $id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -17,7 +19,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $team_logo
  * @property integer $team_lastmatch
  * @property string $team_nextmatch
- * @property-read \Illuminate\Database\Eloquent\Collection|\LTF\FootballPlayer[] $TeamOfPlayers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\FootballPlayer[] $players
+ * @method static Builder|FootballTeams whereId($value)
+ * @method static Builder|FootballTeams whereCreatedAt($value)
+ * @method static Builder|FootballTeams whereUpdatedAt($value)
+ * @method static Builder|FootballTeams whereTeamId($value)
+ * @method static Builder|FootballTeams whereTeamName($value)
+ * @method static Builder|FootballTeams whereTeamShortname($value)
+ * @method static Builder|FootballTeams whereTeamVenueName($value)
+ * @method static Builder|FootballTeams whereTeamLogo($value)
+ * @method static Builder|FootballTeams whereTeamLastmatch($value)
+ * @method static Builder|FootballTeams whereTeamNextmatch($value)
  */
 class FootballTeams extends Model
 {
@@ -43,7 +55,7 @@ class FootballTeams extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function TeamOfPlayers()
+    public function players()
     {
         return $this->hasMany(FootballPlayer::class, 'team_id');
     }
