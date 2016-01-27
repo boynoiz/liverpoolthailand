@@ -56,7 +56,14 @@ return [
      *    'method' => array('Str','slug'),
      */
 
-    'method' => null,
+    'method' => function($string, $sep = '-')
+    {
+        $flip = $sep == '-' ? '_' : '-';
+        $string = preg_replace('![' . preg_quote($flip) . ']+!u', $sep, $string);
+        $string = preg_replace('![^'.preg_quote($sep).'ก-๙\pL\pN\s]+!u', '', mb_strtolower($string));
+        $string = preg_replace('![' . preg_quote($sep) . '\s]+!u', $sep, $string);
+        return trim($string, $sep);
+    },
 
     /**
      * Separator to use when generating slugs.  Defaults to a hyphen.
