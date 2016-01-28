@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Illuminate\Foundation\Validation\ValidationException;
+use Illuminate\Validation\ValidationException;
 use GrahamCampbell\Exceptions\ExceptionHandler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
