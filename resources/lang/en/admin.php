@@ -53,7 +53,8 @@ return [
             "content"               => "Content",
             "description"           => "Description",
             "title"                 => "Title",
-            "image"                 => "Featured Image"
+            "image"                 => "Featured Image",
+            'preview'               => "Image Preview"
         ],
         "category" => [
             "color"                 => "Color",
