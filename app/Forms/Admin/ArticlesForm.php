@@ -24,10 +24,15 @@ class ArticlesForm extends AdminForm
             ])
             ->add('image', 'file', [
                 'label' => trans('admin.fields.article.image'),
-                'attr' => ['class' => '']
+                'wrapper' => [
+                    'class' => 'form-group col-md-6'
+                ]
             ])
             ->add('published_at', 'date', [
-                'label' => trans('admin.fields.published_at')
+                'label' => trans('admin.fields.published_at'),
+                'wrapper' => [
+                    'class' => 'form-group col-md-6'
+                ]
             ]);
         parent::buildForm();
     }
