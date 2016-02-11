@@ -47,6 +47,6 @@ class ImageResizerJob extends Job implements SelfHandling ,ShouldQueue
             $image->save($path . strtolower($size['name']) .'/'. strtolower($size['name']) . '-'. $fileName, 70);
             $image->reset();
         }
-        $job->attempts() > 3 ? $job->delete() : $job->release(0);
+        $this->attempts() > 3 ? $this->release(60) : $this->delete();
     }
 }
