@@ -2,8 +2,10 @@
 
 namespace LTF\Base\Controllers;
 
-use LTF\Base\Services\ImageService;
+use Queue;
+use Carbon\Carbon;
 use LTF\Category;
+use LTF\Jobs\ImageResizerJob;
 use LTF\Language;
 use LTF\Http\Controllers\Controller;
 use FormBuilder;
@@ -137,7 +139,26 @@ abstract class AdminController extends Controller
             $getImageCategory = Category::find($request->category_id);
             $imageCategory = strtolower($getImageCategory->title);
         }
-        return $imageColumn === false ? $request->all() : ImageService::uploadImage($request, $imageColumn, $imageCategory);
+        if ($imageColumn === false){
+            return $request->all();
+        }
+        else
+        {
+            $data = $request->except($imageColumn);
+            if ($request->file($imageColumn)) {
+                $file = $request->file($imageColumn);
+                $request->file($imageColumn);
+                $fileName = rename_file($imageCategory, $file->getClientOriginalExtension());
+                $date = Carbon::create()->now()->format('Y-m');
+                $path = '/assets/images/' . $imageCategory . '/' . $date .'/';
+                $move_path = public_path() . $path;
+                $file->move($move_path, $fileName);
+                $data[$imageColumn] = $path . $fileName;
+                $job = collect(['path' => $path, 'filename' => $fileName]);
+                Queue::push(ImageResizerJob::class, $job->toArray());
+            }
+            return $data;
+        }
     }
 
     /**
