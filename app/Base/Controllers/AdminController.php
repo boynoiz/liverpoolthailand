@@ -2,6 +2,7 @@
 
 namespace LTF\Base\Controllers;
 
+use LTF\User;
 use Queue;
 use Carbon\Carbon;
 use LTF\Category;
@@ -10,6 +11,7 @@ use LTF\Language;
 use LTF\Http\Controllers\Controller;
 use FormBuilder;
 use Laracasts\Flash\Flash;
+use Auth;
 
 abstract class AdminController extends Controller
 {
@@ -35,6 +37,14 @@ abstract class AdminController extends Controller
     protected $language;
 
     /**
+     * Current user
+     *
+     * @var mixed
+     */
+
+    protected $user;
+
+    /**
      * AdminController constructor.
      */
     public function __construct()
@@ -42,6 +52,7 @@ abstract class AdminController extends Controller
         $this->model = $this->getModel();
         $this->formPath = $this->getFormPath();
         $this->language = session('current_lang');
+        $this->user = Auth::user()->id;
     }
 
     /**
@@ -97,13 +108,12 @@ abstract class AdminController extends Controller
      *
      * @param $class
      * @param $request
-     * @param bool|false $imageColumn
      * @param string $path
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function createFlashRedirect($class, $request, $imageColumn = false, $path = "index")
+    public function createFlashRedirect($class, $request, $path = "index")
     {
-        $model = $class::create($this->getData($request, $imageColumn));
+        $model = Auth::user()->$class()->create($this->getData($request));
         $model->id ? Flash::success(trans('admin.create.success')) : Flash::error(trans('admin.create.fail'));
         return $this->redirectRoutePath($path);
     }
@@ -113,13 +123,13 @@ abstract class AdminController extends Controller
      *
      * @param $model
      * @param $request
-     * @param bool|false $imageColumn
      * @param string $path
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function saveFlashRedirect($model, $request, $imageColumn = false, $path = "index")
+    public function saveFlashRedirect($model, $request, $path = "index")
     {
-        $model->fill($this->getData($request, $imageColumn));
+        $model->fill($this->getData($request));
+        $model->update_by = Auth::user()->id;
         $model->save() ? Flash::success(trans('admin.update.success')) : Flash::error(trans('admin.update.fail'));
         return $this->redirectRoutePath($path);
     }
@@ -128,34 +138,36 @@ abstract class AdminController extends Controller
      * Get data, if image column is passed, upload it
      *
      * @param $request
-     * @param $imageColumn
      * @return mixed
      */
-    private function getData($request, $imageColumn)
+    private function getData($request)
     {
         $imageCategory = strtolower($this->model);
-        if ($imageCategory === 'article')
+        if ($imageCategory == 'article')
         {
             $getImageCategory = Category::find($request->category_id);
             $imageCategory = strtolower($getImageCategory->title);
         }
-        if ($imageColumn === false){
+        if ($request->image === false){
             return $request->all();
         }
         else
         {
+            $imageColumn = $request->image;
             $data = $request->except($imageColumn);
-            if ($request->file($imageColumn)) {
+            if ($request->file($imageColumn))
+            {
                 $file = $request->file($imageColumn);
                 $request->file($imageColumn);
                 $fileName = rename_file($imageCategory, $file->getClientOriginalExtension());
                 $date = Carbon::create()->now()->format('Y-m');
-                $path = '/assets/images/' . $imageCategory . '/' . $date .'/';
+                $path = '/assets/images/' . str_slug($imageCategory, '-') . '/' . $date .'/';
                 $move_path = public_path() . $path;
                 $file->move($move_path, $fileName);
-                $data[$imageColumn] = $path . $fileName;
                 $job = collect(['path' => $path, 'filename' => $fileName]);
                 Queue::push(ImageResizerJob::class, $job->toArray());
+                $data['image_path'] = $path;
+                $data['image_name'] = $fileName;
             }
             return $data;
         }
@@ -267,4 +279,6 @@ abstract class AdminController extends Controller
         $model =  title_case(str_plural($this->model));
         return 'LTF\Forms\Admin\\' . $model . 'Form';
     }
+
+
 }
