@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-8 bottommargin">
                     <div class="col_full bottommargin-sm clearfix">
-                        @include('partials.default.articles.mainArticle')
+                        @include('partials.default.ltfTalk.mainTalk')
                     </div>
                     <div class="col_full bottommargin-sm clearfix">
                         @include('partials.default.match.mainMatch')
