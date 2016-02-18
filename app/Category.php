@@ -51,14 +51,14 @@ class Category extends Model implements SluggableInterface
      *
      * @var array
      */
-    protected $fillable = ['color', 'description','language_id', 'title'];
+    protected $fillable = ['color', 'description','language_id', 'title', 'image_path', 'image_name', 'update_by'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function language()
     {
-        return $this->belongsTo('LTF\Language');
+        return $this->belongsTo(Language::class);
     }
 
     /**
@@ -66,6 +66,14 @@ class Category extends Model implements SluggableInterface
      */
     public function articles()
     {
-        return $this->hasMany('LTF\Article');
+        return $this->hasMany(Article::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function users()
+    {
+        return $this->belongsTo(User::class);
     }
 }

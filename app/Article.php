@@ -40,6 +40,9 @@ class Article extends Model implements SluggableInterface
 {
     use SluggableTrait;
 
+    /**
+     * @var string
+     */
     protected $table = 'articles';
 
     /**
@@ -47,7 +50,7 @@ class Article extends Model implements SluggableInterface
      *
      * @var array
      */
-    protected $fillable = ['category_id', 'content', 'description', 'published_at', 'title', 'image'];
+    protected $fillable = ['category_id', 'content', 'description', 'published_at', 'title', 'image_path', 'image_name', 'update_by'];
 
     /**
      * Carbon instance fields
@@ -70,9 +73,17 @@ class Article extends Model implements SluggableInterface
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category()
+    public function users()
     {
-        return $this->belongsTo('LTF\Category');
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function categories()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     /**

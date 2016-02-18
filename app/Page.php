@@ -46,7 +46,7 @@ class Page extends Node implements SluggableInterface
 {
     use SluggableTrait;
 
-    protected $fillable = ['content', 'description', 'language_id', 'title'];
+    protected $fillable = ['content', 'description', 'language_id', 'title', 'image_path', 'image_name', 'update_by'];
 
     /**
      * Create slug from title using 3rd party trait
@@ -65,6 +65,11 @@ class Page extends Node implements SluggableInterface
     public function language()
     {
         return $this->belongsTo('LTF\Language');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**
