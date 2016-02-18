@@ -3,7 +3,9 @@
 namespace LTF\Http\Controllers\Application;
 
 use Facebook\Facebook;
+use LTF\Article;
 use LTF\Base\Controllers\ApplicationController;
+use LTF\Category;
 use LTF\Gallery;
 use LTF\Http\Requests;
 use Debugbar;
@@ -17,18 +19,38 @@ use LTF\Topic;
  */
 class MainController extends ApplicationController
 {
+
     /**
      * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
         DebugBar::startMeasure('render','Time for rendering');
+
+        $latestTalk = $this->getLatestTalk();
         $columnLatests = $this->getLatestTopics();
         $lastGalleryImages = $this->getGelllery();
         $totalMembers = $this->getTotalMembers();
         $fbLikeCounter = $this->facebookLike();
+
         Debugbar::stopMeasure('render');
-        return view('application.home.default', compact('columnLatests', 'lastGalleryImages', 'totalMembers', 'fbLikeCounter'));
+        return view('application.home.default', compact('columnLatests', 'lastGalleryImages', 'latestTalk', 'totalMembers', 'fbLikeCounter'));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatestTalk()
+    {
+        $category = Category::whereTitle('LTF Talk')->first();
+        $talk = $category
+            ->articles()
+            ->published()
+            ->orderBy('published_at', 'desc')
+            ->take(1)
+            ->get();
+
+        return $talk;
     }
 
     /**
