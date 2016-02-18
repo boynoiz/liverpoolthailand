@@ -21,6 +21,9 @@ class CategoriesForm extends AdminForm
             ])
             ->add('description', 'text', [
                 'label' => trans('admin.fields.category.description')
+            ])
+            ->add('image', 'file', [
+                'label' => trans('admin.fields.article.image'),
             ]);
         parent::buildForm();
     }
