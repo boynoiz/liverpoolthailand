@@ -24,10 +24,11 @@ class PageRequest extends Request
     public function rules()
     {
         return [
-            'content'     => 'required',
-            'description' => 'required|max:160',
-            'language_id' => 'required|integer',
-            'title'       => 'required|min:3',
+            'content'       => 'required',
+            'description'   => 'required|max:160',
+            'language_id'   => 'required|integer',
+            'title'         => 'required|min:3',
+            'image'         => 'sometimes|max:2048|image',
         ];
     }
 }
