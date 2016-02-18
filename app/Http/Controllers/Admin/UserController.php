@@ -36,7 +36,9 @@ class UserController extends AdminController
      */
     public function store(UserRequest $request)
     {
-        return $this->createFlashRedirect(User::class, $request, $this->imageColumn);
+        $request = $request->all();
+        $request = array_add($request, 'image', $this->imageColumn);
+        return $this->createFlashRedirect(User::class, $request);
     }
 
     /**
@@ -70,7 +72,9 @@ class UserController extends AdminController
      */
     public function update(User $user, UserRequest $request)
     {
-        return $this->saveFlashRedirect($user, $request, $this->imageColumn);
+        $request = $request->all();
+        $request = array_add($request, 'image', $this->imageColumn);
+        return $this->saveFlashRedirect($user, $request);
     }
 
     /**

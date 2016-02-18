@@ -10,9 +10,24 @@ use LTF\Http\Requests\Admin\CategoryRequest;
 /**
  * Class CategoryController
  * @package LTF\Http\Controllers\Admin
+ *
  */
 class CategoryController extends AdminController
 {
+
+    /**
+     * Image column of the model
+     *
+     * @var string
+     */
+    private $imageColumn = "image";
+
+    /**
+     * @var string
+     */
+    private $categories = "categories";
+
+
     /**
      * Display a listing of the categories.
      *
@@ -32,7 +47,9 @@ class CategoryController extends AdminController
      */
     public function store(CategoryRequest $request)
     {
-        return $this->createFlashRedirect(Category::class, $request);
+        $request->image = $this->imageColumn;
+        $categories = $this->categories;
+        return $this->createFlashRedirect($categories, $request);
     }
 
     /**
@@ -66,6 +83,7 @@ class CategoryController extends AdminController
      */
     public function update(Category $category, CategoryRequest $request)
     {
+        $request->image = $this->imageColumn;
         return $this->saveFlashRedirect($category, $request);
     }
 
