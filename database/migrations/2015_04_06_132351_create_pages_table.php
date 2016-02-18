@@ -24,6 +24,9 @@ class CreatePagesTable extends Migration
             $table->string('slug')->unique();
             $table->text('content');
             $table->string('description');
+            $table->string('image_path')->nullable();
+            $table->string('image_name')->nullable();
+            $table->unsignedInteger('update_by')->nullable();
             $table->timestamps();
         });
     }
