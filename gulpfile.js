@@ -17,7 +17,6 @@ var cssnext = require('postcss-cssnext');
 var mqpacker = require('css-mqpacker');
 var merge = require('merge-stream');
 var clone = require('gulp-clone');
-var gulpCopy = require('gulp-copy');
 var runSequence = require('run-sequence');
 
 gulp.task('bower', function() {
