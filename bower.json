@@ -90,6 +90,7 @@
     "jquery-form": "~3.46.0",
     "flexslider": "~2.6.0",
     "jquery-validation": "~1.14.0",
-    "PACE": "pace#~1.0.2"
+    "PACE": "pace#~1.0.2",
+    "AdminLTE": "adminlte#^2.3.2"
   }
 }

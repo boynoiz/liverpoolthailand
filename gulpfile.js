@@ -1,25 +1,23 @@
+var path = require('path');
+var del = require('del');
 var gulp = require('gulp');
 var bower = require('gulp-bower');
-//var sass = require('gulp-ruby-sass');
 var sass = require('gulp-sass');
-var compass = require('gulp-compass');
+var less = require('gulp-less');
 var bourbon = require('node-bourbon');
 var neat = require('node-neat');
 var sourcemaps = require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
-var minifyCSS = require('gulp-minify-css');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
-var notify = require('gulp-notify');
-var cache = require('gulp-cache');
-var path = require('path');
-var del = require('del');
-var filter = require('gulp-filter');
-var cssmin = require('gulp-cssmin');
-var cssnano = require('gulp-cssnano');
 var postcss = require('gulp-postcss');
+var cssnano = require('gulp-cssnano');
+var cssnext = require('postcss-cssnext');
+var mqpacker = require('css-mqpacker');
+var merge = require('merge-stream');
+var clone = require('gulp-clone');
+var gulpCopy = require('gulp-copy');
 var runSequence = require('run-sequence');
 
 gulp.task('bower', function() {
@@ -28,10 +26,10 @@ gulp.task('bower', function() {
 
 var bower_path = 'vendor/bower_components';
 var resource_path = 'resources/assets';
-var css_path = 'public/assets/css';
-var js_path = 'public/assets/js';
 
-var paths = {
+/************** Vendors **********************/
+
+var vendors = {
     'jquery'            : bower_path + '/jquery/dist',
     'bootstrap'         : bower_path + '/bootstrap-sass/assets',
     'bootswatch'        : bower_path + '/bootswatch/simplex',
@@ -77,15 +75,24 @@ var paths = {
 
 };
 
-/***************Experiment Section*******************/
+/**********### Begin Front-end section ###****************/
 
-gulp.task('front-sass-ex', function()
+//CSS
+gulp.task('frontendCss', function()
 {
+    var CssPath = 'public/assets/css';
+
     var processors = [
-        autoprefixer,
-        cssnano
+        require("postcss-cssnext")({
+            'browers': ['last 2 version'],
+            'customProperties': true,
+            'colorFunction': true,
+            'customSelectors': true,
+            'sourcemap': true,
+            'compress': false
+        })
     ];
-    return gulp.src(resource_path + '/sass/app.scss')
+    var scss = gulp.src(resource_path + '/sass/app.scss')
         .pipe(sourcemaps.init())
         .pipe(sass(
             {
@@ -93,190 +100,213 @@ gulp.task('front-sass-ex', function()
                 sourceMap: true,
                 sourceMapRoot: [
                     resource_path + '/sass/canvas/',
-                    paths.bootstrap + '/stylesheets'
+                    vendors.bootstrap + '/stylesheets'
                 ],
-                includePaths:[
+                includePaths: [
                     require('node-bourbon').includePaths,
                     require('node-neat').includePaths,
-                    paths.bootstrap + '/stylesheets'
+                    vendors.bootstrap + '/stylesheets'
                 ],
                 noCache: true,
                 errLogToConsole: true
             }))
-        .pipe(autoprefixer({
-            browers: 'last 2 version',
-            cascade: false
-        }))
         .pipe(postcss(processors))
+        .pipe(gulp.dest(CssPath));
+
+    var min = scss.pipe(clone())
+        .pipe(cssnano({discardComments: {removeAll: true}}))
+        .pipe(rename('app.min.css'));
+
+    return merge(scss, min)
         .pipe(sourcemaps.write('.', {
             sourceRoot: resource_path + '/sass/canvas/',
             includeContent: false
         }))
-        .pipe(gulp.dest('public/assets/css'))
+        .pipe(gulp.dest(CssPath));
 });
 
-gulp.task('mini-css-ex', function()
-{
-    return gulp.src(css_path + '/app.css')
-        .pipe(rename('app.min.css'))
-        .pipe(cssnano({discardComments: {removeAll: true}}))
-        .pipe(gulp.dest('public/assets/css'))
-});
+// JS
 
-gulp.task('build-css-ex', function(callback){
-    runSequence('front-sass-ex', 'mini-css-ex', callback);
-});
+gulp.task('frontendJs', function () {
 
-/*********************END HERE***********************/
+    var JsPath = 'public/assets/js';
 
-gulp.task('css', function() {
-    return sass(
-        resource_path + '/sass/app.scss',
-        {
-            style: 'expanded',
-            sourcemap: true,
-            verbose: true,
-            noCache: true
-        })
-        .on('error', function (err) {
-            console.log('Error!', err.message);
-        })
-        .pipe(sourcemaps.init())
-        .pipe(autoprefixer({
-            browers: 'last 2 version',
-            cascade: false
-        }))
-        .pipe(gulp.dest('public/assets/css'))
-        .pipe(rename({suffix: '.min'}))
-        .pipe(cssnano({discardComments: {removeAll: true}}))
-        .pipe(sourcemaps.write('.', {
-            sourceRoot: resource_path + '/sass/canvas/',
-            includeContent: false
-        }))
-        .pipe(gulp.dest('public/assets/css'))
-});
-
-gulp.task('cssadmin', function() {
-    return sass(
-        resource_path + '/sass/_con/_import.scss',
-        {
-            style: 'expanded',
-            compass: false,
-            sourcemap: true,
-            verbose: true,
-            noCache: true,
-            loadPath:[
-                require('node-bourbon').includePaths,
-                require('node-neat').includePaths
-            ]
-        })
-        .on('error', function (err) {
-            console.log('Error!', err.message);
-        })
-        .pipe(sourcemaps.init())
-        .pipe(autoprefixer({
-            browers: [
-                'last 2 version',
-                'safari 5',
-                'ie 8',
-                'ie 9',
-                'opera 12.1',
-                'ios 6',
-                'android 4'
-            ],
-            cascade: false
-        }))
-        .pipe(sourcemaps.write('.', {
-            includeContent: false,
-            sourceRoot: resource_path + '/sass/_con/'
-        }))
-        .pipe(concat('_con.css'))
-        .pipe(gulp.dest('public/assets/admin/_con/css/'))
-        .pipe(rename({ suffix: '.min' }))
-        //.pipe(minifyCSS({
-        //    advanced: true,
-        //    keepBreaks: false,
-        //    keepSpecialComments : 0,
-        //    benchmark: true
-        //}))
-        .pipe(cssmin({
-            advanced: true,
-            keepBreaks: false,
-            keepSpecialComments: 0,
-            benchmark: true
-        }))
-        .pipe(concat('_con.min.css'))
-        .pipe(gulp.dest('public/assets/admin/_con/css/'))
-});
-
-
-// Scripts
-gulp.task('js', function () {
     return gulp.src([
-            paths.jquery + '/jquery.js',
-            paths.bootstrap + '/javascripts/bootstrap.js',
-            //resource_path + '/javascripts/canvas/canvas.slider.face.js',
-            //resource_path + '/javascripts/canvas/jquery.calendario.js',
-            //resource_path + '/javascripts/canvas/jquery.camera.js',
-            //resource_path + '/javascripts/canvas/jquery.elastic.js',
-            //resource_path + '/javascripts/canvas/jquery.vmap.js',
-            //resource_path + '/javascripts/canvas/jquery.gmap.js',
-            //resource_path + '/javascripts/canvas/jquery.nivo.js',
-            //resource_path + '/javascripts/canvas/jquery.prettyPhoto.js',
-            paths.easing + '/js/jquery.easing.js',
-            paths.fitvids + '/jquery.fitvids.js',
-            paths.superfish + '/js/superfish.js',
-            paths.hoverintent + '/jquery.hoverintent.js',
-            paths.jrespond + '/jRespond.js',
-            paths.transit + '/jquery.transit.js',
-            paths.smoothscroll +'/SmoothScroll.js',
-            paths.jribble + '/jribble.js',
-            paths.ytplayer + 'jquery.mb.YTPlayer.js',
-            paths.jcookie + '/jquery.cookie.js',
-            paths.appear + '/jquery.appear.js',
-            paths.animsition + '/js/jquery.animsition.js',
-            paths.stellar + '/jquery.stellar.js',
-            paths.countdown + '/jquery.plugin.js',
-            paths.countdown + '/jquery.counter.js',
-            paths.countTo + '/jquery.countTo.js',
-            paths.owlcarousel + '/owl.carousel.js',
-            paths.morphtext + '/morphtext.js',
-            paths.isotope + '/isotope.pkgd.js',
-            paths.swiper + '/js/swiper.jquery.js',
-            paths.color + '/jquery.color.js',
-            paths.toastr + '/toastr.js',
-            paths.form  + '/jquery.form.js',
-            paths.magnificpopup + '/jquery.magnific-popup.js',
-            paths.flexslider + '/jquery.flexslider.js',
-            paths.infinitescroll + '/jquery.infinitescroll.js',
-            paths.jqueryui + '/jquery-ui.js',
-            paths.validation + '/jquery.validate.js',
+            vendors.jquery + '/jquery.js',
+            vendors.bootstrap + '/javascripts/bootstrap.js',
+            vendors.easing + '/js/jquery.easing.js',
+            vendors.fitvids + '/jquery.fitvids.js',
+            vendors.superfish + '/js/superfish.js',
+            vendors.hoverintent + '/jquery.hoverintent.js',
+            vendors.jrespond + '/jRespond.js',
+            vendors.transit + '/jquery.transit.js',
+            vendors.smoothscroll +'/SmoothScroll.js',
+            vendors.jribble + '/jribble.js',
+            vendors.ytplayer + 'jquery.mb.YTPlayer.js',
+            vendors.jcookie + '/jquery.cookie.js',
+            vendors.appear + '/jquery.appear.js',
+            vendors.animsition + '/js/jquery.animsition.js',
+            vendors.stellar + '/jquery.stellar.js',
+            vendors.countdown + '/jquery.plugin.js',
+            vendors.countdown + '/jquery.counter.js',
+            vendors.countTo + '/jquery.countTo.js',
+            vendors.owlcarousel + '/owl.carousel.js',
+            vendors.morphtext + '/morphtext.js',
+            vendors.isotope + '/isotope.pkgd.js',
+            vendors.swiper + '/js/swiper.jquery.js',
+            vendors.color + '/jquery.color.js',
+            vendors.toastr + '/toastr.js',
+            vendors.form  + '/jquery.form.js',
+            vendors.magnificpopup + '/jquery.magnific-popup.js',
+            vendors.flexslider + '/jquery.flexslider.js',
+            vendors.infinitescroll + '/jquery.infinitescroll.js',
+            vendors.jqueryui + '/jquery-ui.js',
+            vendors.validation + '/jquery.validate.js',
             resource_path + '/javascripts/app.js'
 
         ])
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
         .pipe(concat('app.js'))
-        .pipe(gulp.dest('public/assets/js'))
+        .pipe(gulp.dest(JsPath))
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify())
-        .pipe(gulp.dest('public/assets/js'));
-});
-
-// Copy JS
-gulp.task('copyjs', function() {
-    return gulp.src([
-            resource_path + '/javascripts/canvas/**/*.js'
-        ])
-        .pipe(gulp.dest('public/assets/js'));
+        .pipe(gulp.dest(JsPath));
 });
 
 // Fonts
-gulp.task('fonts', function() {
+gulp.task('frontFonts', function() {
+    var fontPath = 'public/assets/fonts';
+
     return gulp.src([
             resource_path + '/fonts/**/*',
-            paths.fontawesome + '/fonts/**/*',
-            paths.bootstrap + '/fonts/**/*'
+            vendors.fontawesome + '/fonts/**/*',
+            vendors.bootstrap + '/fonts/**/*'
         ])
-        .pipe(gulp.dest('public/assets/fonts'));
+        .pipe(gulp.dest(fontPath));
 });
+
+gulp.task('build-frontend', function(callback) {
+    runSequence('frontendCss', 'frontendJs', 'frontFonts', callback);
+});
+
+/*************### End Front-end section ###***************
+ *
+ ************### Start Back-end section ###***************/
+
+gulp.task('backendCss', function()
+{
+    var AdminCssPath = 'public/assets/admin/css';
+
+    var processors = [
+        require("postcss-cssnext")({
+            'browers': ['last 2 version'],
+            'customProperties': true,
+            'colorFunction': true,
+            'customSelectors': true,
+            'sourcemap': true,
+            'compress': false
+        }),
+        require("postcss-import")
+    ];
+
+    var lessFile = gulp.src(resource_path + '/less/admin.less')
+        .pipe(sourcemaps.init())
+        .pipe(less(
+            {
+                paths: [ path.join(__dirname, 'less', 'includes') ],
+                outputStyle: 'expanded',
+                sourceMap: true,
+                noCache: true,
+                errLogToConsole: true
+            }))
+        .pipe(postcss(processors))
+        .pipe(gulp.dest(AdminCssPath));
+
+    var min = lessFile.pipe(clone())
+        .pipe(cssnano({discardComments: {removeAll: true}}))
+        .pipe(rename('app.min.css'));
+
+    return merge(lessFile, min)
+        .pipe(sourcemaps.write('.', {
+            includeContent: false
+        }))
+        .pipe(gulp.dest(AdminCssPath));
+});
+
+gulp.task('backendJS', function()
+{
+    var AdminJSPath = 'public/assets/admin/js';
+    var adminJs = [
+        bower_path + '/jquery/dist/jquery.min.js',
+        bower_path + '/nestable-fork/dist/jquery.nestable.min.js',
+        bower_path + '/bootstrap/dist/js/bootstrap.min.js',
+        bower_path + '/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
+        bower_path + '/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js',
+        bower_path + '/datatables/media/js/jquery.dataTables.min.js',
+        bower_path + '/datatables/media/js/dataTables.bootstrap.min.js',
+        bower_path + '/datatables-buttons/js/dataTables.buttons.js',
+        bower_path + '/datatables-buttons/js/buttons.bootstrap.js',
+        bower_path + '/morris.js/morris.js',
+        bower_path + '/AdminLTE/dist/js/app.min.js'
+    ];
+    return gulp.src(adminJs)
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
+        .pipe(concat('admin.js'))
+        .pipe(gulp.dest(AdminJSPath))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(uglify())
+        .pipe(gulp.dest(AdminJSPath));
+});
+
+gulp.task('copyBackend', function()
+{
+    //backend copy js
+    var copyJS = [
+        resource_path + '/datatables/buttons.server-side.js',
+        resource_path + '/js/admin-custom.js',
+        bower_path + '/raphael/raphael-min.js'
+    ];
+    var js = gulp.src(copyJS)
+        .pipe(gulp.dest('public/assets/admin/js'));
+
+    //backend copy css
+    var copyCSS = [
+        resource_path + '/datatables/buttons.css'
+    ];
+    var css = gulp.src(copyCSS)
+        .pipe(gulp.dest('public/assets/admin/css'));
+
+    //backend tinymce
+    var copyTinymce = [
+        bower_path + '/tinymce/*',
+        bower_path + '/tinymce-localautosave/localautosave/*'
+    ];
+    var tinymce = gulp.src(copyTinymce)
+        .pipe(gulp.dest('public/assets/admin/tinymce'));
+
+    //backend font
+    var copyFont = [
+        bower_path + '/font-awesome/fonts/*',
+        bower_path + '/bootstrap/fonts/*'
+    ];
+    var font = gulp.src(copyFont)
+        .pipe(gulp.dest('public/assets/admin/fonts'));
+
+    //backend image
+    var copyImage = [
+        bower_path + '/mjolnic-bootstrap-colorpicker/dist/img/*/*.png'
+    ];
+    var images = gulp.src(copyImage)
+        .pipe(gulp.dest('public/assets/admin/images'));
+
+    return merge(js, css, tinymce, font, images)
+
+});
+
+gulp.task('build-backend', function(callback){
+    runSequence('backendCss', 'backendJS', 'copyBackend', callback);
+});
+
+/*********************END HERE***********************/
