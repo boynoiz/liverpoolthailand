@@ -4,6 +4,7 @@ Route::group(['middleware' => 'web'], function () {
     // Application routes
     Route::group(['namespace' => 'Application'], function () {
         Route::get('/', ['as' => 'root', 'uses' => 'MainController@index']);
+        Route::get('no-transition', ['as' => 'root', 'uses' => 'MainController@index']);
         Route::get('home', ['as' => 'root', 'uses' => 'MainController@index']);
         Route::get('article/{article_slug}', ['as' => 'article', 'uses' => 'ArticleController@index']);
         Route::get('page/{page_slug}', ['as' => 'page', 'uses' => 'PageController@index']);
@@ -49,4 +50,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
     Route::resource('language', 'LanguageController');
     Route::resource('page', 'PageController');
     Route::resource('user', 'UserController');
+    Route::resource('football/teams', 'FootballTeamsController');
+    Route::resource('football/competitions', 'FootballCompetitionsController');
+
+    Route::get('football', ['as' => 'admin.football.index', 'uses' => 'FootballController@showStanding']);
+    Route::get('football/standing', ['as' => 'admin.football.index', 'uses' => 'FootballController@showStanding']);
+    Route::get('football/fixtures', ['as' => 'admin.football.fixtures', 'uses' => 'FootballController@showFixtures']);
+    Route::get('football/matches/{matchId}/events', ['as' => 'admin.football.matches.events', 'uses' => 'FootballController@showEvents']);
+    Route::get('football/api/events', ['as' => 'admin.football.matches.events.fetch', 'uses' => 'FootballController@getAllMatchEvents']);
+    Route::get('football/api/competitions', ['as' => 'admin.football.competitions.fetch', 'uses' => 'FootballController@updateOrCreateComp']);
+    Route::get('football/api/teams', ['as' => 'admin.football.teams.fetch', 'uses' => 'FootballController@updateOrCreateTeams']);
+    Route::get('football/api/fixtures', ['as' => 'admin.football.fixture.fetch', 'uses' => 'FootballController@createOrUpdateFixtures']);
+    Route::get('football/api/standing', ['as' => 'admin.football.standing.fetch', 'uses' => 'FootballController@createOrUpdateStanding']);
+    Route::get('football/api/live', ['as' => 'admin.football.game.live', 'uses' => 'FootballController@LiveMatch']);
+
 });
