@@ -70,7 +70,7 @@ var vendors = {
     'form'              : bower_path + "/jquery-form",
     'flexslider'        : bower_path + "/flexslider",
     'validation'        : bower_path + "/jquery-validation/dist",
-    'pace'              : bower_path + "/PACE"
+    'moment'            : bower_path + "/moment"
 
 };
 
@@ -139,7 +139,7 @@ gulp.task('frontendJs', function () {
             vendors.hoverintent + '/jquery.hoverintent.js',
             vendors.jrespond + '/jRespond.js',
             vendors.transit + '/jquery.transit.js',
-            vendors.smoothscroll +'/SmoothScroll.js',
+            vendors.smoothscroll + '/SmoothScroll.js',
             vendors.jribble + '/jribble.js',
             vendors.ytplayer + 'jquery.mb.YTPlayer.js',
             vendors.jcookie + '/jquery.cookie.js',
@@ -155,12 +155,13 @@ gulp.task('frontendJs', function () {
             vendors.swiper + '/js/swiper.jquery.js',
             vendors.color + '/jquery.color.js',
             vendors.toastr + '/toastr.js',
-            vendors.form  + '/jquery.form.js',
+            vendors.form + '/jquery.form.js',
             vendors.magnificpopup + '/jquery.magnific-popup.js',
             vendors.flexslider + '/jquery.flexslider.js',
             vendors.infinitescroll + '/jquery.infinitescroll.js',
             vendors.jqueryui + '/jquery-ui.js',
             vendors.validation + '/jquery.validate.js',
+            vendors.moment + '/moment.js',
             resource_path + '/javascripts/app.js'
 
         ])
