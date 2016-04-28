@@ -2,9 +2,8 @@
 
 namespace LTF\Base\Controllers;
 
-use LTF\User;
+use Jenssegers\Date\Date;
 use Queue;
-use Carbon\Carbon;
 use LTF\Category;
 use LTF\Jobs\ImageResizerJob;
 use LTF\Language;
@@ -52,7 +51,6 @@ abstract class AdminController extends Controller
         $this->model = $this->getModel();
         $this->formPath = $this->getFormPath();
         $this->language = session('current_lang');
-        $this->user = Auth::user()->id;
     }
 
     /**
@@ -140,7 +138,7 @@ abstract class AdminController extends Controller
      * @param $request
      * @return mixed
      */
-    private function getData($request)
+    public function getData($request)
     {
         $imageCategory = strtolower($this->model);
         if ($imageCategory == 'article')
@@ -160,12 +158,11 @@ abstract class AdminController extends Controller
                 $file = $request->file($imageColumn);
                 $request->file($imageColumn);
                 $fileName = rename_file($imageCategory, $file->getClientOriginalExtension());
-                $date = Carbon::create()->now()->format('Y-m');
+                $date = Date::create()->now()->format('Y-m');
                 $path = '/assets/images/' . str_slug($imageCategory, '-') . '/' . $date .'/';
                 $move_path = public_path() . $path;
                 $file->move($move_path, $fileName);
-                $job = collect(['path' => $path, 'filename' => $fileName]);
-                Queue::push(ImageResizerJob::class, $job->toArray());
+                Queue::push(ImageResizerJob::class, ['path' => $path, 'filename' => $fileName]);
                 $data['image_path'] = $path;
                 $data['image_name'] = $fileName;
             }
@@ -227,7 +224,7 @@ abstract class AdminController extends Controller
      */
     public function routePath($path = "index")
     {
-        return 'admin.' . snake_case($this->model) . '.' . $path;
+        return 'admin.' . str_slug($this->model, '.') . '.' . $path;
     }
 
     /**
