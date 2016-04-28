@@ -50,7 +50,7 @@ class Article extends Model implements SluggableInterface
      *
      * @var array
      */
-    protected $fillable = ['category_id', 'content', 'description', 'published_at', 'title', 'image_path', 'image_name', 'update_by'];
+    protected $fillable = ['category_id', 'user_id', 'content', 'description', 'published_at', 'title', 'image_path', 'image_name', 'update_by'];
 
     /**
      * Carbon instance fields
@@ -73,7 +73,7 @@ class Article extends Model implements SluggableInterface
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
@@ -81,7 +81,7 @@ class Article extends Model implements SluggableInterface
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function categories()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }

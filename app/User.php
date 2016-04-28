@@ -84,7 +84,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function pages()
     {
-        return$this->hasMany(Page::class);
+        return $this->hasMany(Page::class);
+    }
+
+    public function languages()
+    {
+        return $this->hasMany(Language::class);
     }
 
     /**

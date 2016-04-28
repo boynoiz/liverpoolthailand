@@ -51,7 +51,7 @@ class Category extends Model implements SluggableInterface
      *
      * @var array
      */
-    protected $fillable = ['color', 'description','language_id', 'title', 'image_path', 'image_name', 'update_by'];
+    protected $fillable = ['color', 'user_id', 'description','language_id', 'title', 'image_path', 'image_name', 'update_by'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -72,7 +72,7 @@ class Category extends Model implements SluggableInterface
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
