@@ -50,7 +50,14 @@ class FootballCompetition extends Model
      */
     protected $fillable = [
         'comp_id',
-        'comp_name',
-        'comp_season'
+        'name',
+        'region',
+        'image_path',
+        'image_name',
     ];
+    
+    public function match()
+    {
+        return $this->hasMany(FootballMatches::class, 'comp_id', 'comp_id');
+    }
 }

@@ -31,7 +31,5 @@ class FootballSeasons extends Model
      */
     protected $fillable = [
         'season_name',
-        'season_startdate',
-        'season_enddate'
     ];
 }

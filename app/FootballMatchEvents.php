@@ -50,12 +50,16 @@ class FootballMatchEvents extends Model
      */
     protected $fillable = [
         'event_id',
-        'event_match_id',
-        'event_type',
-        'event_minute',
-        'event_team',
-        'event_player',
-        'event_player_id'
+        'match_id',
+        'type',
+        'minute',
+        'extra_min',
+        'team',
+        'player_id',
+        'player',
+        'assist_id',
+        'assist',
+        'result'
     ];
 
     /**
@@ -63,6 +67,6 @@ class FootballMatchEvents extends Model
      */
     public function match()
     {
-        return $this->belongsTo(FootballMatches::class, 'event_match_id');
+        return $this->belongsTo(FootballMatches::class, 'match_id');
     }
 }
