@@ -68,6 +68,22 @@ class MakeMenu
                 ->icon($this->circle)
                 ->prependIcon();
 
+            $football = $menu->add(trans('admin.menu.football.root'), '#')
+                ->icon('soccer-ball-o')
+                ->prependIcon();
+
+            $football->add(trans('admin.menu.football.index'), ['route' => 'admin.football.index'])
+                ->icon($this->circle)
+                ->prependIcon();
+
+            $football->add(trans('admin.menu.football.fixtures'), ['route' => 'admin.football.fixtures'])
+                ->icon($this->circle)
+                ->prependIcon();
+
+            $football->add(trans('admin.menu.football.competitions'), ['route' => 'admin.football.competitions.index'])
+                ->icon($this->circle)
+                ->prependIcon();
+
             $users = $menu->add(trans('admin.menu.user.root'), '#')
                 ->icon('users')
                 ->prependIcon();
