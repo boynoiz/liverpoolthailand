@@ -8,6 +8,11 @@ use LTF\Language;
 class LanguageDataTable extends DataTableController
 {
     /**
+     * @var string
+     */
+    protected $model = Language::class;
+
+    /**
      * Columns to show
      *
      * @var array
