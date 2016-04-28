@@ -2,7 +2,9 @@
 
 namespace LTF\Http\Controllers\Admin;
 
+use Laracasts\Flash\Flash;
 use LTF\Base\Controllers\AdminController;
+use LTF\Category;
 use LTF\Http\Controllers\Api\DataTables\LanguageDataTable;
 use LTF\Http\Requests\Admin\LanguageRequest;
 use LTF\Language;
@@ -23,6 +25,11 @@ class LanguageController extends AdminController
     private $imageColumn = "flag";
 
     /**
+     * @var string
+     */
+    private $languages = "languages";
+
+    /**
      * Display a listing of the languages.
      *
      * @param LanguageDataTable $dataTable
@@ -41,7 +48,9 @@ class LanguageController extends AdminController
      */
     public function store(LanguageRequest $request)
     {
-        return $this->createFlashRedirect(Language::class, $request, $this->imageColumn);
+        $request['image'] = $this->imageColumn;
+        $language = $this->languages;
+        return $this->createFlashRedirect($language, $request);
     }
 
     /**
@@ -75,7 +84,8 @@ class LanguageController extends AdminController
      */
     public function update(Language $language, LanguageRequest $request)
     {
-        return $this->saveFlashRedirect($language, $request, $this->imageColumn);
+        $request['image'] = $this->imageColumn;
+        return $this->saveFlashRedirect($language, $request);
     }
 
     /**
@@ -86,6 +96,12 @@ class LanguageController extends AdminController
      */
     public function destroy(Language $language)
     {
+        $checkLang = Category::whereLanguageId($language->id)->all();
+        if (count($checkLang))
+        {
+            Flash::error('This language already in use. Please change the languages in the Category first!');
+            return Redirect::back();
+        }
         return $this->destroyFlashRedirect($language);
     }
 
