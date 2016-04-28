@@ -14,8 +14,14 @@ class ImageResizerJob extends Job implements SelfHandling ,ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
+    /**
+     * @var array
+     */
     protected $config;
 
+    /**
+     * ImageResizerJob constructor.
+     */
     public function __construct()
     {
         $this->config = [
@@ -45,13 +51,17 @@ class ImageResizerJob extends Job implements SelfHandling ,ShouldQueue
         ];
     }
 
+    /**
+     * @param $job
+     * @param $data
+     */
     public function fire($job, $data)
     {
-        $path = public_path() . $data['path'];
+        $path = $data['path'];
         $fileName = $data['filename'];
         $config = $this->config;
         $resizeRatio = $config['ratio'];
-        $fullImagePath = $path . $fileName;
+        $fullImagePath = public_path($path . $fileName);
         $image = Image::make($fullImagePath);
         $sizes = $config['sizes'];
         $image->backup();
@@ -59,23 +69,34 @@ class ImageResizerJob extends Job implements SelfHandling ,ShouldQueue
         {
             if ($size['name'] === 'thumb')
             {
-                $image->fit($size['width'], $size['height']);
+                $background = Image::canvas($size['width'], $size['height']);
+                $image->resize($size['width'], null, function($constraint)
+                {
+                    $constraint->aspectRatio();
+                });
+                $background->insert($image, 'center');
             }
             else
             {
                 if(intval($image->width()/$resizeRatio) > $image->height())
                 {
-                    $image->fit(intval(($image->width() * $resizeRatio)), $image->height(), null, 'top');
-                    $image->resize($size['width'], $size['height']);
+                    $image->resize(intval(($image->width() * $resizeRatio)), null, function($constraint)
+                    {
+                        $constraint->aspectRatio();
+                    });
+                    $image->fit($size['width'], $size['height'], null, 'top');
                 }
                 else
                 {
-                    $image->fit($image->width(), intval($image->width()/$resizeRatio), null, 'top');
-                    $image->resize($size['width'], $size['height']);
+                    $image->resize(null, intval($image->width()/$resizeRatio), function($constraint)
+                    {
+                    $constraint->aspectRatio();
+                    });
+                    $image->fit($size['width'], $size['height'], null, 'top');
                 }
             }
-            File::exists($path . strtolower($size['name'])) ? false : File::makeDirectory($path . strtolower($size['name']));
-            $image->save($path . strtolower($size['name']) .'/'. strtolower($size['name']) . '-'. $fileName, 70);
+            File::exists(public_path($path) . strtolower($size['name'])) ? false : File::makeDirectory(public_path($path) . strtolower($size['name']));
+            $image->save(public_path($path) . strtolower($size['name']) .'/'. $fileName, 70);
             $image->reset();
         }
         $this->attempts() > 3 ? $this->release(60) : $this->delete();
