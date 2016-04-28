@@ -24,7 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->call('LTF\Http\Controllers\Admin\FootballController@createOrUpdateFixtures')->hourly();
+        $schedule->call('LTF\Http\Controllers\Admin\FootballController@createOrUpdateStanding')->hourly();
+        $schedule->call('LTF\Http\Controllers\Admin\FootballController@updateOrCreateComp')->weekly();
+        $schedule->call('LTF\Http\Controllers\Admin\FootballController@updateOrCreateTeams')->weekly();
     }
 }
