@@ -7,6 +7,8 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    //Content Header Title
+
     "article" => [
         "create"                    => "Create article",
         "edit"                      => "Edit article",
@@ -22,6 +24,13 @@ return [
     "create" => [
         "fail"                      => "Create operation on resource has failed.",
         "success"                   => "Resource has been created succesfully."
+    ],
+    "football" => [
+        "index"                     => "Premier League Standing",
+        "fixtures"                   => "Fixtures",
+        "cup"                       => "Cup Competition",
+        "club"                      => "Club Information",
+        "player"                    => "Player Information"
     ],
     "datatables" => [               // DataTables, files can be found @ https://datatables.net/plug-ins/i18n/
         "sInfo"                     => "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -120,6 +129,13 @@ return [
             "language_id"           => "Language",
             "title"                 => "Title",
         ],
+        'football' => [
+            "root"                  => "Football Controller",
+            "index"                 => "Premier Standing",
+            "cup"                   => "Cup Competition",
+            "club"                  => "Club Information",
+            "player"                => "Player Information"
+        ],
         "published_at"              => "Published at",
         "read_count"                => "Read Count",
         "reset"                     => "Reset",
@@ -152,6 +168,7 @@ return [
         "show"                      => "Show language"
     ],
     "last_login"                    => "Last Login",
+    //Sidebar Title Menu
     "menu" => [
         "article" => [
             "add"                   => "Add an Article",
@@ -180,7 +197,16 @@ return [
             "all"                   => "All Users",
             "root"                  => "Users"
         ],
-        "analytics"                 => "Analytics"
+        "analytics"                 => "Analytics",
+        'football' => [
+            "root"                  => "Football Controller",
+            "index"                 => "Premier Standing",
+            "fixtures"              => "Fixtures",
+            "cup"                   => "Cup Competition",
+            "club"                  => "Club Information",
+            "player"                => "Player Information"
+        ],
+        
     ],
     "ops" => [
         "confirmation"              => "Are you sure?",

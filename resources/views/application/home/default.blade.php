@@ -13,7 +13,7 @@
         <div class="container clearfix">
             <div class="row">
                 <div class="col-md-8 bottommargin">
-                    <div class="col_full bottommargin-sm clearfix">
+                    <div class="col_full nobottommargin clearfix">
                         @include('partials.default.ltfTalk.mainTalk')
                     </div>
                     <div class="col_full bottommargin-sm clearfix">

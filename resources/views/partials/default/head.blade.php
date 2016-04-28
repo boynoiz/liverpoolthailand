@@ -2,7 +2,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>@yield('title')</title>
-<meta name="_token" content="{{ csrf_token() }}" />
+<meta id="token" name="token" value="{{ csrf_token() }}" />
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ Request::url() }}">
 <meta name="twitter:url" content="{{ Request::url() }}">

@@ -7,99 +7,147 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    //Content Header Title
+
     "article" => [
-        "create"                    => "สร้างบทความใหม่",
-        "edit"                      => "แก้ไขบทความ",
-        "index"                     => "บทความ",
-        "show"                      => "แสดงบทความ"
+        "create"                    => "Create article",
+        "edit"                      => "Edit article",
+        "index"                     => "Articles",
+        "show"                      => "Show article"
     ],
     "category" => [
-        "create"                    => "สร้างหมวดหมู่",
-        "edit"                      => "แก้ไขหมวดหมู่",
-        "index"                     => "หมวดหมู่",
-        "show"                      => "แสดงหมวดหมู่"
+        "create"                    => "Create category",
+        "edit"                      => "Edit category",
+        "index"                     => "Categories",
+        "show"                      => "Show category"
     ],
     "create" => [
-        "fail"                      => "กระบวนการสร้างรีซอร์สล้มเหลว",
-        "success"                   => "การสร้างรีซอร์สเสร็จสมบูรณ์"
+        "fail"                      => "Create operation on resource has failed.",
+        "success"                   => "Resource has been created succesfully."
     ],
+    "football" => [
+        "index"                     => "Premier League Standing",
+        "fixtures"                  => "Fixtures",
+        "cup"                       => "Cup Competition",
+        "club"                      => "Club Information",
+        "player"                    => "Player Information",
+        'teams' => [
+            'index'                 => 'Teams',
+            'show'                  => 'Team Profile',
+            'edit'                  => 'Edit Team Data'
+        ],
+    ],
+    "csrf_error"                    => "Seems like you couldn't submit the form for a longtime. Please try again.",
     "datatables" => [               // DataTables, files can be found @ https://datatables.net/plug-ins/i18n/
-        "sInfo"                     => "กำลังแสดง _START_ ถึง _END_ จากทั้งหมด _TOTAL_ รายการ",
-        "sInfoEmpty"                => "กำลังแสดง 0 ถึง 0 จากทั้งหมด 0 รายการ",
-        "sInfoFiltered"             => "(กรองการแสดงผล จากทั้งหมด _MAX_ รายการ)",
+        "sInfo"                     => "Showing _START_ to _END_ of _TOTAL_ entries",
+        "sInfoEmpty"                => "Showing 0 to 0 of 0 entries",
+        "sInfoFiltered"             => "(filtered from _MAX_ total entries)",
         "sInfoPostFix"              => "",
-        "sLengthMenu"               => "แสดง _MENU_ รายการ",
-        "sProcessing"               => "กำลังประมวลผล...",
-        "sSearch"                   => "ค้นหา:",
+        "sLengthMenu"               => "Show _MENU_ entries",
+        "sProcessing"               => "<div class='overlay'><i class='fa fa-refresh fa-spin'></i></div>",
+        "sSearch"                   => "Search:",
         "sUrl"                      => "",
-        "sZeroRecords"              => "ไม่พบข้อมูลที่ตรงกัน",
+        "sZeroRecords"              => "No matching records found",
         "oPaginate" => [
-            "sFirst"                => "หน้าแรก",
-            "sLast"                 => "หน้าสุดท้าย",
-            "sNext"                 => "ถัดไป",
-            "sPrevious"             => "ก่อนหน้า"
+            "sFirst"                => "First",
+            "sLast"                 => "Last",
+            "sNext"                 => "Next",
+            "sPrevious"             => "Previous"
         ]
     ],
     "delete" => [
-        "fail"                      => "กระบวนการล้มรีซอร์สล้มเหลว",
-        "self"                      => "คุณจะไม่ได้รับในสิ่งที่คุณต้องการเสมอไปหรอกนะ",
-        "success"                   => "การลบรีซอร์สเสร็จสมบูรณ์ฺ"
+        "fail"                      => "Delete operation on resource has failed.",
+        "self"                      => "You can't always get what you want.",
+        "success"                   => "Resource has been deleted succesfully."
     ],
-    "elfinder"                      => "ระบบจัดการไฟล์",
-    "empty"                         => "ยังไม่มีบันทึกข้อมูลใดๆเลย ทำไมคุณไม่สร้างใหม่สักอันล่ะ?",
+    "elfinder"                      => "File Manager",
+    "empty"                         => "There are not any saved records yet. Why don't you create a new one first?",
     "fields" => [
         "article" => [
-            "category_id"           => "หมวดหมู่",
-            "content"               => "เนื้อหา",
-            "description"           => "คำอธิบาย",
-            "title"                 => "ชื่อบทความ"
+            "category_id"           => "Category",
+            "content"               => "Content",
+            "description"           => "Description",
+            "title"                 => "Title",
+            "image"                 => "Featured Image",
+            'preview'               => "Image Preview"
         ],
         "category" => [
-            "color"                 => "สี",
-            "description"           => "คำอธิบาย",
-            "language_id"           => "ภาษา",
-            "title"                 => "ชื่อหมวดหมู่"
+            "articles"              => "Article Count",
+            "color"                 => "Color",
+            "description"           => "Description",
+            "language_id"           => "Language",
+            "title"                 => "Title"
         ],
-        "created_at"                => "สร้างเมื่อ",
+        "created_at"                => "Created at",
         "dashboard" => [
-            'average_time'          => "เวลาเฉลี่ย",
-            'bounce_rate'           => "อัตราตีกลับ",
-            'browsers'              => "เบราเซอร์",
-            'chart_country'         => "ประเทศ",
-            'chart_region'          => "ภูมิภาค",
-            'chart_visitors'        => "ผู้เยี่ยมชม",
-            'entrance_pages'        => "การเข้าชม",
-            'exit_pages'            => "การออก",
-            'keywords'              => "คีย์เวิร์ด",
-            'os'                    => "ระบบปฏิบัติการ",
-            'page_visits'           => "ค่าเฉลี่ยผู้เยี่ยมชม",
-            'pages'                 => "หน้าเว็บ",
-            'region_visitors'       => "แบ่งประเภทผู้เยี่ยมชม: ภูมิภาค",
-            'time_pages'            => "เวลาบนหน้าเว็บ",
-            'total_visits'          => "ผู้เยี่ยมชมทั้งหมด",
-            'traffic_sources'       => "แหล่งที่มา",
-            'unique_visits'         => "ผู้เยี่ยมชมที่ไม่ซ้ำกัน",
-            'visitors'              => "ผู้เยี่ยมชม",
-            'visits'                => "เข้าชม",
-            'world_visitors'        => "แบ่งประเภทผู้เยี่ยมชม: ทั่วโลก"
+            'average_time'          => "Average time",
+            'bounce_rate'           => "Bounce rate",
+            'browsers'              => "Browser",
+            'chart_country'         => "Country",
+            'chart_region'          => "Region",
+            'chart_visitors'        => "Visitor",
+            'entrance_pages'        => "Entrance",
+            'exit_pages'            => "Exit",
+            'keywords'              => "Keywords",
+            'os'                    => "OS",
+            'page_visits'           => "Average page visits",
+            'pages'                 => "Pages",
+            'region_visitors'       => "Visitor distribution: Regions",
+            'time_pages'            => "Time",
+            'total_visits'          => "Total visits",
+            'traffic_sources'       => "Source",
+            'unique_visits'         => "Unique visits",
+            'visitors'              => "Visitors",
+            'visits'                => "Visits",
+            'world_visitors'        => "Visitor distribution: World"
+        ],
+        "analytics" => [
+            'average_time'          => "Average time",
+            'bounce_rate'           => "Bounce rate",
+            'browsers'              => "Browser",
+            'chart_country'         => "Country",
+            'chart_region'          => "Region",
+            'chart_visitors'        => "Visitor",
+            'entrance_pages'        => "Entrance",
+            'exit_pages'            => "Exit",
+            'keywords'              => "Keywords",
+            'os'                    => "OS",
+            'page_visits'           => "Average page visits",
+            'pages'                 => "Pages",
+            'region_visitors'       => "Visitor distribution: Regions",
+            'time_pages'            => "Time",
+            'total_visits'          => "Total visits",
+            'traffic_sources'       => "Source",
+            'unique_visits'         => "Unique visits",
+            'visitors'              => "Visitors",
+            'visits'                => "Visits",
+            'world_visitors'        => "Visitor distribution: World"
         ],
         "language" => [
-            "code"                  => "รหัสย่อ",
-            "flag"                  => "ธงชาติ",
-            "site_description"      => "คำอธิบายเว็บไซต์",
-            "site_title"            => "ชื่อเว็บไซต์",
-            "title"                 => "ชื่อ"
+            "code"                  => "Code",
+            "flag"                  => "Flag",
+            "site_description"      => "Site Description",
+            "site_title"            => "Site Title",
+            "title"                 => "Title"
         ],
+        "no"                        => "No",
         "page" => [
-            "content"               => "เนื้อหา",
-            "description"           => "คำอธิบาย",
-            "language_id"           => "ภาษา",
-            "title"                 => "ชื่อ",
+            "content"               => "Content",
+            "description"           => "Description",
+            "language_id"           => "Language",
+            "title"                 => "Title",
         ],
-        "published_at"              => "เผยแพร่เมื่อ",
-        "read_count"                => "จำนวนการอ่าน",
-        "reset"                     => "รีเซ็ต",
-        "save"                      => "บันทึก",
+        'football' => [
+            "root"                  => "Football Controller",
+            "index"                 => "Premier Standing",
+            "cup"                   => "Cup Competition",
+            "club"                  => "Club Information",
+            "player"                => "Player Information"
+        ],
+        "published_at"              => "Published at",
+        "read_count"                => "Read Count",
+        "reset"                     => "Reset",
+        "save"                      => "Save",
         "setting" => [
             "analytics_id"          => "Analytics ID ( Format: UA-XXXXXX-YY )",
             "disqus_shortname"      => "Disqus Shortname",
@@ -119,7 +167,8 @@ return [
             "password"              => "Password",
             "password_confirmation" => "Password Confirmation",
             "picture"               => "Avatar"
-        ]
+        ],
+        "yes"                       => "Yes"
     ],
     "language" => [
         "create"                    => "Create language",
@@ -128,6 +177,7 @@ return [
         "show"                      => "Show language"
     ],
     "last_login"                    => "Last Login",
+    //Sidebar Title Menu
     "menu" => [
         "article" => [
             "add"                   => "Add an Article",
@@ -155,7 +205,18 @@ return [
             "add"                   => "Add a User",
             "all"                   => "All Users",
             "root"                  => "Users"
-        ]
+        ],
+        "analytics"                 => "Analytics",
+        'football' => [
+            "root"                  => "Football Controller",
+            "index"                 => "Premier Standing",
+            "fixtures"              => "Fixtures",
+            "cup"                   => "Cup Competition",
+            "club"                  => "Club Information",
+            "player"                => "Player Information",
+            "competitions"          => "Competitions",
+        ],
+        
     ],
     "ops" => [
         "confirmation"              => "Are you sure?",
@@ -175,6 +236,9 @@ return [
     ],
     "profile"                       => "Profile",
     "root"                          => "Dashboard",
+    "analytics"                     => [
+        "index"                     => "Analytics",
+    ],
     "setting" => [
         "index"                     => "Settings"
     ],

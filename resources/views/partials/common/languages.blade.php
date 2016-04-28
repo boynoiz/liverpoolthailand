@@ -3,7 +3,7 @@
         @foreach($languages as $lang)
             <li>
                 <img class="img-circle chosen-one" title="{{ $lang->title }}"
-                     src="{{ url($lang->flag) }}" alt="{{ $lang->code }}"  value="{{ $lang->code }}" />
+                     src="{{ url($lang->image_path . $lang->image_name) }}" alt="{{ $lang->code }}"  value="{{ $lang->code }}" />
             </li>
         @endforeach
         {!! Form::open(['method' => 'POST', 'route' => $route, 'id' => 'anakin-skywalker']) !!}

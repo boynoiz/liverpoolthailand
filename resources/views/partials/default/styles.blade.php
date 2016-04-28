@@ -11,7 +11,3 @@
 {{--<link rel="stylesheet" href="assets/css/magnific-popup.css" type="text/css" />--}}
 
 {{--<link rel="stylesheet" href="assets/css/responsive.css" type="text/css" />--}}
-
-<!--[if lt IE 9]>
-<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-<![endif]-->

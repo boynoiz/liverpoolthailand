@@ -2,95 +2,49 @@
     <div class="fancy-title title-border">
         <h3>Recent Topics</h3>
     </div>
-    <div class="spost clearfix">
-        <div class="entry-c">
-            <div class="entry-title">
-                <h4><a href="#">UK government weighs Tesla's Model S for its ??5 million electric vehicle fleet</a></h4>
+    @if(count($latestTopics))
+        @foreach($latestTopics as $latestTopic)
+            <div class="spost clearfix">
+                <div class="entry-c">
+                    <div class="entry-title">
+                        <h4>
+                            <a href="{!! url('board/topic/' . $latestTopic->tid . '-' . $latestTopic->title_seo) !!}">{!! $latestTopic->title !!}</a>
+                        </h4>
+                    </div>
+                    <ul class="entry-meta clearfix">
+                        <li>
+                            <i class="icon-calendar3" title="ตั้งกระทู้เมื่อวันที่"></i> {!! date('d/m h:i a', $latestTopic->start_date) !!} |
+                            <i class="icon-comments" title="จำนวนคอมเมนต์"></i> {!! $latestTopic->posts !!} |
+                            <i class="icon-user" title="ตั้งกระทู้โดย"></i> {!! $latestTopic->starter_name !!}
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <ul class="entry-meta clearfix">
-                <li>
-                    <i class="icon-calendar3"></i>08:31 pm /
-                    <i class="icon-comments"></i> 12 /
-                    <i class="icon-user"></i> Scouse
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="spost clearfix">
-        <div class="entry-c">
-            <div class="entry-title">
-                <h4><a href="#">MIT's new robot glove can give you extra fingers</a></h4>
-            </div>
-        </div>
-    </div>
-
-    <div class="spost clearfix">
-        <div class="entry-c">
-            <div class="entry-title">
-                <h4><a href="#">You can now listen to headphones through your hoodie</a></h4>
-            </div>
-        </div>
-    </div>
-
-    <div class="spost clearfix">
-        <div class="entry-c">
-            <div class="entry-title">
-                <h4><a href="#">How would you change Kobo's Aura HD e-reader?</a></h4>
-            </div>
-        </div>
-    </div>
-
-    <div class="spost clearfix">
-        <div class="entry-c">
-            <div class="entry-title">
-                <h4><a href="#">A Baseball Team Blew Up A Bunch Of Justin Bieber And Miley Cyrus Merch</a></h4>
-            </div>
-        </div>
-    </div>
-
+        @endforeach
+    @endif
 </div>
 <div class="col_half clearfix col_last">
     <div class="fancy-title title-border">
         <h3>Hot Topics</h3>
     </div>
-    <div class="spost clearfix">
-        <div class="entry-c">
-            <div class="entry-title">
-                <h4><a href="#">UK government weighs Tesla's Model S for its ??5 million electric vehicle fleet</a></h4>
+    @if(count($hotTopics))
+        @foreach($hotTopics as $hotTopic)
+            <div class="spost clearfix">
+                <div class="entry-c">
+                    <div class="entry-title">
+                        <h4>
+                            <a href="{!! url('board/topic/' . $hotTopic->tid . '-' . $hotTopic->title_seo) !!}">{!! $hotTopic->title !!}</a>
+                        </h4>
+                    </div>
+                    <ul class="entry-meta clearfix">
+                        <li>
+                            <i class="icon-calendar3" title="ตั้งกระทู้เมื่อวันที่"></i> {!! date('d/m h:i a', $hotTopic->start_date) !!} |
+                            <i class="icon-comments" title="จำนวนคอมเมนต์"></i> {!! $hotTopic->posts !!} |
+                            <i class="icon-user" title="ตั้งกระทู้โดย"></i> {!! $hotTopic->starter_name !!}
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <div class="spost clearfix">
-        <div class="entry-c">
-            <div class="entry-title">
-                <h4><a href="#">MIT's new robot glove can give you extra fingers</a></h4>
-            </div>
-        </div>
-    </div>
-
-    <div class="spost clearfix">
-        <div class="entry-c">
-            <div class="entry-title">
-                <h4><a href="#">You can now listen to headphones through your hoodie</a></h4>
-            </div>
-        </div>
-    </div>
-
-    <div class="spost clearfix">
-        <div class="entry-c">
-            <div class="entry-title">
-                <h4><a href="#">How would you change Kobo's Aura HD e-reader?</a></h4>
-            </div>
-        </div>
-    </div>
-
-    <div class="spost clearfix">
-        <div class="entry-c">
-            <div class="entry-title">
-                <h4><a href="#">A Baseball Team Blew Up A Bunch Of Justin Bieber And Miley Cyrus Merch</a></h4>
-            </div>
-        </div>
-    </div>
+        @endforeach
+    @endif
 </div>

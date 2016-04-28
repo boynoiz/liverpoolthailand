@@ -5,7 +5,7 @@
     @include('partials.default.styles')
     @include('partials.default.scripts')
 </head>
-<body class="stretched dark{{(Request::is('home') ? ' no-transition' : '')}}" data-loader="10" data-animation-in="fadeIn" data-loader-color="#FF0000" data-speed-in="1500" data-animation-out="fadeOut" data-speed-out="800">
+<body class="stretched dark {!! Request::is('no-transition') ? 'no-transition' : '' !!}" data-loader="10" data-animation-in="fadeIn" data-loader-color="#FF0000" data-speed-in="1500" data-animation-out="fadeOut" data-speed-out="800">
 <div id="wrapper" class="clearfix">
     <!--====================Top Bar========================= -->
     <div id="top-bar">

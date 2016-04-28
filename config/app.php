@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'th',
 
     /*
     |--------------------------------------------------------------------------
@@ -243,7 +243,7 @@ return [
         'Date'              => Jenssegers\Date\Date::class,
         'Agent'             => Jenssegers\Agent\Facades\Agent::class,
         'Facebook'          => SammyK\LaravelFacebookSdk\FacebookFacade::class,
-        'Datatables'        => Yajra\Datatables\Datatables::class,
+        'Datatables'        => Yajra\Datatables\Facades\Datatables::class,
     ],
 
 ];
