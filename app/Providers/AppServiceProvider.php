@@ -3,7 +3,15 @@
 namespace LTF\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Log;
 
+class LaravelLoggerProxy
+{
+    public function log($msg)
+    {
+        Log::info($msg);
+    }
+}
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -13,7 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $pusher = $this->app->make('pusher');
+        $pusher->set_logger(new LaravelLoggerProxy());
     }
 
     /**
