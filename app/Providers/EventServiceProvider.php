@@ -22,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
         'LTF\Events\ArticleWasViewed' => [
             'LTF\Listeners\IncrementArticleViews',
         ],
+        'LTF\Events\FootballMatchUpdated' => [
+            'LTF\Listeners\SendDataToPusher'
+        ]
     ];
 
     /**
