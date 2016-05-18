@@ -29,7 +29,7 @@
                                 @if(Auth::user()->id==1)
                                     <div><a href="{{ URL::to('/admin') }}" target="_blank"><i class="fa fa-tachometer"></i> Admin Dashboard</a></div>
                                 @endif
-                                    <div><a href="{{ URL::to('/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></div>
+                                    <div><a href="{{ URL::to('/auth/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></div>
                             @endif
                         </div>
                     </li>

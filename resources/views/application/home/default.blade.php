@@ -19,6 +19,9 @@
                     <div class="col_full bottommargin-sm clearfix">
                         @include('partials.default.match.mainMatch')
                     </div>
+                    <div class="bottommargin-sm">
+                        @include('partials.default.adsBanner.adsImageMiddleTop')
+                    </div>
                     <div class="col_full bottommargin-sm clearfix">
                         @include('partials.default.topics.mainTopics')
                     </div>
@@ -26,7 +29,7 @@
                         @include('partials.default.latestNewsV2.mainLatestNews')
                     </div>
                     <div class="bottommargin-sm">
-                        @include('partials.default.adsBanner.adsImageMidleTop')
+                        @include('partials.default.adsBanner.adsImageMiddle')
                     </div>
                     <div class="col_full bottommargin-sm clearfix">
                         @include('partials.default.latestColumn.mainLastestColumn')

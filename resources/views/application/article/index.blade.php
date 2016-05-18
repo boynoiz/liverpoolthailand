@@ -1,4 +1,4 @@
-@extends('layouts.application')
+@extends('layouts.default')
 
 @section('title'){{ getTitle($article) }}@endsection
 @section('description'){{ getDescription($article) }}@endsection

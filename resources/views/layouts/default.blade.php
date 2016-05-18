@@ -6,6 +6,11 @@
     @include('partials.default.scripts')
 </head>
 <body class="stretched dark {!! Request::is('no-transition') ? 'no-transition' : '' !!}" data-loader="10" data-animation-in="fadeIn" data-loader-color="#FF0000" data-speed-in="1500" data-animation-out="fadeOut" data-speed-out="800">
+
+<!--[if lt IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
 <div id="wrapper" class="clearfix">
     <!--====================Top Bar========================= -->
     <div id="top-bar">

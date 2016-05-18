@@ -2,23 +2,13 @@
 <footer id="footer" class="dark">
     <div class="container">
         <!-- =================Footer Widgets============================ -->
-        <div class="footer-widgets-wrap clearfix">
+        <div class="footer-widgets-wrap bottommargin-sm topmargin-sm clearfix">
             <div class="col_two_third">
                 <div class="col_one_third">
                     <div class="widget clearfix">
                         <img src="{{asset('assets/images/logo.png')}}" alt="" class="footer-logo">
                         <p>No. 1 <strong>Liverpool FC</strong> Fanpage in Thailand,
                         News update and Community for <strong>the KOP</strong> of Thailand</p>
-                        {{--<div style="background: url('../../../assets/images/world-map.png') no-repeat center center; background-size: 100%;">--}}
-                            {{--<address>--}}
-                                {{--<strong>Headquarters:</strong><br>--}}
-                                {{--795 Folsom Ave, Suite 600<br>--}}
-                                {{--San Francisco, CA 94107<br>--}}
-                            {{--</address>--}}
-                            {{--<abbr title="Phone Number"><strong>Phone:</strong></abbr> (91) 8547 632521<br>--}}
-                            {{--<abbr title="Fax"><strong>Fax:</strong></abbr> (91) 11 4752 1433<br>--}}
-                            {{--<abbr title="Email Address"><strong>Email:</strong></abbr> info@canvas.com--}}
-                        {{--</div>--}}
                     </div>
                 </div>
                 <div class="col_one_third">
@@ -112,8 +102,9 @@
     <div id="copyrights">
         <div class="container clearfix">
             <div class="col_half">
-                &copy; 2000-15 All Rights Reserved by Liverpool Thailand Fanclub.<br>
-                <div class="copyright-links">
+                <span>&copy; 2000-15 All Rights Reserved by Liverpool Thailand Fanclub.</span><br>
+                <span class="small">Made by <i class="fa fa-heart"></i> | Powered by Laravel 5 PHP Framework | v1.4.3</span>
+                <div class="copyright-links small">
                     <a href="#">Terms of Use</a> /
                     <a href="#">Privacy Policy</a>
                 </div>
