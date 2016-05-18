@@ -13,25 +13,31 @@ use Illuminate\Database\Query\Builder;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property integer $event_id
- * @property integer $event_match_id
- * @property string $event_type
- * @property integer $event_minute
- * @property string $event_team
- * @property string $event_player
- * @property integer $event_player_id
- * @property string $event_result
+ * @property integer $match_id
+ * @property string $type
+ * @property integer $minute
+ * @property integer $extra_min
+ * @property string $team
+ * @property integer $player_id
+ * @property string $player
+ * @property integer $assist_id
+ * @property string $assist
+ * @property string $result
  * @property-read FootballMatches $match
  * @method static Builder|FootballMatchEvents whereId($value)
  * @method static Builder|FootballMatchEvents whereCreatedAt($value)
  * @method static Builder|FootballMatchEvents whereUpdatedAt($value)
  * @method static Builder|FootballMatchEvents whereEventId($value)
- * @method static Builder|FootballMatchEvents whereEventMatchId($value)
- * @method static Builder|FootballMatchEvents whereEventType($value)
- * @method static Builder|FootballMatchEvents whereEventMinute($value)
- * @method static Builder|FootballMatchEvents whereEventTeam($value)
- * @method static Builder|FootballMatchEvents whereEventPlayer($value)
- * @method static Builder|FootballMatchEvents whereEventPlayerId($value)
- * @method static Builder|FootballMatchEvents whereEventResult($value)
+ * @method static Builder|FootballMatchEvents whereMatchId($value)
+ * @method static Builder|FootballMatchEvents whereType($value)
+ * @method static Builder|FootballMatchEvents whereMinute($value)
+ * @method static Builder|FootballMatchEvents whereExtraMin($value)
+ * @method static Builder|FootballMatchEvents whereTeam($value)
+ * @method static Builder|FootballMatchEvents wherePlayerId($value)
+ * @method static Builder|FootballMatchEvents wherePlayer($value)
+ * @method static Builder|FootballMatchEvents whereAssistId($value)
+ * @method static Builder|FootballMatchEvents whereAssist($value)
+ * @method static Builder|FootballMatchEvents whereResult($value)
  */
 class FootballMatchEvents extends Model
 {
