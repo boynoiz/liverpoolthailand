@@ -120,7 +120,7 @@ class FootballMatches extends Model
      */
     public function competition()
     {
-        return $this->belongsTo(FootballCompetition::class, 'comp_id', 'comp_id');
+        return $this->belongsTo(FootballCompetition::class, 'comp_id', 'comp_id')->select(['comp_id', 'name', 'image_path', 'image_name']);
     }
 
     /**
@@ -128,7 +128,7 @@ class FootballMatches extends Model
      */
     public function team_as_home()
     {
-        return $this->belongsTo(FootballTeams::class, 'localteam_id', 'team_id');
+        return $this->belongsTo(FootballTeams::class, 'localteam_id', 'team_id')->select(['team_id', 'name', 'image_path', 'image_name']);
     }
 
     /**
@@ -136,6 +136,6 @@ class FootballMatches extends Model
      */
     public function team_as_away()
     {
-        return $this->belongsTo(FootballTeams::class, 'visitorteam_id', 'team_id');
+        return $this->belongsTo(FootballTeams::class, 'visitorteam_id', 'team_id')->select(['team_id', 'name', 'image_path', 'image_name']);
     }
 }
