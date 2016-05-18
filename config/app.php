@@ -180,6 +180,8 @@ return [
         SammyK\LaravelFacebookSdk\LaravelFacebookSdkServiceProvider::class,
         GrahamCampbell\Exceptions\ExceptionsServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
+        Vinkla\Pusher\PusherServiceProvider::class,
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
     ],
 
     /*
@@ -244,6 +246,8 @@ return [
         'Agent'             => Jenssegers\Agent\Facades\Agent::class,
         'Facebook'          => SammyK\LaravelFacebookSdk\FacebookFacade::class,
         'Datatables'        => Yajra\Datatables\Facades\Datatables::class,
+        'JWTAuth'           => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory'        => Tymon\JWTAuth\Facades\JWTFactory::class,
     ],
 
 ];

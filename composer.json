@@ -25,7 +25,11 @@
 		"graham-campbell/exceptions": "^8.3",
 		"barryvdh/elfinder-flysystem-driver": "^0.1.3",
 		"intervention/imagecache": "^2.3",
-		"guzzlehttp/guzzle": "6.2.*"
+		"guzzlehttp/guzzle": "6.2.*",
+		"predis/predis": "^1.0",
+		"pusher/pusher-php-server": "^2.3",
+		"vinkla/pusher": "^2.3",
+		"tymon/jwt-auth": "^0.5.9"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "~1.5",
@@ -39,7 +43,6 @@
 		"laracasts/generators": "~1.1.3",
 		"barryvdh/laravel-ide-helper": "^2.1@dev",
 		"barryvdh/laravel-debugbar": "^2.1@dev",
-		"predis/predis": "~1.0",
 		"pda/pheanstalk": "^3.1",
 		"filp/whoops": "^2.0"
 	},
