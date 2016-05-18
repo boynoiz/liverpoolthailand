@@ -3,6 +3,8 @@
 namespace LTF\Http\Controllers\Admin;
 
 use Log;
+use Event;
+use LTF\Events\FootballMatchUpdated;
 use Jenssegers\Date\Date;
 use GuzzleHttp\Client;
 use Exception;
@@ -22,61 +24,30 @@ use LTF\Http\Controllers\Controller;
 
 class FootballController extends Controller
 {
-    /**
-     * @var string
-     */
-    protected $apikey;
 
     /**
-     * @var string
+     * @var FootballCompetition|FootballMatches|FootballMatchEvents|FootballStanding|FootballTeams|string
      */
-    protected $baseuri;
-
-    /**
-     * @var string
-     */
-    protected $liverpoolfc;
-
-    /**
-     * @var string
-     */
-    protected $premierleague;
-
-    /**
-     * @var string
-     */
-    protected $facup;
-
-    /**
-     * @var string
-     */
-    protected $ucl;
-
-    /**
-     * @var string
-     */
-    protected $europa;
-
-    /**
-     * @var
-     */
-    protected $leaguecup;
-
-    /**
-     * @var string
-     */
-    protected $seasonStart;
-
-    /**
-     * @var string
-     */
-    protected $seasonEnd;
+    protected $apikey, $baseuri, $liverpoolfc, $premierleague, $facup, $ucl,
+        $europa, $leaguecup, $seasonStart, $seasonEnd, $footballMatches,
+        $footballMatchEvents, $standing, $competition, $footballTeams;
 
     /**
      * FootballController constructor.
+     * @param FootballMatches $footballMatches
+     * @param FootballMatchEvents $footballMatchEvents
+     * @param FootballStanding $standing
+     * @param FootballCompetition $competition
+     * @param FootballTeams $footballTeams
+     * 
      */
-    public function __construct()
-    {
+    public function __construct(
+        FootballMatches $footballMatches,
+        FootballMatchEvents $footballMatchEvents,
+        FootballStanding $standing,
+        FootballCompetition $competition,
+        FootballTeams $footballTeams
+    ){
         $this->apikey = env('FOOTBALL_API_KEY', 'BlahBlahBlah');
         $this->baseuri = 'http://api.football-api.com/2.0/';
         $this->liverpoolfc = '9249';
@@ -85,23 +56,14 @@ class FootballController extends Controller
         $this->ucl = '1005';
         $this->europa = '1007';
         $this->seasonStart = '08.08.2015';
-        $this->seasonEnd = '15.05.2016';
+        $this->seasonEnd = '19.05.2016';
+        $this->footballMatches = $footballMatches;
+        $this->footballMatchEvents = $footballMatchEvents;
+        $this->standing = $standing;
+        $this->competition = $competition;
+        $this->footballTeams = $footballTeams;
     }
 
-    /**
-     * 
-     * @return array|string|static[]
-     */
-    public function LiveMatch()
-    {
-        $liveMatch = FootballMatches::where('formatted_date', '=>', Date::today())
-            ->whereNotIn('status', ['FT', 'Postp.', 'AET'])
-            ->whereRaw('status != time')
-            ->first();
-
-        return is_null($liveMatch) ? 'No live match on this time!' : $liveMatch;
-
-    }
     /**
      * Show datatable of Standing in Admin Controller
      * @param PremierDataTable $dataTable
@@ -193,6 +155,16 @@ class FootballController extends Controller
      */
     public function createOrUpdateStanding()
     {
+        $startSeason = Date::createFromFormat('d.m.Y', $this->seasonStart);
+        $endSeason = Date::createFromFormat('d.m.Y', $this->seasonEnd);
+        $today = Date::now();
+
+        if (!$today->between($startSeason, $endSeason))
+        {
+            Log::error('This time is ended of the season, Please wait until the new season start');
+            return false;
+        }
+        
         $request = 'standings/' . $this->premierleague . '?';
         $getStanding = $this->connector($request);
 
@@ -200,7 +172,7 @@ class FootballController extends Controller
         {
             foreach ($getStanding as $team)
             {
-                FootballStanding::updateOrCreate([
+                $this->standing->updateOrCreate([
                     'team_id' => $team['team_id'],
                     'season' => $team['season']
                 ], $team);
@@ -216,14 +188,14 @@ class FootballController extends Controller
         $dateOfBeginningMonth = Date::now()->startOfMonth()->format('d.m.Y');
         $dateOfEndingMonth = Date::now()->endOfMonth()->format('d.m.Y');
 
-        $startSeason = Date::createFromFormat('d.m.Y', $this->seasonStart)->format('d.m.Y');
-        $endSeason = Date::createFromFormat('d.m.Y', $this->seasonEnd)->format('d.m.Y');
+        $startSeason = Date::createFromFormat('d.m.Y', $this->seasonStart);
+        $endSeason = Date::createFromFormat('d.m.Y', $this->seasonEnd);
+        $today = Date::now();
 
-        $today = Date::today()->format('d.m.Y');
-
-        if (($today > $endSeason) and ($today < $startSeason))
+        if (!$today->between($startSeason, $endSeason))
         {
-            return 'This time is ended of the season, Please wait until the new season start';
+            Log::error('This time is ended of the season, Please wait until the new season start');
+            return false;
         }
 
         $request = 'matches?comp_id='
@@ -240,82 +212,192 @@ class FootballController extends Controller
             . '&';
         $getMatches = $this->connector($request);
 
-        if (is_array($getMatches))
-        {
-            foreach ($getMatches as $match)
-            {
-                $match['match_id'] = $match['id'];
-                unset($match['id']);
+        foreach ($getMatches as $match) {
+            $match['match_id'] = $match['id'];
+            unset($match['id']);
 
-                $mergeDateTime = Date::createFromFormat('d.m.Y H:i',
-                    $match['formatted_date'] .' '.
-                    $match['time'], 'UTC')
-                    ->tz('Asia/Bangkok')
-                    ->toDateTimeString();
-                $date = Date::createFromFormat('Y-m-d H:i:s', $mergeDateTime)
-                    ->format('Y-m-d');
-                $match['formatted_date'] = $date;
-                $time = Date::createFromFormat('Y-m-d H:i:s', $mergeDateTime)
-                    ->format('H:i');
-                $matchStatus = $match['status'];
-                $match['status'] === $match['time'] ? $match['status'] = $time : $match['status'] = $matchStatus;
-                $match['time'] = $time;
+            $mergeDateTime = Date::createFromFormat('d.m.Y H:i',
+                $match['formatted_date'] . ' ' .
+                $match['time'], 'UTC')
+                ->tz('Asia/Bangkok')
+                ->toDateTimeString();
+            $date = Date::createFromFormat('Y-m-d H:i:s', $mergeDateTime)
+                ->format('Y-m-d');
+            $match['formatted_date'] = $date;
+            $time = Date::createFromFormat('Y-m-d H:i:s', $mergeDateTime)
+                ->format('H:i');
+            $matchStatus = $match['status'];
+            $match['status'] === $match['time'] ? $match['status'] = $time : $match['status'] = $matchStatus;
+            $match['time'] = $time;
 
-                if (($match['localteam_score'] === '?' and $match['visitorteam_score'] === '?') or ($match['localteam_score'] === '' and $match['visitorteam_score'] === ''))
-                {
-                    if (($match['status'] !== 'FT') or ($match['status'] !== 'AET'))
-                    {
-                        $match['localteam_score'] = '-';
-                        $match['visitorteam_score'] = '-';
-                    }
+            if (($match['localteam_score'] === '?' and $match['visitorteam_score'] === '?') or ($match['localteam_score'] === '' and $match['visitorteam_score'] === '')) {
+                if (($match['status'] !== 'FT') or ($match['status'] !== 'AET')) {
+                    $match['localteam_score'] = '-';
+                    $match['visitorteam_score'] = '-';
                 }
-                FootballMatches::updateOrCreate([
-                    'match_id' => $match['match_id'],
-                ], $match);
-
-                if (!empty($match['events']))
-                {
-                    $events = $match['events'];
-                    $matchId = $match['match_id'];
-                    $this->getMatchEvents($events, $matchId) ? Log::info('Event of ' .$matchId. ' update completed!.') : Log::error('Event update process of '.$matchId.' failed');
-                }
-                Log::info('All data of '.$match['match_id'].' update completed!');
             }
-            return true;
+            $this->footballMatches->updateOrCreate([
+                'match_id' => $match['match_id'],
+            ], $match);
+
+            if (!empty($match['events'])) {
+                $events = $match['events'];
+                $matchId = $match['match_id'];
+                foreach ($events as $event) {
+                    $event['match_id'] = $matchId;
+                    $event['event_id'] = $event['id'];
+                    unset($event['id']);
+
+                    $this->footballMatchEvents->updateOrCreate([
+                        'event_id' => $event['event_id'],
+                    ], $event) ?
+                        Log::info('Event of ' . $matchId . ' update completed!.') :
+                        Log::error('Event update process of ' . $matchId . ' failed');
+                }
+            }
+            Log::info('All data of ' . $match['match_id'] . ' update completed!');
         }
-        else
+        return Event::fire(new FootballMatchUpdated($this->footballMatches));
+    }
+
+
+    /**
+     * @return string
+     */
+    public function updateOrCreateTeams()
+    {
+        $startSeason = Date::createFromFormat('d.m.Y', $this->seasonStart);
+        $endSeason = Date::createFromFormat('d.m.Y', $this->seasonEnd);
+        $today = Date::now();
+
+        if (!$today->between($startSeason, $endSeason))
         {
+            Log::error('This time is ended of the season, Please wait until the new season start');
             return false;
         }
+        $getLocalTeamIds = $this->footballMatches->select('localteam_id')->orderBy('localteam_id', 'asc')->get()->toArray();
+        $getVisitorTeamIds = $this->footballMatches->select('visitorteam_id')->orderBy('visitorteam_id', 'asc')->get()->toArray();
+        $teamIds = collect([$getLocalTeamIds, $getVisitorTeamIds])->flatten()->unique();
+
+        foreach ($teamIds as $teamId)
+        {
+            $request = 'team/' . $teamId . '?';
+            $teamData = $this->connector($request);
+            $teamData['is_national'] === 'False' ? $teamData['is_national'] = 0 : $teamData['is_national'] = 1;
+            $this->footballTeams->updateOrCreate([
+                'team_id' => $teamData['team_id']
+            ], $teamData) ?
+                Log::info('Team ' . $teamData['name'] . ' update completed!') :
+                Log::error('Updating process of ' . $teamData['name'] . ' failed');
+        }
+
+        return Log::info('All the teams from the fixtures has completed update!');
     }
 
     /**
-     * @param $events
-     * @param $matchId
      * @return string
      */
-    public function getMatchEvents($events, $matchId)
+    public function updateOrCreateComp()
     {
-        foreach ($events as $event)
-        {
-            $event['match_id'] = $matchId;
-            $event['event_id'] = $event['id'];
-            unset($event['id']);
+        $startSeason = Date::createFromFormat('d.m.Y', $this->seasonStart);
+        $endSeason = Date::createFromFormat('d.m.Y', $this->seasonEnd);
+        $today = Date::now();
 
-            FootballMatchEvents::updateOrCreate([
-                'event_id' => $event['event_id'],
-            ], $event);
+        if (!$today->between($startSeason, $endSeason))
+        {
+            Log::error('This time is ended of the season, Please wait until the new season start');
+            return false;
+        }
+        $request = 'competitions?';
+        $getCompetition = $this->connector($request);
+
+        if (is_array($getCompetition))
+        {
+            foreach ($getCompetition as $comp)
+            {
+                $comp['comp_id'] = $comp['id'];
+                unset($comp['id']);
+
+                $this->competition->updateOrCreate([
+                    'comp_id' => $comp['comp_id']
+                ], $comp) ?
+                    Log::info('Team '.$comp['comp_id'].' update completed!') :
+                    Log::error('Updating process of '.$comp['comp_id'].' failed');
+            }
         }
         return true;
     }
 
     /**
-     * @param FootballMatchEvents $matchEvents
+     *
+     * @return array|string|static[]
+     */
+    public function LiveMatch()
+    {
+        $getMatchId = $this->footballMatches->whereNotIn('status', ['FT', 'Postp.'])
+            ->whereDate('formatted_date', '>=', Date::yesterday()->format('Y-m-d'))
+            ->orderBy('formatted_date', 'asc')
+            ->first();
+
+        $request = 'matches/'.$getMatchId['match_id'].'?';
+        $match = $this->connector($request);
+
+        $match['match_id'] = $match['id'];
+        unset($match['id']);
+
+        $mergeDateTime = Date::createFromFormat('d.m.Y H:i',
+            $match['formatted_date'] .' '.
+            $match['time'], 'UTC')
+            ->tz('Asia/Bangkok')
+            ->toDateTimeString();
+        $date = Date::createFromFormat('Y-m-d H:i:s', $mergeDateTime)
+            ->format('Y-m-d');
+        $match['formatted_date'] = $date;
+        $time = Date::createFromFormat('Y-m-d H:i:s', $mergeDateTime)
+            ->format('H:i');
+        $matchStatus = $match['status'];
+        $match['status'] === $match['time'] ? $match['status'] = $time : $match['status'] = $matchStatus;
+        $match['time'] = $time;
+
+        if (($match['localteam_score'] === '?' and $match['visitorteam_score'] === '?') or ($match['localteam_score'] === '' and $match['visitorteam_score'] === ''))
+        {
+            if (($match['status'] !== 'FT') or ($match['status'] !== 'AET'))
+            {
+                $match['localteam_score'] = '-';
+                $match['visitorteam_score'] = '-';
+            }
+        }
+        $this->footballMatches->updateOrCreate([
+            'match_id' => $match['match_id'],
+        ], $match);
+
+        if (!empty($match['events']))
+        {
+            $matchEvents = $match['events'];
+            $matchId = $match['match_id'];
+            foreach ($matchEvents as $matchEvent)
+            {
+                $matchEvent['match_id'] = $matchId;
+                $matchEvent['event_id'] = $matchEvent['id'];
+                unset($matchEvent['id']);
+
+                $this->footballMatchEvents->updateOrCreate([
+                    'event_id' => $matchEvent['event_id'],
+                ], $matchEvent) ?
+                    Log::info('Event of ' .$matchId. ' update completed!.') :
+                    Log::error('Event update process of '.$matchId.' failed');
+            }
+        }
+        Event::fire(new FootballMatchUpdated($this->footballMatches));
+        return Log::info('All data of '.$match['match_id'].' update completed!');
+    }
+
+    /**
      * @return string
      */
-    public function getAllMatchEvents(FootballMatchEvents $matchEvents)
+    public function getAllMatchEvents()
     {
-        $getMatchId = FootballMatches::select('match_id')->orderBy('match_id', 'asc')->get();
+        $getMatchId = $this->footballMatches->select('match_id')->orderBy('match_id', 'asc')->get();
         foreach ($getMatchId as $matchId)
         {
             $request = 'matches/' . $matchId->match_id . '?';
@@ -328,52 +410,11 @@ class FootballController extends Controller
                 $event['event_id'] = $event['id'];
                 unset($event['id']);
 
-                $matchEvents->updateOrCreate([
+                $this->footballMatchEvents->updateOrCreate([
                     'event_id' => $event['event_id'],
                 ], $event);
             }
         }
         return 'All Event update completed!';
-    }
-
-    /**
-     * @return string
-     */
-    public function updateOrCreateTeams()
-    {
-        $getTeamIds = FootballMatches::select('localteam_id')->orderBy('localteam_id', 'asc')->get();
-        foreach ($getTeamIds as $teamId)
-        {
-            $request = 'team/'.$teamId['localteam_id'].'?';
-            $getTeamData = $this->connector($request);
-            $getTeamData['is_national'] === 'False' ? $getTeamData['is_national'] = 0 : $getTeamData['is_national'] = 1;
-            FootballTeams::updateOrCreate([
-                'team_id' => $getTeamData['team_id']
-            ], $getTeamData);
-        }
-        return "Teams update completed!";
-    }
-
-    /**
-     * @return string
-     */
-    public function updateOrCreateComp()
-    {
-        $request = 'competitions?';
-        $getCompetition = $this->connector($request);
-
-        if (is_array($getCompetition))
-        {
-            foreach ($getCompetition as $comp)
-            {
-                $comp['comp_id'] = $comp['id'];
-                unset($comp['id']);
-
-                FootballCompetition::updateOrCreate([
-                    'comp_id' => $comp['comp_id']
-                ], $comp);
-            }
-        }
-        return "All competition updated!";
     }
 }
