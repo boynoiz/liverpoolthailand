@@ -2,9 +2,7 @@
 
 namespace LTF\Listeners;
 
-use LTF\FootballMatches;
-use LTF\Http\Controllers\Api\FootballMatchController;
-use Date;
+use LTF\Http\Controllers\Api\FootballAPIController;
 use LTF\Events\FootballMatchUpdated;
 use Vinkla\Pusher\PusherManager;
 use Illuminate\Queue\InteractsWithQueue;
@@ -18,20 +16,21 @@ class SendDataToPusher
     public $pusher;
 
     /**
-     * @var FootballMatches
+     * @var FootballAPIController
      */
-    public $matches;
+    public $api;
+
     /**
      * Create the event listener.
      *
      * @param PusherManager $pusher
-     * @param FootballMatches $matches
+     * @param FootballAPIController $api
      * @return void
      */
-    public function __construct(PusherManager $pusher, FootballMatches $matches)
+    public function __construct(PusherManager $pusher, FootballAPIController $api)
     {
         $this->pusher = $pusher;
-        $this->matches = $matches;
+        $this->api = $api;
     }
 
     /**
@@ -44,14 +43,8 @@ class SendDataToPusher
     {
         if ($event->match)
         {
-            $match = $this->matches
-                ->with(['events', 'competition', 'team_as_home', 'team_as_away'])
-                ->whereNotIn('status', ['FT', 'Postp.'])
-                ->whereDate('formatted_date', '>=', Date::yesterday()->format('Y-m-d'))
-                ->orderBy('formatted_date', 'asc')
-                ->first();
-
-            $this->pusher->trigger('live-match', 'new-match', ['match' => $match->toArray()]);
+            $match = $this->api->live();
+            $this->pusher->trigger('live-match', 'new-match', ['match' => $match->getData()]);
         }
     }
 }
