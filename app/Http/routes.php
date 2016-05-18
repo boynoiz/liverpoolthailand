@@ -30,7 +30,7 @@ Route::group(['middleware' => 'web'], function () {
 
 // API routes
 Route::group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'api'], function () {
-    //
+    Route::get('football/live', 'FootballAPIController@live');
 });
 
 // Admin routes
