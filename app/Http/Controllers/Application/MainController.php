@@ -2,9 +2,7 @@
 
 namespace LTF\Http\Controllers\Application;
 
-use Facebook\Facebook;
 use Jenssegers\Date\Date;
-use LTF\Article;
 use LTF\Base\Controllers\ApplicationController;
 use LTF\Category;
 use LTF\FootballMatches;
@@ -12,7 +10,6 @@ use LTF\FootballStanding;
 use LTF\Gallery;
 use LTF\Http\Requests;
 use Debugbar;
-use LTF\Member;
 use LTF\Topic;
 
 
@@ -23,10 +20,28 @@ use LTF\Topic;
 class MainController extends ApplicationController
 {
 
+    public $matches;
 
     /**
-     * @param null $param
-     * @return mixed
+     * @var \LTF\Http\Controllers\Application\FacebookController
+     */
+    public $fbLikes;
+
+    /**
+     * @var \LTF\Http\Controllers\Application\IPBoardController
+     */
+    public $ipb;
+
+    public function __construct(FacebookController $fbLikes, IPBoardController $ipb, FootballMatches $matches)
+    {
+        $this->matches = $matches;
+        $this->fbLikes = $fbLikes;
+        $this->ipb = $ipb;
+    }
+
+    /**
+     * Collect all needed data for first page
+     * @return Response
      */
     public function index()
     {
@@ -38,17 +53,17 @@ class MainController extends ApplicationController
         $latestNews = $this->getLatestForum(4, 3);
         $columnLatests = $this->getLatestForum(22, 3);
         $lastGalleryImages = $this->getGelllery();
-        $totalMembers = $this->getTotalMembers();
-        $fbLikeCounter = $this->facebookLike();
-        $Match = $this->UpComingMatch();
+        $totalMembers = $this->ipb->getTotalMembers();
+        $fbLikeCounter = $this->fbLikes->facebookLike();
         $lastMatch = $this->LastMatch();
         $standing = $this->LeagueTable();
 
         Debugbar::stopMeasure('render');
-        return view('application.home.default', compact('columnLatests', 'lastGalleryImages','latestTopics', 'latestTalk', 'latestNews', 'hotTopics', 'totalMembers', 'fbLikeCounter', 'Match', 'lastMatch', 'standing'));
+        return view('application.home.default', compact('columnLatests', 'lastGalleryImages','latestTopics', 'latestTalk', 'latestNews', 'hotTopics', 'totalMembers', 'fbLikeCounter', 'lastMatch', 'standing'));
     }
 
     /**
+     * Get article data from 'LTF Talk' category to first page
      * @return mixed
      */
     public function getLatestTalk()
@@ -65,6 +80,7 @@ class MainController extends ApplicationController
     }
 
     /**
+     * Get latest news or column topics from IPBoard
      * @param $forumID
      * @param $take
      * @return array|static[]
@@ -86,6 +102,7 @@ class MainController extends ApplicationController
     }
 
     /**
+     * Get latest discussion topics from IPBoard
      * @return array|static[]
      */
     public function getLatestTopics()
@@ -102,6 +119,7 @@ class MainController extends ApplicationController
     }
 
     /**
+     * Get topics from IPBoard that most comments in past a week
      * @return array|static[]
      */
     public function getHotTopics()
@@ -120,6 +138,7 @@ class MainController extends ApplicationController
     }
 
     /**
+     * Get pictures from IPBoard's gallery
      * @return array|\Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getGelllery()
@@ -134,65 +153,29 @@ class MainController extends ApplicationController
     }
 
     /**
-     * @return int
-     */
-    public function getTotalMembers()
-    {
-        return Member::whereMemberGroupId(3)->count();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function facebookLike()
-    {
-        $fbConfig = [
-            'appId' => env('FACEBOOK_APP_ID', 'BlahBlahBlah'),
-            'secret' => env('FACEBOOK_APP_SECRET', 'BlahBlahBlah'),
-            'default_graph_version' => env('FACEBOOK_APP_GRAPH_VERSION', 'v2.5'),
-            'default_access_token' => env('FACEBOOK_APP_TOKEN', 'BlahBlahBlah')
-        ];
-        $request = new Facebook($fbConfig);
-        $response = $request->get('/liverpoolthailand?fields=likes');
-        $countLiked = $response->getGraphPage()->getField('likes');
-
-        return $countLiked;
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Model|mixed|null|static
-     */
-    public function UpComingMatch()
-    {
-        $match = FootballMatches::whereNotIn('status', ['FT', 'Postp.', 'AET'])
-            ->orderBy('formatted_date', 'asc')
-            ->first();
-        return $match;
-    }
-
-    /**
+     * Get game info from last match for display in first page
      * @return \Illuminate\Database\Eloquent\Model|null|static
      */
     public function LastMatch()
     {
         $match = FootballMatches::whereIn('status', ['FT', 'AET'])
+            ->whereDate('formatted_date', '<=', Date::today()->format('Y-m-d'))
             ->orderBy('formatted_date', 'desc')
             ->first();
         return $match;
     }
 
     /**
+     * Get data from Standing for render short table in first page
      * @return array|bool|\Illuminate\Database\Eloquent\Collection|static[]
      */
     public function LeagueTable()
     {
         $liverpool = FootballStanding::whereTeamId('9249')->first();
-        $range = $liverpool->position - 3;
-        if ($range <= 0)
-        {
-            return $range === 1;
-        }
-        $standing = FootballStanding::where('position', '>=', $range)
+        $getRank = $liverpool->position - 3;
+        $rank =  $getRank <= 1 ? $getRank === 1 : $getRank;
+
+        $standing = FootballStanding::where('position', '>=', $rank)
             ->select('*')
             ->orderBy('position', 'asc')
             ->take(7)
