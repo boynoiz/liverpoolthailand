@@ -119,22 +119,12 @@ class Article extends Model implements SluggableInterface
     }
 
     /**
-     * Set the slug according to Turkish language (Ö => o and Ü => u) instead of German (Ö => oe and Ü => ue)
-     *
-     * @param $slug
-     */
-    public function setSlugAttribute($slug)
-    {
-        $this->attributes['slug'] = str_replace(["oe", "ue"], ["o", "u"], $slug);
-    }
-
-    /**
      * Scope queries to articles that are published
      *
      * @param $query
      */
     public function scopePublished($query)
     {
-        $query->where('published_at', '<=', Carbon::now());
+        return $query->where('published_at', '<=', Carbon::now());
     }
 }
