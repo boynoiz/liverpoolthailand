@@ -11,20 +11,25 @@ use LTF\Http\Controllers\Controller;
 
 class FootballAPIController extends Controller
 {
+    public $matches;
+
+    public function __construct(FootballMatches $matches)
+    {
+        $this->matches = $matches;
+    }
 
     /**
-     * @param FootballMatches $matches
      * @return \Illuminate\Http\JsonResponse
      */
-    public function live(FootballMatches $matches)
+    public function live()
     {
-        $match = $matches
+        $match = $this->matches
             ->with(['events', 'competition', 'team_as_home', 'team_as_away'])
             ->whereNotIn('status', ['FT', 'Postp.'])
             ->whereDate('formatted_date', '>=', Date::yesterday()->format('Y-m-d'))
             ->orderBy('formatted_date', 'asc')
             ->first();
 
-        return response()->json($match->toArray());
+        return response()->json($match);
     }
 }
