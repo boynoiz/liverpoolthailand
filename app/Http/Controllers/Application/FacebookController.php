@@ -13,6 +13,8 @@ class FacebookController extends Controller
 {
     protected $fbConfig = [];
 
+    protected $pageId;
+
     public function __construct()
     {
         $this->fbConfig = [
@@ -21,6 +23,7 @@ class FacebookController extends Controller
             'default_graph_version' => env('FACEBOOK_APP_GRAPH_VERSION', 'v2.6'),
             'default_access_token' => env('FACEBOOK_APP_TOKEN', 'BlahBlahBlah')
         ];
+        $this->pageId = '/118265851610459';
     }
 
     /**
@@ -30,7 +33,7 @@ class FacebookController extends Controller
     public function facebookLike()
     {
         $request = new Facebook($this->fbConfig);
-        $response = $request->get('/118265851610459?fields=fan_count');
+        $response = $request->get($this->pageId.'?fields=fan_count');
         $countLiked = $response->getGraphPage()->getField('fan_count');
 
         return $countLiked;
@@ -39,7 +42,7 @@ class FacebookController extends Controller
     public function newsFeed()
     {
         $request = new Facebook($this->fbConfig);
-        $response = $request->get('/118265851610459/posts')->getGraphEdge();
+        $response = $request->get($this->pageId.'/posts')->getGraphEdge();
         $postFeeds = array_slice(json_decode($response), 0, 5, true);
 
         if (empty($postFeeds))
