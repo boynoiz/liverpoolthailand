@@ -182,6 +182,7 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         Vinkla\Pusher\PusherServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Folklore\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -248,6 +249,7 @@ return [
         'Datatables'        => Yajra\Datatables\Facades\Datatables::class,
         'JWTAuth'           => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory'        => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Imagine'           => Folklore\Image\Facades\Image::class,
     ],
 
 ];

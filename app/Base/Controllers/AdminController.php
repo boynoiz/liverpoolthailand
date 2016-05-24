@@ -276,6 +276,5 @@ abstract class AdminController extends Controller
         $model =  title_case(str_plural($this->model));
         return 'LTF\Forms\Admin\\' . $model . 'Form';
     }
-
-
+    
 }

@@ -16,9 +16,6 @@ class CategoriesForm extends AdminForm
             ->add('title', 'text', [
                 'label' => trans('admin.fields.category.title')
             ])
-            ->add('color', 'text', [
-                'label' => trans('admin.fields.category.color')
-            ])
             ->add('description', 'text', [
                 'label' => trans('admin.fields.category.description')
             ])

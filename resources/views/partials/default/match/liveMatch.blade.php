@@ -30,49 +30,53 @@
     <img v-bind:src="match.team_as_away.image_path + 'thumb/' + match.team_as_away.image_name">
     <p class="text-center">@{{ match.visitorteam_name }}</p>
 </div>
-<div class="col-xs-12 col-sm-12 col-md-12 text-player-event" v-for="event in match.events">
-    <div class="col-xs-6 col-sm-6 col-md-6 stayleft" v-if="event.team === 'localteam'">
-        <div v-show="event.type === 'yellowcard'">
-            <span class="events-icon" ><i class="fa fa-square yellowcard" title="Yellow Card"></i></span>
-            <span class="player-yellowcard"> @{{ event.player + '&#39;' + event.minute }}</span>
-        </div>
-        <div v-else="event.type === 'redcard'">
-            <span class="events-icon"><i class="fa fa-square redcard" title="Red Card"></i></span>
-            <span class="player-redcard"> @{{ event.player + '&#39;' + event.minute }}</span>
-        </div>
-        <div v-else="event.type === 'yellowred'">
-            <span class="events-icon">
-                <i class="fa fa-square yellowcard"></i>
-                <i class="fa fa-square fa-rotate-45 yellowred" title="Yellow/Red Card"></i>
-                <span class="player-yellowcard"> @{{ event.player + '&#39;' + event.minute }}</span>
-            </span>
-        </div>
-        <div v-else="event.type === 'goal'">
-            <span><i class="fa fa-soccer-ball-o" title="Goal!"></i></span>
-            <span class="scorer"> @{{ event.player + '&#39;' + event.minute }}</span>
-            <span class="assist" v-show="event.assist"> (@{{ event.assist }})</span>
+<div class="col-xs-12 col-sm-12 col-md-12 text-player-event">
+    <div class="col-xs-6 col-sm-6 col-md-6 stayleft">
+        <div v-for="event in match.events | filterBy 'localteam' in 'team'">
+            <div v-show="event.type === 'yellowcard'">
+                <span class="events-icon" ><i class="fa fa-square yellowcard" title="Yellow Card"></i></span>
+                <span class="player-yellowcard"> @{{ event.player }} &#39;@{{ event.minute }}</span>
+            </div>
+            <div v-show="event.type === 'redcard'">
+                <span class="events-icon"><i class="fa fa-square redcard" title="Red Card"></i></span>
+                <span class="player-redcard"> @{{ event.player }} &#39;@{{ event.minute }}</span>
+            </div>
+            <div v-show="event.type === 'yellowred'">
+                <span class="events-icon">
+                    <i class="fa fa-square yellowcard"></i>
+                    <i class="fa fa-square fa-rotate-45 yellowred" title="Yellow/Red Card"></i>
+                    <span class="player-yellowcard"> @{{ event.player }} &#39;@{{ event.minute }}</span>
+                </span>
+            </div>
+            <div v-show="event.type === 'goal'">
+                <span><i class="fa fa-soccer-ball-o" title="Goal!"></i></span>
+                <span class="scorer"> @{{ event.player }} &#39;@{{ event.minute }}</span>
+                <span class="assist" v-show="event.assist"> (@{{ event.assist }})</span>
+            </div>
         </div>
     </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 stayleft" v-else="event.team === 'visitorteam'">
-        <div v-show="event.type === 'yellowcard'">
-            <span class="events-icon" ><i class="fa fa-square yellowcard" title="Yellow Card"></i></span>
-            <span class="player-yellowcard"> @{{ event.player + '&#39;' + event.minute }}</span>
-        </div>
-        <div v-else="event.type === 'redcard'">
-            <span class="events-icon"><i class="fa fa-square redcard" title="Red Card"></i></span>
-            <span class="player-redcard"> @{{ event.player + '&#39;' + event.minute }}</span>
-        </div>
-        <div v-else="event.type === 'yellowred'">
-            <span class="events-icon">
-                <i class="fa fa-square yellowcard"></i>
-                <i class="fa fa-square fa-rotate-45 yellowred" title="Yellow/Red Card"></i>
-                <span class="player-yellowcard"> @{{ event.player + '&#39;' + event.minute }}</span>
-            </span>
-        </div>
-        <div v-else="event.type === 'goal'">
-            <span><i class="fa fa-soccer-ball-o" title="Goal!"></i></span>
-            <span class="scorer"> @{{ event.player + '&#39;' + event.minute }}</span>
-            <span class="assist" v-show="event.assist"> (@{{ event.assist }})</span>
+    <div class="col-xs-6 col-sm-6 col-md-6 stayright">
+        <div v-for="event in match.events | filterBy 'visitorteam' in 'team'">
+            <div v-show="event.type === 'yellowcard'">
+                <span class="events-icon" ><i class="fa fa-square yellowcard" title="Yellow Card"></i></span>
+                <span class="player-yellowcard"> @{{ event.player }} &#39;@{{ event.minute }}</span>
+            </div>
+            <div v-show="event.type === 'redcard'">
+                <span class="events-icon"><i class="fa fa-square redcard" title="Red Card"></i></span>
+                <span class="player-redcard"> @{{ event.player }} &#39;@{{ event.minute }}</span>
+            </div>
+            <div v-show="event.type === 'yellowred'">
+                <span class="events-icon">
+                    <i class="fa fa-square yellowcard"></i>
+                    <i class="fa fa-square fa-rotate-45 yellowred" title="Yellow/Red Card"></i>
+                    <span class="player-yellowcard"> @{{ event.player }} &#39;@{{ event.minute }}</span>
+                </span>
+            </div>
+            <div v-show="event.type === 'goal'">
+                <span><i class="fa fa-soccer-ball-o" title="Goal!"></i></span>
+                <span class="scorer"> @{{ event.player }} &#39;@{{ event.minute }}</span>
+                <span class="assist" v-show="event.assist"> (@{{ event.assist }})</span>
+            </div>
         </div>
     </div>
 </div>

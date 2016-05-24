@@ -51,7 +51,7 @@ class Category extends Model implements SluggableInterface
      *
      * @var array
      */
-    protected $fillable = ['color', 'user_id', 'description','language_id', 'title', 'image_path', 'image_name', 'update_by'];
+    protected $fillable = ['user_id', 'description','language_id', 'title', 'image_path', 'image_name', 'update_by'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -67,13 +67,5 @@ class Category extends Model implements SluggableInterface
     public function articles()
     {
         return $this->hasMany(Article::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 }

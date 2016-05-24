@@ -6,9 +6,9 @@
         <div @if ($column == $columnLatests->last()) class="col_one_third col_last" @else class="col_one_third" @endif>
             <div class="ipost clearfix">
                 <div class="entry-image">
-                    <a href="#">
+                    <a href="{!! url('board/topic/' . $column->tid . '-' . $column->title_seo) !!}">
                         <img class="image_fade"
-                             src="@if(empty($column->attach_location)){!! url('board/uploads/noimage.jpg') !!}@else{!! url('board/uploads/' . $news->attach_location) !!}@endif"
+                             src="{{ empty($column->attach_location) ? Imagine::url('board/uploads/noimage.jpg', 230, 138, array('crop')) : Imagine::url('board/uploads/' . $column->attach_location, 230, 138, array('crop'))}}"
                              alt="Image">
                     </a>
                 </div>

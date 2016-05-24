@@ -26,7 +26,6 @@ class ArticleRequest extends Request
         return [
             'category_id'   => 'required|integer',
             'content'       => 'required',
-            'description'   => 'required|max:160',
             'published_at'  => 'required|date',
             'title'         => 'required|min:3',
             'image'         => 'sometimes|max:2048|image',

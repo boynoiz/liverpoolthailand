@@ -63,6 +63,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $dates = ['logged_in_at', 'logged_out_at'];
 
+    
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -87,6 +88,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany(Page::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function languages()
     {
         return $this->hasMany(Language::class);

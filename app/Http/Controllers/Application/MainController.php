@@ -25,17 +25,17 @@ class MainController extends ApplicationController
     /**
      * @var \LTF\Http\Controllers\Application\FacebookController
      */
-    public $fbLikes;
+    public $facebook;
 
     /**
      * @var \LTF\Http\Controllers\Application\IPBoardController
      */
     public $ipb;
 
-    public function __construct(FacebookController $fbLikes, IPBoardController $ipb, FootballMatches $matches)
+    public function __construct(FacebookController $facebook, IPBoardController $ipb, FootballMatches $matches)
     {
         $this->matches = $matches;
-        $this->fbLikes = $fbLikes;
+        $this->facebook = $facebook;
         $this->ipb = $ipb;
     }
 
@@ -54,12 +54,17 @@ class MainController extends ApplicationController
         $columnLatests = $this->getLatestForum(22, 3);
         $lastGalleryImages = $this->getGelllery();
         $totalMembers = $this->ipb->getTotalMembers();
-        $fbLikeCounter = $this->fbLikes->facebookLike();
+        $fbLikeCounter = $this->facebook->facebookLike();
         $lastMatch = $this->LastMatch();
         $standing = $this->LeagueTable();
+        $fbFeeds = $this->facebook->newsFeed();
 
         Debugbar::stopMeasure('render');
-        return view('application.home.default', compact('columnLatests', 'lastGalleryImages','latestTopics', 'latestTalk', 'latestNews', 'hotTopics', 'totalMembers', 'fbLikeCounter', 'lastMatch', 'standing'));
+        return view('application.home.default', compact(
+            'columnLatests', 'lastGalleryImages','latestTopics',
+            'latestTalk', 'latestNews', 'hotTopics', 'totalMembers',
+            'fbLikeCounter', 'lastMatch', 'standing',
+            'fbFeeds'));
     }
 
     /**
@@ -182,5 +187,10 @@ class MainController extends ApplicationController
             ->get();
         
         return $standing;
+    }
+    
+    public function image()
+    {
+        return view('application.home.testimage');
     }
 }

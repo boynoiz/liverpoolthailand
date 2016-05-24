@@ -3,16 +3,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>@yield('title')</title>
 <meta id="csrf_token" name="csrf_token" value="{{ csrf_token() }}" />
-<meta property="og:type" content="website">
-<meta property="og:url" content="{{ Request::url() }}">
-<meta name="twitter:url" content="{{ Request::url() }}">
-<meta name="og:title" content="@yield('title')" >
+<meta property="og:title" content="@yield('title')" >
+<meta property="og:description" name="description" content="@yield('description')" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ rawurldecode(request()->fullUrl()) }}" />
+<meta property="og:image" content="{{ !empty($article) ? url()->asset($article->image_path .'small/'. $article->image_name) : url()->asset('assets/images/logo.png') }}" />
+{{--<meta property="og:image" content="{{ url()->asset('assets/images/logo.png') }}" />--}}
+<meta name="twitter:url" content="{{ rawurldecode(request()->fullUrl()) }}">
 <meta name="twitter:title" content="@yield('title')">
-<meta name="description" property="og:description" content="@yield('description')">
 <meta name="twitter:description" content="@yield('description')">
 <meta name="google-site-verification" content="ZMIvTYxbOul4hK8tnBOuXiALRA83z42ri90rmbuZR0M" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link rel="apple-touch-icon" sizes="57x57" href="{{asset('assets/images/favicons/apple-touch-icon-57x57.png')}}">
+<link rel="apple-touch-icon" sizes="57x57" href="{{asset('assets/images/favicons/apple-touch-icon-57x57.png')}}" />
 <link rel="apple-touch-icon" sizes="60x60" href="{{asset('assets/images/favicons/apple-touch-icon-60x60.png')}}">
 <link rel="apple-touch-icon" sizes="72x72" href="{{asset('assets/images/favicons/apple-touch-icon-72x72.png')}}">
 <link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/images/favicons/apple-touch-icon-76x76.png')}}">

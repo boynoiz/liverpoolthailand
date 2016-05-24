@@ -26,7 +26,7 @@
                         @include('partials.default.topics.mainTopics')
                     </div>
                     <div class="col_full bottommargin-sm clearfix">
-                        @include('partials.default.latestNewsV2.mainLatestNews')
+                        @include('partials.default.latestNews.mainLatestNews')
                     </div>
                     <div class="bottommargin-sm">
                         @include('partials.default.adsBanner.adsImageMiddle')
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <!-- #side bar hear -->
-                <div class="col-md-4">
+                <div class="col-md-4 nobottommargin clearfix">
                     @include('partials.default.sideBar.mainSidebar')
                 </div>
             </div>

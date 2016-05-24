@@ -11,10 +11,19 @@ use LTF\Http\Controllers\Controller;
 
 class FacebookController extends Controller
 {
+    /**
+     * @var array
+     */
     protected $fbConfig = [];
 
+    /**
+     * @var string
+     */
     protected $pageId;
 
+    /**
+     * FacebookController constructor.
+     */
     public function __construct()
     {
         $this->fbConfig = [
@@ -39,6 +48,9 @@ class FacebookController extends Controller
         return $countLiked;
     }
 
+    /**
+     * @return array
+     */
     public function newsFeed()
     {
         $request = new Facebook($this->fbConfig);

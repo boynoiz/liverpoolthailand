@@ -78,7 +78,7 @@ class AnalyticsController extends AdminController
             'regions' => $this->getRegions(),
             'averages' => $this->getAverages()
         ];
-        return view('admin.dashboard.index', compact('statistics'));
+        return view('admin.analytics.index', compact('statistics'));
     }
 
     /**
