@@ -37,7 +37,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://www.liverpoolthailand.com'),
+    'url' => env('APP_URL', 'https://www.liverpoolthailand.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -174,7 +174,6 @@ return [
         Mews\Purifier\PurifierServiceProvider::class,
         Spatie\LaravelAnalytics\LaravelAnalyticsServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
         Jenssegers\Date\DateServiceProvider::class,
         SammyK\LaravelFacebookSdk\LaravelFacebookSdkServiceProvider::class,
@@ -182,7 +181,7 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         Vinkla\Pusher\PusherServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
-        Folklore\Image\ImageServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -242,14 +241,13 @@ return [
         'LaravelAnalytics'  => Spatie\LaravelAnalytics\LaravelAnalyticsFacade::class,
         'Purifier'          => Mews\Purifier\Facades\Purifier::class,
         'Debugbar'          => Barryvdh\Debugbar\Facade::class,
-        'Image'             => Intervention\Image\Facades\Image::class,
         'Date'              => Jenssegers\Date\Date::class,
         'Agent'             => Jenssegers\Agent\Facades\Agent::class,
         'Facebook'          => SammyK\LaravelFacebookSdk\FacebookFacade::class,
         'Datatables'        => Yajra\Datatables\Facades\Datatables::class,
         'JWTAuth'           => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory'        => Tymon\JWTAuth\Facades\JWTFactory::class,
-        'Imagine'           => Folklore\Image\Facades\Image::class,
+        'Image'             => Intervention\Image\Facades\Image::class,
     ],
 
 ];
