@@ -15,11 +15,11 @@ class FootballCompForm extends Form
             ->add('logo', 'file', [
                 'label' => 'Competition Logo'
             ])
-            ->add('save', 'submit', [
+            ->add('_save', 'submit', [
                 'label' => trans('admin.fields.save'),
                 'attr' => ['class' => 'btn btn-primary']
             ])
-            ->add('clear', 'reset', [
+            ->add('_clear', 'reset', [
                 'label' => trans('admin.fields.reset'),
                 'attr' => ['class' => 'btn btn-warning']
             ]);
