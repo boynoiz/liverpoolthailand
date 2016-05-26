@@ -85,8 +85,7 @@ class FootballCompetitionsController extends Controller
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
             $fileName = rename_file('complogo', $file->getClientOriginalExtension());
-            $date = Date::create()->now()->format('Y-m');
-            $path = '/assets/images/complogo/' . $date . '/';
+            $path = '/assets/images/complogo/';
             $move_path = public_path() . $path;
             $file->move($move_path, $fileName);
             Queue::push(ImageResizerJob::class, ['path' => $path, 'filename' => $fileName]);
