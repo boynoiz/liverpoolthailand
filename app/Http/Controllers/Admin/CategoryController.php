@@ -22,11 +22,6 @@ class CategoryController extends AdminController
      */
     private $imageColumn = "image";
 
-    /**
-     * @var string
-     */
-    private $categories = "categories";
-
 
     /**
      * Display a listing of the categories.
@@ -48,8 +43,7 @@ class CategoryController extends AdminController
     public function store(CategoryRequest $request)
     {
         $request->image = $this->imageColumn;
-        $categories = $this->categories;
-        return $this->createFlashRedirect($categories, $request);
+        return $this->createFlashRedirect(Category::class, $request);
     }
 
     /**

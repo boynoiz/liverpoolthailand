@@ -10,10 +10,6 @@ use Auth;
 
 class UserController extends AdminController
 {
-    /**
-     * @var string
-     */
-    private $users = 'users';
     
     /**
      * Image column of the model
@@ -42,8 +38,7 @@ class UserController extends AdminController
     public function store(UserRequest $request)
     {
         $request->image = $this->imageColumn;
-        $users = $this->users;
-        return $this->createFlashRedirect($users, $request);
+        return $this->createFlashRedirect(User::class, $request);
     }
 
     /**
@@ -77,7 +72,7 @@ class UserController extends AdminController
      */
     public function update(User $user, UserRequest $request)
     {
-        $request = array_add($request->all(), 'image', $this->imageColumn);
+        $request->image = $this->imageColumn;
         return $this->saveFlashRedirect($user, $request);
     }
 

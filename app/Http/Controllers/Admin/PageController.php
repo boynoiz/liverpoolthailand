@@ -19,11 +19,6 @@ class PageController extends AdminController
     private $imageColumn = "image";
 
     /**
-     * @var string
-     */
-    private $pages = "pages";
-
-    /**
      * Display a listing of the pages.
      *
      * @return Response
@@ -44,8 +39,7 @@ class PageController extends AdminController
     public function store(PageRequest $request)
     {
         $request->image = $this->imageColumn;
-        $pages = $this->pages;
-        return $this->createFlashRedirect($pages, $request);
+        return $this->createFlashRedirect(Page::class, $request);
     }
 
     /**
