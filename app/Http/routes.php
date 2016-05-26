@@ -6,6 +6,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/', ['as' => 'root', 'uses' => 'MainController@index']);
         Route::get('no-transition', ['as' => 'root', 'uses' => 'MainController@index']);
         Route::get('home', ['as' => 'root', 'uses' => 'MainController@index']);
+        Route::get('board', function (){
+            return redirect(url('http://board.liverpoolthailand.com'));
+        });
         Route::get('articles', ['as' => 'article', 'uses' => 'ArticleController@index']);
         Route::get('article/{article_slug}', ['as' => 'article.show', 'uses' => 'ArticleController@show']);
         Route::get('page/{page_slug}', ['as' => 'page', 'uses' => 'PageController@index']);
