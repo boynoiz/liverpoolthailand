@@ -98,7 +98,7 @@ class MainController extends ApplicationController
             ->leftJoin('attachments', 'topics.topic_firstpost', '=', 'attachments.attach_rel_id')
             ->select('topics.tid', 'topics.title', 'topics.posts', 'topics.views', 'topics.title_seo',
                 'topics.topic_hasattach', 'topics.topic_firstpost', 'posts.post_date', 'posts.author_name',
-                'posts.post', 'attachments.attach_location')
+                'posts.post', 'attachments.attach_thumb_location')
             ->orderBy('posts.post_date', 'desc')
             ->take($take)
             ->get();
@@ -187,10 +187,5 @@ class MainController extends ApplicationController
             ->get();
         
         return $standing;
-    }
-    
-    public function image()
-    {
-        return view('application.home.testimage');
     }
 }
