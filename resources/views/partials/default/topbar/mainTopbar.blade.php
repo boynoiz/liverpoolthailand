@@ -26,10 +26,8 @@
                     <li><a href="#">{{ Auth::user()->name }}</a>
                         <div class="top-link-section">
                             @if(Auth::check())
-                                @if(Auth::user()->id==1)
-                                    <div><a href="{{ url('/admin') }}" target="_blank"><i class="fa fa-tachometer"></i> Admin Dashboard</a></div>
-                                @endif
-                                    <div><a href="{{ url('/auth/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></div>
+                                <div><a href="{{ url('/admin') }}" target="_blank"><i class="fa fa-tachometer"></i> Admin Dashboard</a></div>
+                                <div><a href="{{ url('/auth/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></div>
                             @endif
                         </div>
                     </li>

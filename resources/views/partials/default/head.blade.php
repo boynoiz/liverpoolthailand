@@ -8,7 +8,6 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ rawurldecode(request()->fullUrl()) }}" />
 <meta property="og:image" content="{{ !empty($article) ? url()->asset($article->image_path .'small/'. $article->image_name) : url()->asset('assets/images/logo.png') }}" />
-{{--<meta property="og:image" content="{{ url()->asset('assets/images/logo.png') }}" />--}}
 <meta name="twitter:url" content="{{ rawurldecode(request()->fullUrl()) }}">
 <meta name="twitter:title" content="@yield('title')">
 <meta name="twitter:description" content="@yield('description')">

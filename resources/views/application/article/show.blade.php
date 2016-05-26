@@ -5,11 +5,10 @@
 
 @section('content')
     @if(count($article))
-        <!-- Page Title
-		============================================= -->
+        <!-- Page Title -->
         <section id="page-title">
             <div class="container clearfix">
-                <h1><a style="background-color: {{ $article->category->color }}" href="{{ route('category', ['category_slug' => $article->category->slug])  }}">{{ $article->category->title }}</a></h1>
+                <h1><a href="{{ route('category', ['category_slug' => $article->category->slug])  }}">{{ $article->category->title }}</a></h1>
                 <ol class="breadcrumb">
                     <li><a href="{{ route('root') }}">Home</a></li>
                     <li><a href="{{ route('category', ['category_slug' => $article->category->slug]) }}">{{ $article->category->title }}</a></li>
@@ -19,8 +18,7 @@
         </section>
         <!-- #page-title end -->
 
-        <!-- Content
-		============================================= -->
+        <!-- Content -->
         <section id="content">
             <div class="content-wrap">
                 <div class="container clearfix">
