@@ -111,7 +111,7 @@ abstract class AdminController extends Controller
      */
     public function createFlashRedirect($class, $request, $path = "index")
     {
-        $model = Auth::user()->$class()->create($this->getData($request));
+        $model = $class::create($this->getData($request));
         $model->id ? Flash::success(trans('admin.create.success')) : Flash::error(trans('admin.create.fail'));
         return $this->redirectRoutePath($path);
     }
@@ -127,7 +127,7 @@ abstract class AdminController extends Controller
     public function saveFlashRedirect($model, $request, $path = "index")
     {
         $model->fill($this->getData($request));
-        $model->update_by = Auth::user()->id;
+        $model->updated_by = Auth::user()->id;
         $model->save() ? Flash::success(trans('admin.update.success')) : Flash::error(trans('admin.update.fail'));
         return $this->redirectRoutePath($path);
     }
@@ -140,26 +140,22 @@ abstract class AdminController extends Controller
      */
     public function getData($request)
     {
-        $imageCategory = strtolower($this->model);
-        if ($imageCategory == 'article')
-        {
-            $getImageCategory = Category::find($request->category_id);
-            $imageCategory = strtolower($getImageCategory->title);
-        }
-        if ($request->image === false){
-            return $request->all();
-        }
-        else
+        if (!empty($request->image))
         {
             $imageColumn = $request->image;
+            $imageCategory = strtolower($this->model);
+            if ($imageCategory == 'article')
+            {
+                $getImageCategory = Category::find($request->category_id);
+                $imageCategory = strtolower($getImageCategory->title);
+            }
             $data = $request->except($imageColumn);
             if ($request->file($imageColumn))
             {
                 $file = $request->file($imageColumn);
                 $request->file($imageColumn);
                 $fileName = rename_file($imageCategory, $file->getClientOriginalExtension());
-                $date = Date::create()->now()->format('Y-m');
-                $path = '/assets/images/' . str_slug($imageCategory, '-') . '/' . $date .'/';
+                $path = '/assets/images/' . str_slug($imageCategory, '-') . '/';
                 $move_path = public_path() . $path;
                 $file->move($move_path, $fileName);
                 Queue::push(ImageResizerJob::class, ['path' => $path, 'filename' => $fileName]);
@@ -168,6 +164,7 @@ abstract class AdminController extends Controller
             }
             return $data;
         }
+        return $request;
     }
 
     /**
