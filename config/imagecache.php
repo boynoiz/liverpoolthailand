@@ -16,7 +16,7 @@ return array(
     |
     */
    
-    'route' => "assets/images/cache",
+    'route' => 'assets/images/cache',
 
     /*
     |--------------------------------------------------------------------------
@@ -29,9 +29,11 @@ return array(
     | Define as many directories as you like.
     |
     */
-
+    
     'paths' => array(
-        storage_path('cache')
+        public_path('assets/images/page/'),
+        public_path('assets/images/teamlogo/'),
+        public_path('assets/images/complogo/'),
     ),
 
     /*
@@ -51,10 +53,9 @@ return array(
     */
    
     'templates' => array(
-        'small' => 'Intervention\Image\Templates\Small',
-        'medium' => 'Intervention\Image\Templates\Medium',
-        'large' => 'Intervention\Image\Templates\Large',
-        'preview' => 'LTF\Base\Services\Templates\Preview',
+        'small' => 'LTF\Base\Helpers\ImageTemplates\Small',
+        'medium' => 'LTF\Base\Helpers\ImageTemplates\Medium',
+        'large' => 'LTF\Base\Helpers\ImageTemplates\Large',
     ),
 
     /*
