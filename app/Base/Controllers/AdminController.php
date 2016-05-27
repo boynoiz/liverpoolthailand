@@ -2,7 +2,6 @@
 
 namespace LTF\Base\Controllers;
 
-use Jenssegers\Date\Date;
 use Queue;
 use LTF\Category;
 use LTF\Jobs\ImageResizerJob;
@@ -20,6 +19,13 @@ abstract class AdminController extends Controller
      * @var string
      */
     protected $model = "";
+
+    /**
+     * Class name
+     *
+     * @var string
+     */
+    protected $class = "";
 
     /**
      * Form class path
@@ -48,6 +54,7 @@ abstract class AdminController extends Controller
      */
     public function __construct()
     {
+        $this->class = $this->getClass();
         $this->model = $this->getModel();
         $this->formPath = $this->getFormPath();
         $this->language = session('current_lang');
@@ -109,9 +116,10 @@ abstract class AdminController extends Controller
      * @param string $path
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function createFlashRedirect($class, $request, $path = "index")
+    public function createFlashRedirect($request, $path = "index")
     {
-        $model = $class::create($this->getData($request));
+        $class = $this->class;
+        $model = Auth::user()->$class()->create($this->getData($request));
         $model->id ? Flash::success(trans('admin.create.success')) : Flash::error(trans('admin.create.fail'));
         return $this->redirectRoutePath($path);
     }
@@ -261,6 +269,16 @@ abstract class AdminController extends Controller
         return empty($this->model) ?
             explode('Controller', substr(strrchr(get_class($this), '\\'), 1))[0]  :
             $this->model;
+    }
+
+    /**
+     * Get class name, if isset the model parameter, then get it, if not then get the class name, strip "Controller" out
+     *
+     * @return string
+     */
+    protected function getClass()
+    {
+        return str_plural(strtolower($this->getModel()));
     }
 
     /**
