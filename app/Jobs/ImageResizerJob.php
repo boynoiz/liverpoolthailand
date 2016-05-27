@@ -61,7 +61,7 @@ class ImageResizerJob extends Job implements SelfHandling ,ShouldQueue
         $fileName = $data['filename'];
         $config = $this->config;
         $resizeRatio = $config['ratio'];
-        $fullImagePath = public_path($path . $fileName);
+        $fullImagePath = public_path() . $path . $fileName;
         $image = Image::make($fullImagePath);
         $sizes = $config['sizes'];
         $image->backup();
