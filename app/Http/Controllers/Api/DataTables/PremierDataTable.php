@@ -28,7 +28,9 @@ class PremierDataTable extends DataTable
      */
     public function query()
     {
-        $standing = FootballStanding::whereSeason('2015/2016')->select('position', 'team_name', 'overall_gp', 'overall_w', 'overall_d', 'overall_l', 'overall_gs', 'overall_ga', 'gd', 'points')->orderBy('position', 'asc');
+        $standing = FootballStanding::whereSeason('2015/2016')
+            ->select('position', 'team_name', 'overall_gp', 'overall_w', 'overall_d', 'overall_l', 'overall_gs', 'overall_ga', 'gd', 'points')
+            ->orderBy('position', 'asc');
         return $this->applyScopes($standing);
 
     }

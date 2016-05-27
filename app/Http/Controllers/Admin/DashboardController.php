@@ -11,5 +11,4 @@ class DashboardController extends AdminController
     {
         return view('admin.dashboard.index');
     }
-
 }

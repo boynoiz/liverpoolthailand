@@ -15,12 +15,6 @@ use LTF\Jobs\ImageResizerJob;
 
 class FootballTeamsController extends AdminController
 {
-    /**
-     * Image column of the model
-     *
-     * @var string
-     */
-    private $imageColumn = "logo";
 
     /**
      * Display a listing of the articles.
@@ -31,7 +25,10 @@ class FootballTeamsController extends AdminController
     {
         //
     }
-    
+
+    /**
+     *
+     */
     public function create()
     {
         //
@@ -84,12 +81,19 @@ class FootballTeamsController extends AdminController
         $footballTeams->whereTeamId($teamId)->update($getData) ? Flash::success(trans('admin.update.success')) : Flash::error(trans('admin.update.fail'));
         return $this->show($footballTeams, $teamId);
     }
-    
+
+    /**
+     *
+     */
     public function destroy()
     {
         //
     }
 
+    /**
+     * @param $request
+     * @return mixed
+     */
     public function getImage($request)
     {
         if ($request->hasFile('logo')) {
