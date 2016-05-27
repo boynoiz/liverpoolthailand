@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title'){{ getTitle($article) }}@endsection
-@section('description'){{ getDescription($article) }}@endsection
+@section('description'){{ getDescription() }}@endsection
 
 @section('content')
     @if(count($article))
@@ -34,8 +34,7 @@
                             <ul class="entry-meta clearfix">
                                 <li><i class="icon-calendar3"></i> {{ Date::createFromFormat('Y-m-d', $article->published_at)->formatLocalized('%A %d %B %Y') }}</li>
                                 <li><a href="#"><i class="icon-user"></i> {{ $article->user->name }}</a></li>
-                                {{--<li><i class="icon-folder-open"></i> <a href="#">General</a>, <a href="#">Media</a></li>--}}
-                                <li><a href="#"><i class="icon-commenting"></i> 43 Comments</a></li>
+                                <li><i class="icon-folder-open"></i> <a href="{{ route('category', ['category_slug' => $article->category->slug]) }}">{{ $article->category->title }}</a></li>
                                 <li><a href="#"><i class="icon-eyes"></i>{{ $article->read_count }} Read</a></li>
                             </ul>
                             <!-- .entry-meta end -->
