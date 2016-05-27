@@ -44,7 +44,7 @@ class LanguageController extends AdminController
     public function store(LanguageRequest $request)
     {
         $request->image = $this->imageColumn;
-        return $this->createFlashRedirect(Language::class, $request);
+        return $this->createFlashRedirect($request);
     }
 
     /**

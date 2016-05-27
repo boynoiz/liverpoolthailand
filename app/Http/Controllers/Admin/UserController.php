@@ -38,7 +38,7 @@ class UserController extends AdminController
     public function store(UserRequest $request)
     {
         $request->image = $this->imageColumn;
-        return $this->createFlashRedirect(User::class, $request);
+        return $this->createFlashRedirect($request);
     }
 
     /**

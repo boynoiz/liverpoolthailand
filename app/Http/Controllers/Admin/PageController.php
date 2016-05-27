@@ -39,7 +39,7 @@ class PageController extends AdminController
     public function store(PageRequest $request)
     {
         $request->image = $this->imageColumn;
-        return $this->createFlashRedirect(Page::class, $request);
+        return $this->createFlashRedirect($request);
     }
 
     /**

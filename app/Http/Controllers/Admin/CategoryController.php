@@ -43,7 +43,7 @@ class CategoryController extends AdminController
     public function store(CategoryRequest $request)
     {
         $request->image = $this->imageColumn;
-        return $this->createFlashRedirect(Category::class, $request);
+        return $this->createFlashRedirect($request);
     }
 
     /**

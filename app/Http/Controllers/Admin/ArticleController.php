@@ -37,7 +37,7 @@ class ArticleController extends AdminController
     public function store(ArticleRequest $request)
     {
         $request->image = $this->imageColumn;
-        return $this->createFlashRedirect(Article::class, $request);
+        return $this->createFlashRedirect($request);
     }
 
     /**
