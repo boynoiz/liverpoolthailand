@@ -21,6 +21,9 @@ use LTF\Topic;
 class MainController extends ApplicationController
 {
 
+    /**
+     * @var FootballMatches
+     */
     public $matches;
 
     /**
@@ -33,6 +36,12 @@ class MainController extends ApplicationController
      */
     public $ipb;
 
+    /**
+     * MainController constructor.
+     * @param FacebookController $facebook
+     * @param IPBoardController $ipb
+     * @param FootballMatches $matches
+     */
     public function __construct(FacebookController $facebook, IPBoardController $ipb, FootballMatches $matches)
     {
         $this->matches = $matches;
@@ -75,8 +84,7 @@ class MainController extends ApplicationController
     public function getLatestTalk()
     {
         $category = 'LTF Talk';
-        $talk = Article::with(['category', 'user'])->whereHas('category', function ($query) use ($category)
-        {
+        $talk = Article::with(['category', 'user'])->whereHas('category', function ($query) use ($category) {
             $query->where('title', '=', $category);
         })
             ->published()

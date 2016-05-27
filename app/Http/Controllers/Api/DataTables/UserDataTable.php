@@ -24,7 +24,7 @@ class UserDataTable extends DataTableController
      *
      * @var array
      */
-    protected $image_columns = ['picture'];
+//    protected $image_columns = ['image_path', 'image_name'];
 
     /**
      * Get the query object to be processed by datatables.

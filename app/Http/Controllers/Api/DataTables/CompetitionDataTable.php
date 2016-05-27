@@ -22,16 +22,13 @@ class CompetitionDataTable extends DataTable
         $comp = $this->query();
         $datatables = $this->datatables
             ->eloquent($comp)
-            ->addColumn('logo', function ($comp)
-            {
-                if (!empty($comp->image_name))
-                {
+            ->addColumn('logo', function ($comp) {
+                if (!empty($comp->image_name)) {
                     return '<img style=max-height:50px class=img-responsive src="'.$comp->image_path . $comp->image_name.'">';
                 }
                 return null;
             })
-            ->addColumn('action', function ($comp)
-            {
+            ->addColumn('action', function ($comp) {
                 return '<a class="btn btn-xs bg-olive" href="competitions/'.$comp->comp_id.'/edit"><i class="fa fa-pencil-square-o"></i>'.trans('admin.ops.edit').'</a>';
             })
         ;
@@ -79,6 +76,9 @@ class CompetitionDataTable extends DataTable
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getBuilderParameters()
     {
         return [

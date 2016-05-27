@@ -21,10 +21,8 @@ class FixtureDataTable extends DataTable
         $match = $this->query();
         $datatables = $this->datatables
             ->eloquent($match)
-            ->addColumn('score', function ($match)
-            {
-                if ($match->status === $match->time or $match->status === 'Postp.')
-                {
+            ->addColumn('score', function ($match) {
+                if ($match->status === $match->time or $match->status === 'Postp.') {
                     return $match->localteam_score . ' v ' . $match-> visitorteam_score;
                 }
                 return '<a href="matches/'.$match->match_id.'/events">'.$match->localteam_score . ' - ' . $match-> visitorteam_score.'</a>';
@@ -71,8 +69,6 @@ class FixtureDataTable extends DataTable
             ['name' => 'time', 'title' => 'Time', 'data' => 'time'],
             ['name' => 'localteam_name', 'title' => 'Home', 'data' => 'localteam_name'],
             ['name' => 'score', 'title' => 'Score', 'data' => 'score'],
-//            ['name' => 'localteam_score', 'title' => 'Home Score', 'data' => 'localteam_score'],
-//            ['name' => 'visitorteam_score', 'title' => 'Away Score', 'data' => 'visitorteam_score'],
             ['name' => 'visitorteam_name', 'title' => 'Away', 'data' => 'visitorteam_name'],
             ['name' => 'status', 'title' => 'Status', 'data' => 'status'],
         ];
