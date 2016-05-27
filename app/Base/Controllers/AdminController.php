@@ -148,18 +148,17 @@ abstract class AdminController extends Controller
      */
     public function getData($request)
     {
-        if (!empty($request->image))
-        {
+        if (!empty($request->image)) {
             $imageColumn = $request->image;
             $imageCategory = strtolower($this->model);
-            if ($imageCategory == 'article')
-            {
+
+            if ($imageCategory === 'article') {
                 $getImageCategory = Category::find($request->category_id);
                 $imageCategory = strtolower($getImageCategory->title);
             }
+
             $data = $request->except($imageColumn);
-            if ($request->file($imageColumn))
-            {
+            if ($request->file($imageColumn)) {
                 $file = $request->file($imageColumn);
                 $request->file($imageColumn);
                 $fileName = rename_file($imageCategory, $file->getClientOriginalExtension());
@@ -291,5 +290,4 @@ abstract class AdminController extends Controller
         $model =  title_case(str_plural($this->model));
         return 'LTF\Forms\Admin\\' . $model . 'Form';
     }
-    
 }
