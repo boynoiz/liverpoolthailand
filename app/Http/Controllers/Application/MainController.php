@@ -3,6 +3,7 @@
 namespace LTF\Http\Controllers\Application;
 
 use Jenssegers\Date\Date;
+use LTF\Article;
 use LTF\Base\Controllers\ApplicationController;
 use LTF\Category;
 use LTF\FootballMatches;
@@ -73,9 +74,11 @@ class MainController extends ApplicationController
      */
     public function getLatestTalk()
     {
-        $category = Category::whereTitle('LTF Talk')->first();
-        $talk = $category
-            ->articles()
+        $category = 'LTF Talk';
+        $talk = Article::with(['category', 'user'])->whereHas('category', function ($query) use ($category)
+        {
+            $query->where('title', '=', $category);
+        })
             ->published()
             ->orderBy('published_at', 'desc')
             ->take(1)
