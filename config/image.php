@@ -14,7 +14,6 @@ return array(
     | Supported: "gd", "imagick"
     |
     */
-
-    'driver' => 'imagick'
+    'driver' => 'gd'
 
 );

@@ -25,11 +25,6 @@ class LanguageController extends AdminController
     private $imageColumn = "flag";
 
     /**
-     * @var string
-     */
-    private $languages = "languages";
-
-    /**
      * Display a listing of the languages.
      *
      * @param LanguageDataTable $dataTable
@@ -48,9 +43,8 @@ class LanguageController extends AdminController
      */
     public function store(LanguageRequest $request)
     {
-        $request['image'] = $this->imageColumn;
-        $language = $this->languages;
-        return $this->createFlashRedirect($language, $request);
+        $request->image = $this->imageColumn;
+        return $this->createFlashRedirect($request);
     }
 
     /**
@@ -84,7 +78,7 @@ class LanguageController extends AdminController
      */
     public function update(Language $language, LanguageRequest $request)
     {
-        $request['image'] = $this->imageColumn;
+        $request->image = $this->imageColumn;
         return $this->saveFlashRedirect($language, $request);
     }
 
@@ -97,7 +91,7 @@ class LanguageController extends AdminController
     public function destroy(Language $language)
     {
         $checkLang = Category::whereLanguageId($language->id)->all();
-        if (count($checkLang))
+        if (!empty($checkLang))
         {
             Flash::error('This language already in use. Please change the languages in the Category first!');
             return Redirect::back();

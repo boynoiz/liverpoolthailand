@@ -95,8 +95,7 @@ class FootballTeamsController extends AdminController
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
             $fileName = rename_file('teamlogo', $file->getClientOriginalExtension());
-            $date = Date::create()->now()->format('Y-m');
-            $path = '/assets/images/teamlogo' . '/' . $date . '/';
+            $path = '/assets/images/teamlogo/';
             $move_path = public_path() . $path;
             $file->move($move_path, $fileName);
             Queue::push(ImageResizerJob::class, ['path' => $path, 'filename' => $fileName]);

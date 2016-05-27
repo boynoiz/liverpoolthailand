@@ -159,25 +159,23 @@ class FootballController extends Controller
         $endSeason = Date::createFromFormat('d.m.Y', $this->seasonEnd);
         $today = Date::now();
 
-        if (!$today->between($startSeason, $endSeason))
-        {
-            Log::error('This time is ended of the season, Please wait until the new season start');
-            return false;
-        }
+//        if (!$today->between($startSeason, $endSeason))
+//        {
+//            Log::error('This time is ended of the season, Please wait until the new season start');
+//            return false;
+//        }
         
         $request = 'standings/' . $this->premierleague . '?';
         $getStanding = $this->connector($request);
 
-        if (is_array($getStanding))
+        foreach ($getStanding as $team)
         {
-            foreach ($getStanding as $team)
-            {
-                $this->standing->updateOrCreate([
-                    'team_id' => $team['team_id'],
-                    'season' => $team['season']
-                ], $team);
-            }
+            $this->standing->updateOrCreate([
+                'team_id' => $team['team_id'],
+                'season' => $team['season']
+            ], $team);
         }
+        return $getStanding;
     }
 
     /**
@@ -192,11 +190,11 @@ class FootballController extends Controller
         $endSeason = Date::createFromFormat('d.m.Y', $this->seasonEnd);
         $today = Date::now();
 
-        if (!$today->between($startSeason, $endSeason))
-        {
-            Log::error('This time is ended of the season, Please wait until the new season start');
-            return false;
-        }
+//        if (!$today->between($startSeason, $endSeason))
+//        {
+//            Log::error('This time is ended of the season, Please wait until the new season start');
+//            return false;
+//        }
 
         $request = 'matches?comp_id='
             . $this->premierleague . ','
@@ -270,11 +268,11 @@ class FootballController extends Controller
         $endSeason = Date::createFromFormat('d.m.Y', $this->seasonEnd);
         $today = Date::now();
 
-        if (!$today->between($startSeason, $endSeason))
-        {
-            Log::error('This time is ended of the season, Please wait until the new season start');
-            return false;
-        }
+//        if (!$today->between($startSeason, $endSeason))
+//        {
+//            Log::error('This time is ended of the season, Please wait until the new season start');
+//            return false;
+//        }
         $getLocalTeamIds = $this->footballMatches->select('localteam_id')->orderBy('localteam_id', 'asc')->get()->toArray();
         $getVisitorTeamIds = $this->footballMatches->select('visitorteam_id')->orderBy('visitorteam_id', 'asc')->get()->toArray();
         $teamIds = collect([$getLocalTeamIds, $getVisitorTeamIds])->flatten()->unique();
@@ -303,29 +301,26 @@ class FootballController extends Controller
         $endSeason = Date::createFromFormat('d.m.Y', $this->seasonEnd);
         $today = Date::now();
 
-        if (!$today->between($startSeason, $endSeason))
-        {
-            Log::error('This time is ended of the season, Please wait until the new season start');
-            return false;
-        }
+//        if (!$today->between($startSeason, $endSeason))
+//        {
+//            Log::error('This time is ended of the season, Please wait until the new season start');
+//            return false;
+//        }
         $request = 'competitions?';
         $getCompetition = $this->connector($request);
 
-        if (is_array($getCompetition))
+        foreach ($getCompetition as $comp)
         {
-            foreach ($getCompetition as $comp)
-            {
-                $comp['comp_id'] = $comp['id'];
-                unset($comp['id']);
+            $comp['comp_id'] = $comp['id'];
+            unset($comp['id']);
 
-                $this->competition->updateOrCreate([
-                    'comp_id' => $comp['comp_id']
-                ], $comp) ?
-                    Log::info('Team '.$comp['comp_id'].' update completed!') :
-                    Log::error('Updating process of '.$comp['comp_id'].' failed');
-            }
+            $this->competition->updateOrCreate([
+                'comp_id' => $comp['comp_id']
+            ], $comp) ?
+                Log::info('Team '.$comp['comp_id'].' update completed!') :
+                Log::error('Updating process of '.$comp['comp_id'].' failed');
         }
-        return true;
+        return $getCompetition;
     }
 
     /**

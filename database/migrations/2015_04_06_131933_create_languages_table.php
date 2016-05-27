@@ -14,14 +14,14 @@ class CreateLanguagesTable extends Migration
     {
         Schema::create('languages', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id')->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('title');
             $table->string('code')->unique();
             $table->string('site_title');
             $table->string('site_description');
             $table->string('image_path')->nullable();
             $table->string('image_name')->nullable();
-            $table->unsignedInteger('update_by')->nullable();
+            $table->integer('update_by')->unsigned()->nullable();
             $table->timestamps();
         });
     }

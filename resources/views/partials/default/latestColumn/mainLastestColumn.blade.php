@@ -6,16 +6,15 @@
         <div @if ($column == $columnLatests->last()) class="col_one_third col_last" @else class="col_one_third" @endif>
             <div class="ipost clearfix">
                 <div class="entry-image">
-                    <a href="#">
+                    <a href="{!! url('http://board.liverpoolthailand.com/topic/' . $column->tid . '-' . $column->title_seo) !!}">
                         <img class="image_fade"
-                             src="@if(empty($column->attach_location)){!! url('board/uploads/noimage.jpg') !!}@else{!! url('board/uploads/' . $news->attach_location) !!}@endif"
+                             src="{{ empty($column->attach_thumb_location) ? asset('assets/images/noimage.jpg') : url('http://board.liverpoolthailand.com/uploads/' . $column->attach_thumb_location)}}"
                              alt="Image">
                     </a>
                 </div>
                 <div class="entry-title">
                     <h3>
-                        <a href="{!! url('board/topic/' . $column->tid . '-' . $column->title_seo) !!}"
-                           target="_blank">
+                        <a href="{!! url('http://board.liverpoolthailand.com/topic/' . $column->tid . '-' . $column->title_seo) !!}" target="_blank">
                             {!! $column->title !!}
                         </a>
                     </h3>
@@ -29,7 +28,7 @@
                 </ul>
                 <div class="entry-content">
                     {!! str_limit(clean($column->post), 200) !!}
-                    <a href="{!! url('board/topic/' . $column->tid . '-' . $column->title_seo) !!}" target="_blank">อ่านต่อ...</a>
+                    <a href="{!! url('http://board.liverpoolthailand.com/topic/' . $column->tid . '-' . $column->title_seo) !!}" target="_blank">อ่านต่อ...</a>
                 </div>
             </div>
         </div>

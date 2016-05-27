@@ -64,10 +64,13 @@ class Page extends Node implements SluggableInterface
      */
     public function language()
     {
-        return $this->belongsTo('LTF\Language');
+        return $this->belongsTo(Language::class);
     }
 
-    public function users()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

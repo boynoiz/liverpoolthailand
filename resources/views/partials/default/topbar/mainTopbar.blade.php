@@ -6,30 +6,28 @@
                 @if(Auth::guest())
                     <li><a href="#">Login</a>
                         <div class="top-link-section">
-                            {!! Form::open(array('url' => URL::to('/auth/login'), 'method' => 'post', 'files'=> true, 'id' => 'top-login')) !!}
+                            {{ Form::open(array('url' => url('/auth/login'), 'method' => 'post', 'files'=> true, 'id' => 'top-login')) }}
                             <div class="input-group" id="top-login-username">
                                 <span class="input-group-addon"><i class="icon-user"></i></span>
-                                {!! Form::email('email', null, array('class' => 'form-control', 'placeholder' => 'Email Address')) !!}
+                                {{ Form::email('email', null, array('class' => 'form-control', 'placeholder' => 'Email Address')) }}
                             </div>
                             <div class="input-group" id="top-login-password">
                                 <span class="input-group-addon"><i class="icon-key"></i></span>
-                                {!! Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')) !!}
+                                {{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')) }}
                             </div>
                             <label class="checkbox">
                                 <input type="checkbox" name="remember"> Remember me
                             </label>
                             <button class="btn btn-danger btn-block" type="submit">Sign in</button>
-                            {!! Form::close() !!}
+                            {{ Form::close() }}
                         </div>
                     </li>
                 @else
-                    <li><a href="#">{!! Auth::user()->name !!}</a>
+                    <li><a href="#">{{ Auth::user()->name }}</a>
                         <div class="top-link-section">
                             @if(Auth::check())
-                                @if(Auth::user()->id==1)
-                                    <div><a href="{{ URL::to('/admin') }}" target="_blank"><i class="fa fa-tachometer"></i> Admin Dashboard</a></div>
-                                @endif
-                                    <div><a href="{{ URL::to('/auth/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></div>
+                                <div><a href="{{ url('/admin') }}" target="_blank"><i class="fa fa-tachometer"></i> Admin Dashboard</a></div>
+                                <div><a href="{{ url('/auth/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></div>
                             @endif
                         </div>
                     </li>

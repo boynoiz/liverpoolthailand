@@ -2,13 +2,13 @@
     <div class="fancy-title title-border">
         <h3>Recent Topics</h3>
     </div>
-    @if(count($latestTopics))
+    @if(!empty($latestTopics))
         @foreach($latestTopics as $latestTopic)
             <div class="spost clearfix">
                 <div class="entry-c">
                     <div class="entry-title">
                         <h4>
-                            <a href="{!! url('board/topic/' . $latestTopic->tid . '-' . $latestTopic->title_seo) !!}">{!! $latestTopic->title !!}</a>
+                            <a href="{!! url('http://board.liverpoolthailand.com/topic/' . $latestTopic->tid . '-' . $latestTopic->title_seo) !!}" target="_blank">{!! $latestTopic->title !!}</a>
                         </h4>
                     </div>
                     <ul class="entry-meta clearfix">
@@ -27,13 +27,13 @@
     <div class="fancy-title title-border">
         <h3>Hot Topics</h3>
     </div>
-    @if(count($hotTopics))
+    @if(!empty($hotTopics))
         @foreach($hotTopics as $hotTopic)
             <div class="spost clearfix">
                 <div class="entry-c">
                     <div class="entry-title">
                         <h4>
-                            <a href="{!! url('board/topic/' . $hotTopic->tid . '-' . $hotTopic->title_seo) !!}">{!! $hotTopic->title !!}</a>
+                            <a href="{!! url('http://board.liverpoolthailand.com/topic/' . $hotTopic->tid . '-' . $hotTopic->title_seo) !!}" target="_blank">{!! $hotTopic->title !!}</a>
                         </h4>
                     </div>
                     <ul class="entry-meta clearfix">

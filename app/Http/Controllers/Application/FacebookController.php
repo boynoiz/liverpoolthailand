@@ -11,10 +11,19 @@ use LTF\Http\Controllers\Controller;
 
 class FacebookController extends Controller
 {
+    /**
+     * @var array
+     */
     protected $fbConfig = [];
 
+    /**
+     * @var string
+     */
     protected $pageId;
 
+    /**
+     * FacebookController constructor.
+     */
     public function __construct()
     {
         $this->fbConfig = [
@@ -39,22 +48,15 @@ class FacebookController extends Controller
         return $countLiked;
     }
 
+    /**
+     * @return array|mixed
+     */
     public function newsFeed()
     {
         $request = new Facebook($this->fbConfig);
-        $response = $request->get($this->pageId.'/posts')->getGraphEdge();
-        $postFeeds = array_slice(json_decode($response), 0, 5, true);
+        $response = $request->get($this->pageId.'/posts?limit=5');
+        $postFeeds = json_decode($response->getGraphEdge()->asJson());
 
-        if (empty($postFeeds))
-        {
-            return $postFeeds = [
-                'message' => 'Facebook connection timeout',
-                'created_time' => [
-                  'date' =>  Date::now()
-                ],
-                'id' => '118265851610459_118265851610459'
-            ];
-        }
         return $postFeeds;
     }
 }

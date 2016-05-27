@@ -14,20 +14,21 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->unsignedInteger('user_id');
+            $table->integer('category_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('description');
             $table->text('content');
             $table->date('published_at');
             $table->string('image_path')->nullable();
             $table->string('image_name')->nullable();
             $table->integer('read_count')->default(0);
-            $table->unsignedInteger('update_by')->nullable();
+            $table->integer('update_by')->unsigned()->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+        });
+        Schema::table('articles', function (Blueprint $table){
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
@@ -38,6 +39,9 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
+        Schema::table('articles', function (Blueprint $table){
+            $table->dropForeign('articles_category_id_foreign');
+        });
         Schema::drop('articles');
     }
 }

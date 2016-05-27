@@ -91,7 +91,7 @@
                 {{--<div class="widget subscribe-widget clearfix">--}}
                     {{--@include('partials.default.footerBar.footerSubscribe')--}}
                 {{--</div>--}}
-                <div class="widget clearfix">
+                <div class="widget subscribe-widget clearfix notopmargin">
                     @include('partials.default.footerBar.footerWidget')
                 </div>
             </div>
@@ -102,8 +102,8 @@
     <div id="copyrights">
         <div class="container clearfix">
             <div class="col_half">
-                <span>&copy; 2000-15 All Rights Reserved by Liverpool Thailand Fanclub.</span><br>
-                <span class="small">Made by <i class="fa fa-heart"></i> | Powered by Laravel 5 PHP Framework | v1.4.3</span>
+                <span>&copy; 2016 All Rights Reserved by Liverpool Thailand Fanclub.</span><br>
+                <span class="small">Made with <i class="fa fa-heart"></i> | Powered by Laravel 5 PHP Framework | WebBuild v1.5.0</span>
                 <div class="copyright-links small">
                     <a href="#">Terms of Use</a> /
                     <a href="#">Privacy Policy</a>

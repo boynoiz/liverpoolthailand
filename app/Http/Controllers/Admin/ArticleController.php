@@ -18,11 +18,6 @@ class ArticleController extends AdminController
     private $imageColumn = "image";
 
     /**
-     * @var string
-     */
-    private $articles = "articles";
-
-    /**
      * Display a listing of the articles.
      *
      * @param ArticleDataTable $dataTable
@@ -42,8 +37,7 @@ class ArticleController extends AdminController
     public function store(ArticleRequest $request)
     {
         $request->image = $this->imageColumn;
-        $articles = $this->articles;
-        return $this->createFlashRedirect($articles, $request);
+        return $this->createFlashRedirect($request);
     }
 
     /**
