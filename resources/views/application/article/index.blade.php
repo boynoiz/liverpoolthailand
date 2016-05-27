@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title'){{ getTitle($articles) }}@endsection
-@section('description'){{ getDescription($articles) }}@endsection
+@section('description'){{ getDescription() }}@endsection
 
 @section('content')
         <!-- Page Title -->
