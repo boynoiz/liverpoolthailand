@@ -16,7 +16,7 @@ class ApiAuthenticate
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->ajax()){
+        if (!$request->ajax()) {
             return response('Unauthorized.', 401);
         }
         return $next($request);

@@ -106,10 +106,25 @@ class MainController extends ApplicationController
         $lastTopics = Topic::whereForumId($forumID)
             ->where('approved', 1)
             ->join('posts', 'topics.topic_firstpost', '=', 'posts.pid')
-            ->leftJoin('attachments', 'topics.topic_firstpost', '=', 'attachments.attach_rel_id')
-            ->select('topics.tid', 'topics.title', 'topics.posts', 'topics.views', 'topics.title_seo',
-                'topics.topic_hasattach', 'topics.topic_firstpost', 'posts.post_date', 'posts.author_name',
-                'posts.post', 'attachments.attach_location')
+            ->leftJoin(
+                'attachments',
+                'topics.topic_firstpost',
+                '=',
+                'attachments.attach_rel_id'
+            )
+            ->select(
+                'topics.tid',
+                'topics.title',
+                'topics.posts',
+                'topics.views',
+                'topics.title_seo',
+                'topics.topic_hasattach',
+                'topics.topic_firstpost',
+                'posts.post_date',
+                'posts.author_name',
+                'posts.post',
+                'attachments.attach_location'
+            )
             ->orderBy('posts.post_date', 'desc')
             ->take($take)
             ->get();
