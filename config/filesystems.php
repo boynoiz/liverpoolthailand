@@ -53,6 +53,11 @@ return [
             'root'   => public_path(),
         ],
 
+        'board' => [
+            'driver' => 'local',
+            'root'   => '/var/www/board.liverpoolthailand/public/uploads',
+        ],
+
         'ftp' => [
             'driver'   => 'ftp',
             'host'     => 'ftp.example.com',
