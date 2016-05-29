@@ -33,7 +33,8 @@ class Kernel extends HttpKernel
         ],
         'api' => [
             'web',
-            'throttle:60,1'
+            'throttle:60,1',
+            'api.auth'
         ],
         'admin' => [
             'web',
@@ -62,5 +63,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
         'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
+        'api.auth'  => \LTF\Http\Middleware\ApiAuthenticate::class,
     ];
 }
