@@ -65,32 +65,23 @@ class ImageResizerJob extends Job implements SelfHandling ,ShouldQueue
         $image = Image::make($fullImagePath);
         $sizes = $config['sizes'];
         $image->backup();
-        foreach ($sizes as $size)
-        {
-            if ($size['name'] === 'thumb')
-            {
+
+        foreach ($sizes as $size) {
+            if ($size['name'] === 'thumb') {
                 $background = Image::canvas($size['width'], $size['height']);
-                $image->resize($size['width'], null, function($constraint)
-                {
+                $image->resize($size['width'], null, function($constraint) {
                     $constraint->aspectRatio();
                 });
                 $background->insert($image, 'center');
-            }
-            else
-            {
-                if(intval($image->width()/$resizeRatio) > $image->height())
-                {
-                    $image->resize(intval(($image->width() * $resizeRatio)), null, function($constraint)
-                    {
+            } else {
+                if(intval($image->width()/$resizeRatio) > $image->height()) {
+                    $image->resize(intval(($image->width() * $resizeRatio)), null, function($constraint) {
                         $constraint->aspectRatio();
                     });
                     $image->fit($size['width'], $size['height'], null, 'top');
-                }
-                else
-                {
-                    $image->resize(null, intval($image->width()/$resizeRatio), function($constraint)
-                    {
-                    $constraint->aspectRatio();
+                } else {
+                    $image->resize(null, intval($image->width()/$resizeRatio), function($constraint) {
+                        $constraint->aspectRatio();
                     });
                     $image->fit($size['width'], $size['height'], null, 'top');
                 }
