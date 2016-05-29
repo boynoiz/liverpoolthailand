@@ -25,7 +25,7 @@
                     <div class="col-md-8 nobottommargin clearfix">
                         <!-- Posts-->
                         <div id="posts">
-                            @if(count($articles))
+                            @if(!empty($articles))
                                 @foreach($articles as $article)
                                     <div class="entry clearfix">
                                         <div class="entry-image">

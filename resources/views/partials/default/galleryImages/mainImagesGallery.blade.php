@@ -6,7 +6,7 @@
     @if(!empty($lastGalleryImages))
         @foreach($lastGalleryImages as $gallery)
             <a href="{!! url('http://board.liverpoolthailand.com/uploads/' . $gallery->directory .'/'. $gallery->masked_file_name) !!}" data-lightbox="gallery-item">
-                <img class="image_fade" src="{!! url('http://board.liverpoolthailand.com/uploads/' . $gallery->directory .'/tn_' . $gallery->masked_file_name) !!}" alt="{!! $gallery->caption !!}" title="{!! $gallery->caption !!}">
+                <img class="image_fade" src="{{ asset('assets/images/board/cache/' . $gallery->directory .'/'. $gallery->masked_file_name . '?w=100&h=100&fit=crop') }}" alt="{{ $gallery->caption }}" title="{{ $gallery->caption }}">
             </a>
         @endforeach
     @endif
