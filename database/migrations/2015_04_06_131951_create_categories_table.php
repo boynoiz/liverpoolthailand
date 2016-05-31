@@ -14,18 +14,19 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('language_id')->unsigned()->nullable();
+            $table->integer('language_id')->unsigned();
             $table->integer('user_id')->unsigned()->nullable();
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('description');
             $table->string('image_path')->nullable();
             $table->string('image_name')->nullable();
-            $table->integer('update_by')->unsigned()->nullable();
+            $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
         Schema::table('categories', function (Blueprint $table){
-            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            $table->foreign('language_id')->references('id')->on('languages');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -38,6 +39,7 @@ class CreateCategoriesTable extends Migration
     {
         Schema::table('categories', function (Blueprint $table){
             $table->dropForeign('categories_language_id_foreign');
+            $table->dropForeign('categories_user_id_foreign');
         });
         Schema::drop('categories');
     }

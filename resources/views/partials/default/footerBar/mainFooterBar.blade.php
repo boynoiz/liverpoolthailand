@@ -103,7 +103,7 @@
         <div class="container clearfix">
             <div class="col_half">
                 <span>&copy; 2016 All Rights Reserved by Liverpool Thailand Fanclub.</span><br>
-                <span class="small">Made with <i class="fa fa-heart"></i> | Powered by Laravel 5 PHP Framework | WebBuild v1.5.0</span>
+                <span class="small">Made with <i class="fa fa-heart"></i> | Powered by Laravel 5 PHP Framework | WebBuild v{{ config('webconfig.version') }}</span>
                 <div class="copyright-links small">
                     <a href="#">Terms of Use</a> /
                     <a href="#">Privacy Policy</a>

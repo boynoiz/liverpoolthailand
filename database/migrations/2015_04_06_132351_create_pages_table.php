@@ -14,7 +14,7 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('language_id')->unsigned()->nullable();
+            $table->integer('language_id')->unsigned();
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('parent_id')->nullable();
             $table->integer('lft')->nullable();
@@ -30,7 +30,8 @@ class CreatePagesTable extends Migration
             $table->timestamps();
         });
         Schema::table('pages', function (Blueprint $table){
-            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            $table->foreign('language_id')->references('id')->on('languages');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -43,6 +44,7 @@ class CreatePagesTable extends Migration
     {
         Schema::table('pages', function (Blueprint $table){
             $table->dropForeign('pages_language_id_foreign');
+            $table->dropForeign('pages_user_id_foreign');
         });
         Schema::drop('pages');
     }
