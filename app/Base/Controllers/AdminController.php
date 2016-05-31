@@ -171,7 +171,7 @@ abstract class AdminController extends Controller
             }
             return $data;
         }
-        return $request;
+        return $request->all();
     }
 
     /**
