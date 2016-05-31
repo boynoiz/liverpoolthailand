@@ -19,6 +19,27 @@ if (!function_exists('limit_to_numwords')) {
     }
 }
 
+if (!function_exists('limit_to_linebreak')) {
+    /**
+     * Limit content with linebreak
+     *
+     * @param $string
+     * @param $route
+     * @param $slug
+     * @param $route_slug
+     * @return array|string
+     */
+    function limit_to_linebreak($string, $route = null, $route_slug = null, $slug = null)
+    {
+        $words = current(explode('</p>', $string, 2));
+        if (!is_null($route) && !is_null($slug) && !is_null($route_slug)) {
+            return $excerpt = $words . ' ... <a href="'. route($route, [$route_slug => $slug]) . '" target="_blank">Read more</a></p>';
+        } else {
+            return $words;
+        }
+    }
+}
+
 if (!function_exists('renderMenuNode')) {
     /**
      * Render nodes for nested sets
