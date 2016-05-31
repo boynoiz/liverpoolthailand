@@ -26,7 +26,7 @@
                     <div id="posts">
                         @if(!empty($articles))
                             @foreach($articles as $article)
-                                @include('partials.default.article.post')
+                                @include('partials.default.article.entry')
                             @endforeach
                         @endif
                     </div>
