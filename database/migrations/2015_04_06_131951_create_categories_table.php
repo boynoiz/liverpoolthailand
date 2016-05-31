@@ -24,7 +24,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
-        Schema::table('categories', function (Blueprint $table){
+        Schema::table('categories', function (Blueprint $table) {
             $table->foreign('language_id')->references('id')->on('languages');
             $table->foreign('user_id')->references('id')->on('users');
         });
@@ -37,7 +37,7 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::table('categories', function (Blueprint $table){
+        Schema::table('categories', function (Blueprint $table) {
             $table->dropForeign('categories_language_id_foreign');
             $table->dropForeign('categories_user_id_foreign');
         });

@@ -69,18 +69,18 @@ class ImageResizerJob extends Job implements SelfHandling ,ShouldQueue
         foreach ($sizes as $size) {
             if ($size['name'] === 'thumb') {
                 $background = Image::canvas($size['width'], $size['height']);
-                $image->resize($size['width'], null, function($constraint) {
+                $image->resize($size['width'], null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
                 $background->insert($image, 'center');
             } else {
-                if(intval($image->width()/$resizeRatio) > $image->height()) {
-                    $image->resize(intval(($image->width() * $resizeRatio)), null, function($constraint) {
+                if (intval($image->width()/$resizeRatio) > $image->height()) {
+                    $image->resize(intval(($image->width() * $resizeRatio)), null, function ($constraint) {
                         $constraint->aspectRatio();
                     });
                     $image->fit($size['width'], $size['height'], null, 'top');
                 } else {
-                    $image->resize(null, intval($image->width()/$resizeRatio), function($constraint) {
+                    $image->resize(null, intval($image->width()/$resizeRatio), function ($constraint) {
                         $constraint->aspectRatio();
                     });
                     $image->fit($size['width'], $size['height'], null, 'top');

@@ -24,7 +24,7 @@ class CreateLanguagesTable extends Migration
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
-        Schema::table('languages', function (Blueprint $table){
+        Schema::table('languages', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('languages');
         });
     }
@@ -36,7 +36,7 @@ class CreateLanguagesTable extends Migration
      */
     public function down()
     {
-        Schema::table('languages', function (Blueprint $table){
+        Schema::table('languages', function (Blueprint $table) {
             $table->dropForeign('language_user_id_foreign');
         });
         Schema::drop('languages');

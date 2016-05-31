@@ -29,7 +29,7 @@ class CreatePagesTable extends Migration
             $table->integer('update_by')->unsigned()->nullable();
             $table->timestamps();
         });
-        Schema::table('pages', function (Blueprint $table){
+        Schema::table('pages', function (Blueprint $table) {
             $table->foreign('language_id')->references('id')->on('languages');
             $table->foreign('user_id')->references('id')->on('users');
         });
@@ -42,7 +42,7 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::table('pages', function (Blueprint $table){
+        Schema::table('pages', function (Blueprint $table) {
             $table->dropForeign('pages_language_id_foreign');
             $table->dropForeign('pages_user_id_foreign');
         });
