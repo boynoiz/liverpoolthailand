@@ -27,7 +27,7 @@ class CreateArticlesTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
-        Schema::table('articles', function (Blueprint $table){
+        Schema::table('articles', function (Blueprint $table) {
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('user_id')->references('id')->on('users');
         });
@@ -40,7 +40,7 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::table('articles', function (Blueprint $table){
+        Schema::table('articles', function (Blueprint $table) {
             $table->dropForeign('articles_category_id_foreign');
             $table->dropForeign('articles_user_id_foreign');
         });
