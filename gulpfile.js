@@ -20,6 +20,7 @@ var cssnext = require('postcss-cssnext');
 var mqpacker = require('css-mqpacker');
 var merge = require('merge-stream');
 var clone = require('gulp-clone');
+var gutil = require('gulp-util');
 var runSequence = require('run-sequence');
 
 gulp.task('bower', function() {
@@ -116,20 +117,20 @@ gulp.task('frontendCss', function()
                 ],
                 noCache: true,
                 errLogToConsole: true
-            }))
-        .pipe(postcss(processors))
-        .pipe(gulp.dest(CssPath));
+            }).on('error', gutil.log))
+        .pipe(postcss(processors).on('error', gutil.log))
+        .pipe(gulp.dest(CssPath)).on('error', gutil.log);
 
     var min = scss.pipe(clone())
-        .pipe(cssnano({discardComments: {removeAll: true}}))
-        .pipe(rename('app.min.css'));
+        .pipe(cssnano({discardComments: {removeAll: true}}).on('error', gutil.log))
+        .pipe(rename('app.min.css').on('error', gutil.log));
 
     return merge(scss, min)
         .pipe(sourcemaps.write('.', {
             sourceRoot: resource_path + '/sass/canvas/',
             includeContent: false
         }))
-        .pipe(gulp.dest(CssPath));
+        .pipe(gulp.dest(CssPath)).on('error', gutil.log);
 });
 
 // JS
