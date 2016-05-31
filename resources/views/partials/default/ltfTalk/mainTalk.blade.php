@@ -23,8 +23,7 @@
                     </li>
                 </ul>
                 <div class="entry-content">
-                    {!! str_limit($talk->content, 300)  !!}
-                    <a href="{{ route('article.show', ['article_slug' => $talk->slug]) }}">Read more</a>
+                    {!! limit_to_linebreak($talk->content, 'article.show', 'article_slug', $talk->slug) !!}
                 </div>
             </div>
         </div>
