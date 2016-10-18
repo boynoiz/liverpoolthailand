@@ -2,7 +2,7 @@
     <livematch></livematch>
     <template id="match-template">
         <ul class="tab-nav clearfix">
-            <li v-if="(match.timer == '0' && match.status !== 'HT') || !match.status"><a href="#matchPanel" id="match-status"> Up Coming</a></li>
+            <li v-if="(match.timer === 0 && match.status !== 'HT') || !match.status"><a href="#matchPanel" id="match-status"> Up Coming</a></li>
             <li v-else><a href="#matchPanel" id="match-status"><img src="{{ asset('assets/images/live2.gif') }}"> Live</a></li>
             <li><a href="#lastMatchPanel">Last Match</a></li>
             <li><a href="#tablePanel">EPL Table</a></li>
