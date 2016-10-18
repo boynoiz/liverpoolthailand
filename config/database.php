@@ -132,12 +132,37 @@ return [
         'cluster' => false,
 
         'default' => [
+            'host'      => env('REDIS_HOST', 'localhost'),
+            'password'  => env('REDIS_PASSWORD', null),
+            'port'      => env('REDIS_PORT', 6379),
+            'scheme'    => env('REDIS_SCHEME', 'tcp'),
+            'path'      => env('REDIS_UNIX_PATH', null),
+            'database'  => 0,
+        ],
+        'cache' => [
             'host'     => env('REDIS_HOST', 'localhost'),
             'password' => env('REDIS_PASSWORD', null),
             'port'     => env('REDIS_PORT', 6379),
-            'database' => 0,
+            'scheme'    => env('REDIS_SCHEME', 'tcp'),
+            'path'      => env('REDIS_UNIX_PATH', null),
+            'database' => 1,
         ],
-
+        'session' => [
+            'host'     => env('REDIS_HOST', 'localhost'),
+            'password' => env('REDIS_PASSWORD', null),
+            'port'     => env('REDIS_PORT', 6379),
+            'scheme'    => env('REDIS_SCHEME', 'tcp'),
+            'path'      => env('REDIS_UNIX_PATH', null),
+            'database' => 2,
+        ],
+        'broadcast' => [
+            'host'     => env('REDIS_HOST', 'localhost'),
+            'password' => env('REDIS_PASSWORD', null),
+            'port'     => env('REDIS_PORT', 6379),
+            'scheme'    => env('REDIS_SCHEME', 'tcp'),
+            'path'      => env('REDIS_UNIX_PATH', null),
+            'database' => 3,
+        ],
     ],
 
 ];

@@ -3,7 +3,6 @@
 namespace LTF\Http\Controllers\Application;
 
 use Illuminate\Http\Request;
-
 use Jenssegers\Date\Date;
 use Facebook\Facebook;
 use LTF\Http\Requests;

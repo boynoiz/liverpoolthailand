@@ -55,8 +55,8 @@ class FootballController extends Controller
         $this->facup = '1198';
         $this->ucl = '1005';
         $this->europa = '1007';
-        $this->seasonStart = '08.08.2015';
-        $this->seasonEnd = '19.05.2016';
+        $this->seasonStart = '13.08.2016';
+        $this->seasonEnd = '21.05.2017';
         $this->footballMatches = $footballMatches;
         $this->footballMatchEvents = $footballMatchEvents;
         $this->standing = $standing;
@@ -176,13 +176,16 @@ class FootballController extends Controller
         return Log::info('Standing data update completed!');
     }
 
+
     /**
-     * @return string
+     * @return array|null
      */
     public function createOrUpdateFixtures()
     {
-        $dateOfBeginningMonth = Date::now()->startOfMonth()->format('d.m.Y');
-        $dateOfEndingMonth = Date::now()->endOfMonth()->format('d.m.Y');
+        $today = Date::now()->format('d.m.Y');
+        $nextThirtyDays = Date::now()->addMonth()->format('d.m.Y');
+//        $dateOfBeginningMonth = Date::now()->startOfMonth()->format('d.m.Y');
+//        $dateOfEndingMonth = Date::now()->endOfMonth()->format('d.m.Y');
 
         $request = 'matches?comp_id='
             . $this->premierleague . ','
@@ -192,9 +195,9 @@ class FootballController extends Controller
             . '&team_id='
             . $this->liverpoolfc
             . '&from_date='
-            . $dateOfBeginningMonth
+            . $today
             . '&to_date='
-            . $dateOfEndingMonth
+            . $nextThirtyDays
             . '&';
         $getMatches = $this->connector($request);
 

@@ -19,17 +19,17 @@ use Illuminate\Database\Query\Builder;
  * @property integer $player_goal
  * @property integer $player_assist
  * @property-read FootballPlayer $player
- * @method static Builder|FootballPLayerStats whereId($value)
- * @method static Builder|FootballPLayerStats whereCreatedAt($value)
- * @method static Builder|FootballPLayerStats whereUpdatedAt($value)
- * @method static Builder|FootballPLayerStats wherePlayerId($value)
- * @method static Builder|FootballPLayerStats wherePlayerCompetitionId($value)
- * @method static Builder|FootballPLayerStats wherePlayerSeason($value)
- * @method static Builder|FootballPLayerStats wherePlayerShortname($value)
- * @method static Builder|FootballPLayerStats wherePlayerGoal($value)
- * @method static Builder|FootballPLayerStats wherePlayerAssist($value)
+ * @method static Builder|FootballPlayerStats whereId($value)
+ * @method static Builder|FootballPlayerStats whereCreatedAt($value)
+ * @method static Builder|FootballPlayerStats whereUpdatedAt($value)
+ * @method static Builder|FootballPlayerStats wherePlayerId($value)
+ * @method static Builder|FootballPlayerStats wherePlayerCompetitionId($value)
+ * @method static Builder|FootballPlayerStats wherePlayerSeason($value)
+ * @method static Builder|FootballPlayerStats wherePlayerShortname($value)
+ * @method static Builder|FootballPlayerStats wherePlayerGoal($value)
+ * @method static Builder|FootballPlayerStats wherePlayerAssist($value)
  */
-class FootballPLayerStats extends Model
+class FootballPlayerStats extends Model
 {
     /**
      * @var string
@@ -46,9 +46,10 @@ class FootballPLayerStats extends Model
      */
     protected $fillable = [
         'player_id',
-        'player_competition_id',
-        'player_season',
-        'player_shortname'
+        'comp_id',
+        'season_id',
+        'player_goals',
+        'player_assists'
     ];
 
     /**

@@ -1,4 +1,4 @@
-<div class="tab-content nobottommargin clearfix" id="lastMatch">
+<div class="tab-content nobottommargin clearfix" id="lastMatchPanel">
     <div class="col-xs-4 col-sm-4 col-md-4 team-logo-home">
         <img src="{{ $lastMatch->team_as_home->image_path .'thumb/'. $lastMatch->team_as_home->image_name }}">
         <p class="text-center">{{ $lastMatch->localteam_name }}</p>

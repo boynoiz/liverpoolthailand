@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
 
     /*
     |--------------------------------------------------------------------------
@@ -163,8 +163,6 @@ return [
          * Third Party Stuff
          */
         Barryvdh\Elfinder\ElfinderServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
         Baum\Providers\BaumServiceProvider::class,
         Caffeinated\Menus\MenusServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,

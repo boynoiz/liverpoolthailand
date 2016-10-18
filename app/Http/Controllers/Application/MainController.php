@@ -10,7 +10,6 @@ use LTF\FootballMatches;
 use LTF\FootballStanding;
 use LTF\Gallery;
 use LTF\Http\Requests;
-use Debugbar;
 use LTF\Topic;
 
 
@@ -55,8 +54,6 @@ class MainController extends ApplicationController
      */
     public function index()
     {
-        Debugbar::startMeasure('render','Time for rendering');
-
         $latestTalk = $this->getLatestTalk();
         $hotTopics = $this->getHotTopics();
         $latestTopics = $this->getLatestTopics();
@@ -69,7 +66,6 @@ class MainController extends ApplicationController
         $standing = $this->LeagueTable();
         $fbFeeds = $this->facebook->newsFeed();
 
-        Debugbar::stopMeasure('render');
         return view('application.home.default', compact(
             'columnLatests', 'lastGalleryImages','latestTopics',
             'latestTalk', 'latestNews', 'hotTopics', 'totalMembers',
@@ -159,7 +155,7 @@ class MainController extends ApplicationController
         $hotTopics = Topic::whereForumId(2)
             ->where('approved', 1)
             ->where('start_date', '>', $subWeek)
-            ->select('title', 'posts', 'title_seo',
+            ->select('tid','title', 'posts', 'title_seo',
                 'starter_name', 'start_date')
             ->orderBy('posts', 'desc')
             ->take(5)
@@ -202,16 +198,35 @@ class MainController extends ApplicationController
      */
     public function LeagueTable()
     {
-        $liverpool = FootballStanding::whereTeamId('9249')->first();
+        $liverpool = FootballStanding::whereSeason('2016/2017')->whereTeamId('9249')->first();
         $getRank = $liverpool->position - 3;
         $rank =  $getRank <= 1 ? $getRank === 1 : $getRank;
 
-        $standing = FootballStanding::where('position', '>=', $rank)
-            ->select('*')
+        $standing = FootballStanding::whereSeason('2016/2017')->where('position', '>=', $rank)
+            ->select('season', 'team_id', 'team_name', 'position', 'overall_gp', 'gd', 'points')
             ->orderBy('position', 'asc')
             ->take(7)
             ->get();
-        
+
+        return $standing;
+    }
+
+    public function testLeagueTable()
+    {
+        $season = '2016/2017';
+        $liverpoolId = '9249';
+
+        $standing = FootballStanding::whereSeason($season)
+            ->where('position', '>=', function ($query) use ($liverpoolId, $season) {
+                $getRank = $query->whereSeason($season)->whereTeamId($liverpoolId)->first();
+                $rank = $getRank->position - 3;
+                return  $rank <= 1 ? $rank === 1 : $rank;
+            })
+            ->select('season', 'team_id', 'team_name', 'position', 'overall_gp', 'gd', 'points')
+            ->orderBy('position', 'asc')
+            ->take(7)
+            ->get();
+
         return $standing;
     }
 }

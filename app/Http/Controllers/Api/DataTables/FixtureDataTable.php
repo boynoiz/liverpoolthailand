@@ -40,7 +40,7 @@ class FixtureDataTable extends DataTable
     public function query()
     {
         $fixtures = FootballMatches::select(['*']);
-        $fixtures->orderBy('formatted_date', 'asc')->get();
+        $fixtures->orderBy('formatted_date', 'desc')->get();
         return $this->applyScopes($fixtures);
 
     }

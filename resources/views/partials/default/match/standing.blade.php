@@ -1,4 +1,4 @@
-<div class="tab-content clearfix" id="table">
+<div class="tab-content clearfix" id="tablePanel">
     <div class="table-responsive">
         <table class="table table-no-bordered table-hover">
             <thead>

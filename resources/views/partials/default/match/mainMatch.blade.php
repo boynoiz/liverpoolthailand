@@ -2,16 +2,16 @@
     <livematch></livematch>
     <template id="match-template">
         <ul class="tab-nav clearfix">
-            <li v-if="(match.timer == '0' && match.status !== 'HT') || !match.status"><a href="#Match" id="match-status"> Up Coming</a></li>
-            <li v-else="match.timer > '0' || match.status == 'HT'"><a href="#Match" id="match-status"><img src="{{ asset('assets/images/live2.gif') }}"> Live</a></li>
-            <li><a href="#lastMatch">Last Match</a></li>
-            <li><a href="#table">EPL Table</a></li>
+            <li v-if="(match.timer == '0' && match.status !== 'HT') || !match.status"><a href="#matchPanel" id="match-status"> Up Coming</a></li>
+            <li v-else><a href="#matchPanel" id="match-status"><img src="{{ asset('assets/images/live2.gif') }}"> Live</a></li>
+            <li><a href="#lastMatchPanel">Last Match</a></li>
+            <li><a href="#tablePanel">EPL Table</a></li>
         </ul>
         <div class="tab-container">
-            <div class="tab-content nobottommargin clearfix" id="Match" v-if="match.match_id">
+            <div v-if="match.match_id" class="tab-content nobottommargin clearfix" id="matchPanel">
                 @include('partials.default.match.liveMatch')
             </div>
-            <div class="tab-content nobottommargin clearfix" id="Match" v-else="!match.match_id">
+            <div v-else class="tab-content nobottommargin clearfix" id="matchPanel">
                 @include('partials.default.match.endOfSeason')
             </div>
             @if(count($lastMatch))
@@ -24,7 +24,7 @@
     </template>
 </div>
 @push('foot-scripts')
-<script type="text/javascript" src="//vuejs.org/js/vue.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.28/vue.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js"></script>
 <script type="text/javascript" src="//js.pusher.com/3.0/pusher.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
@@ -44,7 +44,7 @@
             return false;
         } else {
             document.getElementById("countdown-kickoff").innerHTML =
-                    ((until.days() === 0 ? '00 : ' : '0' + until.days() + ' : ')
+                    ((until.days().toString().length < 2 ? '0' + until.days() + ' : ' : until.days() + ' : ')
                     + (until.hours().toString().length < 2 ? '0' + until.hours() + ' : ' : until.hours() + ' : ')
                     + (until.minutes().toString().length < 2 ? '0' + until.minutes() + ' : ' : until.minutes() + ' : ')
                     + (until.seconds().toString().length < 2 ? '0' + until.seconds() : until.seconds()));

@@ -6,8 +6,8 @@
     <p class="nobottommargin">
         <img v-bind:src="match.competition.image_path + 'thumb/' + match.competition.image_name" class="competition" title="@{{ match.competition.name }}">
     </p>
-    <p class="nobottommargin" v-if="(match.status > 0 && match.timer > 0) || match.status == 'HT'">
-        <span v-if="match.timer == 0 && match.status == 'HT'" id="live-game-timer" class="game-timer">
+    <p class="nobottommargin" v-if="(match.status > 0 && match.timer > 0) || match.status === 'HT'">
+        <span v-if="match.timer === 0 && match.status === 'HT'" id="live-game-timer" class="game-timer">
             @{{ match.status }}
         </span>
         <span v-else id="live-game-timer" class="game-timer" transition="blink">
