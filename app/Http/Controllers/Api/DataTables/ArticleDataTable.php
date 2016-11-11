@@ -1,9 +1,9 @@
 <?php
 
-namespace LTF\Http\Controllers\Api\DataTables;
+namespace App\Http\Controllers\Api\DataTables;
 
-use LTF\Base\Controllers\DataTableController;
-use LTF\Article;
+use App\Base\Controllers\DataTableController;
+use App\Article;
 
 class ArticleDataTable extends DataTableController
 {

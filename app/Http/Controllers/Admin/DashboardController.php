@@ -1,8 +1,8 @@
 <?php
 
-namespace LTF\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use LTF\Base\Controllers\AdminController;
+use App\Base\Controllers\AdminController;
 
 class DashboardController extends AdminController
 {

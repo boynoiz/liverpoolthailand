@@ -1,9 +1,9 @@
 <?php
 
-namespace LTF\Http\Controllers\Application;
+namespace App\Http\Controllers\Application;
 
-use LTF\Category;
-use LTF\Base\Controllers\ApplicationController;
+use App\Category;
+use App\Base\Controllers\ApplicationController;
 
 class CategoryController extends ApplicationController
 {

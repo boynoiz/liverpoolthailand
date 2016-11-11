@@ -1,8 +1,8 @@
 <?php
 
-namespace LTF\Forms\Admin;
+namespace App\Forms\Admin;
 
-use LTF\Base\Forms\AdminForm;
+use App\Base\Forms\AdminForm;
 
 class CategoriesForm extends AdminForm
 {
@@ -22,6 +22,6 @@ class CategoriesForm extends AdminForm
             ->add('image', 'file', [
                 'label' => trans('admin.fields.article.image'),
             ]);
-        parent::buildForm();
+        $this->addButtons();
     }
 }

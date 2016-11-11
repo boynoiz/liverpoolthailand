@@ -1,10 +1,10 @@
 <?php
 
-namespace LTF\Http\Controllers\Application;
+namespace App\Http\Controllers\Application;
 
-use LTF\Article;
-use LTF\Events\ArticleWasViewed;
-use LTF\Base\Controllers\ApplicationController;
+use App\Article;
+use App\Events\ArticleWasViewed;
+use App\Base\Controllers\ApplicationController;
 use Event;
 
 class ArticleController extends ApplicationController

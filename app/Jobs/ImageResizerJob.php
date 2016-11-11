@@ -1,18 +1,17 @@
 <?php
 
-namespace LTF\Jobs;
+namespace App\Jobs;
 
-use LTF\Jobs\Job;
+use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Image;
 use File;
 
-class ImageResizerJob extends Job implements SelfHandling ,ShouldQueue
+class ImageResizerJob implements ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels;
+    use InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * @var array

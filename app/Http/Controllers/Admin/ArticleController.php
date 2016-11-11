@@ -1,11 +1,11 @@
 <?php
 
-namespace LTF\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use LTF\Article;
-use LTF\Base\Controllers\AdminController;
-use LTF\Http\Controllers\Api\DataTables\ArticleDataTable;
-use LTF\Http\Requests\Admin\ArticleRequest;
+use App\Article;
+use App\Base\Controllers\AdminController;
+use App\Http\Controllers\Api\DataTables\ArticleDataTable;
+use App\Http\Requests\Admin\ArticleRequest;
 
 class ArticleController extends AdminController
 {

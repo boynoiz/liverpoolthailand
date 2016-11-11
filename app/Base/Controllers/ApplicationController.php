@@ -1,27 +1,12 @@
 <?php
 
-namespace LTF\Base\Controllers;
+namespace App\Base\Controllers;
 
-use LTF\Http\Controllers\Controller;
-use LTF\Language;
+use App\Http\Controllers\Controller;
+use App\Language;
 
 abstract class ApplicationController extends Controller
 {
-    /**
-     * Current language
-     *
-     * @var mixed
-     */
-    protected $language;
-
-    /**
-     * ApplicationController constructor.
-     */
-    public function __construct()
-    {
-        $this->language = session('current_lang');
-    }
-
     /**
      * Get select list for languages
      *

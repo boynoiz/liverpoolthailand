@@ -1,12 +1,12 @@
 <?php
 
-namespace LTF\Http\Controllers\Application;
+namespace App\Http\Controllers\Application;
 
 use Illuminate\Http\Request;
 
-use LTF\Member;
-use LTF\Http\Requests;
-use LTF\Http\Controllers\Controller;
+use App\Member;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 class IPBoardController extends Controller
 {

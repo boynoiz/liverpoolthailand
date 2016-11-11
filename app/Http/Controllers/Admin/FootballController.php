@@ -1,26 +1,26 @@
 <?php
 
-namespace LTF\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
 use Log;
 use Event;
-use LTF\Events\FootballMatchUpdated;
+use App\Events\FootballMatchUpdated;
 use Jenssegers\Date\Date;
 use GuzzleHttp\Client;
 use Exception;
-use LTF\FootballCompetition;
-use LTF\FootballCupStanding;
-use LTF\FootballMatches;
-use LTF\FootballMatchEvents;
-use LTF\FootballPlayer;
-use LTF\FootballPlayerStats;
-use LTF\FootballSetting;
-use LTF\FootballStanding;
-use LTF\FootballTeams;
-use LTF\Http\Controllers\Api\DataTables\FixtureDataTable;
-use LTF\Http\Controllers\Api\DataTables\PremierDataTable;
-use LTF\Http\Requests;
-use LTF\Http\Controllers\Controller;
+use App\FootballCompetition;
+use App\FootballCupStanding;
+use App\FootballMatches;
+use App\FootballMatchEvents;
+use App\FootballPlayer;
+use App\FootballPlayerStats;
+use App\FootballSetting;
+use App\FootballStanding;
+use App\FootballTeams;
+use App\Http\Controllers\Api\DataTables\FixtureDataTable;
+use App\Http\Controllers\Api\DataTables\PremierDataTable;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 class FootballController extends Controller
 {

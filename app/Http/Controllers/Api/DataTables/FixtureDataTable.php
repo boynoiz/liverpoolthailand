@@ -1,9 +1,9 @@
 <?php
 
-namespace LTF\Http\Controllers\Api\DataTables;
+namespace App\Http\Controllers\Api\DataTables;
 
 use Carbon\Carbon;
-use LTF\FootballMatches;
+use App\FootballMatches;
 use Jenssegers\Date\Date;
 use Yajra\Datatables\Services\DataTable;
 

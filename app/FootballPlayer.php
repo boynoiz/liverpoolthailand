@@ -1,16 +1,16 @@
 <?php
 
-namespace LTF;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 
 /**
- * LTF\FootballPlayer
+ * App\FootballPlayer
  *
  * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\LTF\FootballPLayerStats[] $stats
- * @property-read \LTF\FootballTeams $team
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\FootballPLayerStats[] $stats
+ * @property-read \App\FootballTeams $team
  * @method static Builder|FootballPlayer whereId($value)
  * @method static Builder|FootballPlayer wherePlayerStatId($value)
  * @method static Builder|FootballPlayer wherePlayerTeamId($value)

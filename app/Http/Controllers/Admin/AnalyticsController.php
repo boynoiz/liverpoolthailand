@@ -1,15 +1,15 @@
 <?php
 
-namespace LTF\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use LTF\Base\Controllers\AdminController;
+use App\Base\Controllers\AdminController;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use LaravelAnalytics;
 
 /**
  * Class AnalyticsController
- * @package LTF\Http\Controllers\Admin
+ * @package App\Http\Controllers\Admin
  */
 class AnalyticsController extends AdminController
 {

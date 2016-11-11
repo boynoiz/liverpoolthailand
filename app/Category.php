@@ -1,15 +1,13 @@
 <?php
 
-namespace LTF;
+namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use App\Base\SluggableModel;
 use Illuminate\Database\Query\Builder;
 use Carbon\Carbon;
 
 /**
- * LTF\Category
+ * App\Category
  *
  * @mixin \Eloquent
  * @property integer $id
@@ -29,22 +27,10 @@ use Carbon\Carbon;
  * @method static Builder|Category whereColor($value)
  * @method static Builder|Category whereCreatedAt($value)
  * @method static Builder|Category whereUpdatedAt($value)
- * @property-read \Illuminate\Database\Eloquent\Collection|\LTF\Article[] $articles
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Article[] $articles
  */
-class Category extends Model implements SluggableInterface
+class Category extends SluggableModel
 {
-    use SluggableTrait;
-
-    /**
-     * Create slug from title using 3rd party trait
-     *
-     * @var array
-     */
-    protected $sluggable = array(
-        'build_from' => 'title',
-        'save_to'    => 'slug',
-        'on_update'  => true
-    );
 
     /**
      * The attributes that are mass assignable.

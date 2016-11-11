@@ -1,9 +1,9 @@
 <?php
 
-namespace LTF\Http\Controllers\Api\DataTables;
+namespace App\Http\Controllers\Api\DataTables;
 
-use LTF\Base\Controllers\DataTableController;
-use LTF\Language;
+use App\Base\Controllers\DataTableController;
+use App\Language;
 
 class LanguageDataTable extends DataTableController
 {

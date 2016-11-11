@@ -1,8 +1,8 @@
 <?php
 
-namespace LTF\Forms\Admin;
+namespace App\Forms\Admin;
 
-use LTF\Base\Forms\AdminForm;
+use App\Base\Forms\AdminForm;
 
 class UsersForm extends AdminForm
 {
@@ -31,6 +31,6 @@ class UsersForm extends AdminForm
                 'label' => trans('admin.fields.user.picture'),
                 'attr' => ['class' => '']
             ]);
-        parent::buildForm();
+        $this->addButtons();
     }
 }

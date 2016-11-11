@@ -1,21 +1,11 @@
 <?php
 
-namespace LTF\Http\Requests\Admin;
+namespace App\Http\Requests\Admin;
 
-use LTF\Http\Requests\Request;
+use App\Http\Requests\Request;
 
 class UserRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-    
     /**
      * Get the validation rules that apply to the request.
      *

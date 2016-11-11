@@ -1,6 +1,6 @@
 <?php
 
-namespace LTF\Forms\Admin;
+namespace App\Forms\Admin;
 
 use Kris\LaravelFormBuilder\Form;
 

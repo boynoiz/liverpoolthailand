@@ -1,15 +1,15 @@
 <?php
 
-namespace LTF\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use LTF\Base\Controllers\AdminController;
-use LTF\Http\Requests\Admin\PageRequest;
-use LTF\Page;
+use App\Base\Controllers\AdminController;
+use App\Http\Requests\Admin\PageRequest;
+use App\Page;
 use Illuminate\Http\Request;
 
 /**
  * Class PageController
- * @package LTF\Http\Controllers\Admin
+ * @package App\Http\Controllers\Admin
  */
 class PageController extends AdminController
 {

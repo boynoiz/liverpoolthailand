@@ -1,15 +1,15 @@
 <?php
 
-namespace LTF\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use LTF\Category;
-use LTF\Base\Controllers\AdminController;
-use LTF\Http\Controllers\Api\DataTables\CategoryDataTable;
-use LTF\Http\Requests\Admin\CategoryRequest;
+use App\Category;
+use App\Base\Controllers\AdminController;
+use App\Http\Controllers\Api\DataTables\CategoryDataTable;
+use App\Http\Requests\Admin\CategoryRequest;
 
 /**
  * Class CategoryController
- * @package LTF\Http\Controllers\Admin
+ * @package App\Http\Controllers\Admin
  *
  */
 class CategoryController extends AdminController

@@ -1,11 +1,11 @@
 <?php
 
-namespace LTF;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * LTF\Forum
+ * App\Forum
  *
  * @property integer $id
  * @property integer $topics

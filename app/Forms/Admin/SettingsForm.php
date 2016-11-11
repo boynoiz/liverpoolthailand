@@ -1,8 +1,8 @@
 <?php
 
-namespace LTF\Forms\Admin;
+namespace App\Forms\Admin;
 
-use LTF\Base\Forms\AdminForm;
+use App\Base\Forms\AdminForm;
 
 class SettingsForm extends AdminForm
 {
@@ -28,6 +28,6 @@ class SettingsForm extends AdminForm
                 'label' => trans('admin.fields.setting.logo'),
                 'attr' => ['class' => '']
             ]);
-        parent::buildForm();
+        $this->addButtons();
     }
 }

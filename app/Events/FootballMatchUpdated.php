@@ -1,9 +1,9 @@
 <?php
 
-namespace LTF\Events;
+namespace App\Events;
 
-use LTF\FootballMatches;
-use LTF\Events\Event;
+use App\FootballMatches;
+use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 

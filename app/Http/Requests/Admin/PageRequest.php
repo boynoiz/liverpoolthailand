@@ -1,21 +1,11 @@
 <?php
 
-namespace LTF\Http\Requests\Admin;
+namespace App\Http\Requests\Admin;
 
-use LTF\Http\Requests\Request;
+use App\Http\Requests\Request;
 
 class PageRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,11 +14,10 @@ class PageRequest extends Request
     public function rules()
     {
         return [
-            'content'       => 'required',
-            'description'   => 'required|max:160',
-            'language_id'   => 'required|integer',
-            'title'         => 'required|min:3',
-            'image'         => 'sometimes|max:2048|image',
+            'content'     => 'required|string',
+            'description' => 'required|string|max:160',
+            'language_id' => 'required|integer',
+            'title'       => 'required|string|max:200',
         ];
     }
 }

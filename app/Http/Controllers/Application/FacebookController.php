@@ -1,12 +1,12 @@
 <?php
 
-namespace LTF\Http\Controllers\Application;
+namespace App\Http\Controllers\Application;
 
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
 use Facebook\Facebook;
-use LTF\Http\Requests;
-use LTF\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 class FacebookController extends Controller
 {

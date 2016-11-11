@@ -1,12 +1,12 @@
 <?php
 
-namespace LTF;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 
 /**
- * LTF\FootballTeams
+ * App\FootballTeams
  *
  * @mixin \Eloquent
  * @property integer $id

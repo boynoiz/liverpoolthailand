@@ -1,10 +1,10 @@
 <?php
 
-namespace LTF\Http\Middleware\Custom;
+namespace App\Http\Middleware\Custom;
 
 use Closure;
 use Config;
-use LTF\Setting;
+use App\Setting;
 
 class SetConfiguration
 {

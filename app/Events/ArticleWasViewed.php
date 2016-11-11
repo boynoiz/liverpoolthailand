@@ -1,21 +1,14 @@
 <?php
 
-namespace LTF\Events;
+namespace App\Events;
 
-use LTF\Article;
+use App\Article;
 use Illuminate\Queue\SerializesModels;
 
-/**
- * Class ArticleWasViewed
- * @package LTF\Events
- */
 class ArticleWasViewed extends Event
 {
     use SerializesModels;
 
-    /**
-     * @var Article
-     */
     public $article;
 
     /**

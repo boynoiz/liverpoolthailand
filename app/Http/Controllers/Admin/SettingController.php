@@ -1,10 +1,10 @@
 <?php
 
-namespace LTF\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use LTF\Base\Controllers\AdminController;
-use LTF\Http\Requests\Admin\SettingRequest;
-use LTF\Setting;
+use App\Base\Controllers\AdminController;
+use App\Http\Requests\Admin\SettingRequest;
+use App\Setting;
 
 class SettingController extends AdminController
 {

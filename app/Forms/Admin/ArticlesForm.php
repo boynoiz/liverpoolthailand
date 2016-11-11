@@ -1,8 +1,8 @@
 <?php
 
-namespace LTF\Forms\Admin;
+namespace App\Forms\Admin;
 
-use LTF\Base\Forms\AdminForm;
+use App\Base\Forms\AdminForm;
 
 class ArticlesForm extends AdminForm
 {
@@ -31,6 +31,6 @@ class ArticlesForm extends AdminForm
                     'class' => 'form-group col-md-6'
                 ]
             ]);
-        parent::buildForm();
+        $this->addButtons();
     }
 }

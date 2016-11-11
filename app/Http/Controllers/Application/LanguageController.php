@@ -1,8 +1,8 @@
 <?php
 
-namespace LTF\Http\Controllers\Application;
+namespace App\Http\Controllers\Application;
 
-use LTF\Base\Controllers\ApplicationController;
+use App\Base\Controllers\ApplicationController;
 use Input;
 
 class LanguageController extends ApplicationController

@@ -1,13 +1,13 @@
 <?php
 
-namespace LTF\Http\Controllers\Api;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 
-use LTF\FootballMatches;
+use App\FootballMatches;
 use Jenssegers\Date\Date;
-use LTF\Http\Requests;
-use LTF\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 class FootballAPIController extends Controller
 {

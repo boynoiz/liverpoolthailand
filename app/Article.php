@@ -1,15 +1,14 @@
 <?php
 
-namespace LTF;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use App\Base\SluggableModel;
 use Illuminate\Database\Query\Builder;
 
 /**
- * LTF\Article
+ * App\Article
  *
  * @mixin \Eloquent
  * @property integer $id
@@ -22,7 +21,7 @@ use Illuminate\Database\Query\Builder;
  * @property integer $read
  * @property Carbon $created_at
  * @property Carbon $updated_at
- * @property-read \LTF\Category $category
+ * @property-read \App\Category $category
  * @method static Builder|Article whereId($value)
  * @method static Builder|Article whereCategoryId($value)
  * @method static Builder|Article whereTitle($value)
@@ -36,10 +35,8 @@ use Illuminate\Database\Query\Builder;
  * @method static Article published()
  * @property integer $read_count
  */
-class Article extends Model implements SluggableInterface
+class Article extends SluggableModel
 {
-    use SluggableTrait;
-
     /**
      * @var string
      */
@@ -58,17 +55,6 @@ class Article extends Model implements SluggableInterface
      * @var array
      */
     protected $dates = ['published_at'];
-
-    /**
-     * Create slug from title using 3rd party trait
-     *
-     * @var array
-     */
-    protected $sluggable = array(
-        'build_from' => 'title',
-        'save_to'    => 'slug',
-        'on_update'  => true
-    );
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

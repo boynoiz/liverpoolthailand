@@ -1,6 +1,6 @@
 <?php
 
-namespace LTF\Base\Controllers;
+namespace App\Base\Controllers;
 
 use Yajra\Datatables\Services\DataTable;
 
@@ -14,7 +14,8 @@ abstract class DataTableController extends DataTable
     protected $parameters = [
         'dom' => 'Bfrtip',
         'buttons' => ['csv', 'excel', 'pdf'],
-        'columnDefs' => [['defaultContent' => '-', 'targets' => '_all']]
+        'columnDefs' => [['defaultContent' => '-', 'targets' => '_all']],
+        'scrollX' => true
     ];
 
     /**
@@ -102,34 +103,25 @@ abstract class DataTableController extends DataTable
      */
     public function ajax()
     {
-        $model = $this->getModelName();
-        $datatables = $this->datatables->eloquent($this->query());
-        foreach ($this->image_columns as $image_column) {
-            $datatables = $datatables->editColumn($image_column, function ($model) use ($image_column) {
-                return "<a target='_blank' href='{$model->$image_column}'>
-                            <img style='max-height:50px'
-                                 class='img-responsive'
-                                 src='". asset($model->$image_column) ."'
-                             />
-                        </a>";
+        list($model, $datatables) = $this->getAjaxParameters();
+        collect($this->image_columns)->each(function ($image_column) use (&$datatables) {
+            return $datatables->editColumn($image_column, function ($model) use ($image_column) {
+                return $this->wrapImage($model, $image_column);
             });
-        }
-        foreach ($this->boolean_columns as $boolean_column) {
-            $datatables = $datatables->editColumn($boolean_column, function ($model) use ($boolean_column) {
+        })->recollect($this->boolean_columns)->each(function ($boolean_column) use (&$datatables) {
+            return $datatables->editColumn($boolean_column, function ($model) use ($boolean_column) {
                 return $model->$boolean_column == true ? trans("admin.fields.yes") : trans("admin.fields.no");
             });
-        }
-        foreach ($this->count_columns as $count_column) {
-            $datatables = $datatables->editColumn($count_column, function ($model) use ($count_column) {
-                return count($model->$count_column) ? $model->$count_column->count() : 0;
+        })->recollect($this->eager_columns)->each(function ($eager_column, $relation) use (&$datatables) {
+            return $datatables->editColumn(join(".", [$relation, $eager_column]), function ($model) use ($relation, $eager_column) {
+                return !empty($model->$relation->$eager_column) ? $model->$relation->$eager_column : '';
             });
-        }
-        if ($this->ops === true) {
-            $datatables = $datatables->addColumn('ops', function ($data) use ($model) {
-                return get_ops($model, $data->id);
+        })->recollect($this->count_columns)->each(function ($count_column) use (&$datatables) {
+            return $datatables->editColumn($count_column, function ($model) use ($count_column) {
+                return count($model->$count_column);
             });
-        }
-        return $datatables->make(true);
+        });
+        return $this->pushOps($datatables, $model)->make(true);
     }
 
     /**
@@ -142,6 +134,108 @@ abstract class DataTableController extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->parameters($this->getParameters());
+    }
+
+    /**
+     * @return array
+     */
+    protected function getAjaxParameters()
+    {
+        return [$this->getModelName(), $this->datatables->eloquent($this->query())];
+    }
+
+    /**
+     * Translate and edit column names
+     *
+     * Countable columns which are the count of a relation should not have order and search options thus they
+     * should get merged lastly, to make them searchable and orderable, you need to join through their table.
+     *
+     * @param array $result
+     *
+     * @return array
+     */
+    protected function getColumns($result = [])
+    {
+        list($columns, $countColumnsPosition, $model, $table) = $this->getColumnParameters();
+        collect($columns)->each(function ($column, $key) use ($model, $table, $countColumnsPosition, &$result) {
+            $orderAndSearch = $key < $countColumnsPosition ? true : false;
+            $this->pushColumns($result, [
+                'data' => $column,
+                'name' => join([$table, $column], "."),
+                'title' => trans('admin.fields.' . join([$model, $column], "."))
+            ], $orderAndSearch);
+        })->recollect($this->eager_columns)->each(function ($column, $key) use (&$result) {
+            $string = join([$key, $column], ".");
+            $this->pushColumns($result, [
+                'data' => $string,
+                'name' => $string,
+                'title' => trans('admin.fields.' . $string),
+            ]);
+        })->recollect($this->common_columns)->each(function ($column) use ($table, &$result) {
+            $string = join([$table, $column], ".");
+            $this->pushColumns($result, [
+                'data' => $column,
+                'name' => $string,
+                'title' => trans('admin.fields.' . $column),
+            ]);
+        });
+        return $this->pushOps($result);
+    }
+
+    /**
+     * @param      $result
+     * @param      $data
+     * @param bool $orderAndSearch
+     *
+     * @return int
+     */
+    protected function pushColumns(&$result, $data, $orderAndSearch = true)
+    {
+        return array_push($result, array_merge($data, [
+            'orderable' => $orderAndSearch,
+            'searchable' => $orderAndSearch
+        ]));
+    }
+
+    /**
+     * @param        $result
+     *
+     * @param string $model
+     *
+     * @return mixed
+     */
+    protected function pushOps($result, $model = "")
+    {
+        if ($this->ops === true) {
+            if (empty($model)) {
+                $this->pushColumns($result, [
+                    'data' => 'ops',
+                    'name' => 'ops',
+                    'title' => trans('admin.ops.name')
+                ], false);
+            } else {
+                $result = $result->addColumn('ops', function ($data) use ($model) {
+                    return get_ops($model, $data->id);
+                });
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Get the columns that are being translated, model and table
+     *
+     * @return array
+     */
+    protected function getColumnParameters()
+    {
+        $columns = array_merge($this->image_columns, $this->columns, $this->boolean_columns, $this->count_columns);
+        return [
+            $columns,
+            count($columns) - count($this->count_columns),
+            $this->getModelName(),
+            $this->getTableName()
+        ];
     }
 
     /**
@@ -165,43 +259,19 @@ abstract class DataTableController extends DataTable
     }
 
     /**
-     * Translate column names
+     * Show image instead of url for the image columns
      *
-     * @return array
+     * @param $model
+     * @param $image_column
+     *
+     * @return string
      */
-    protected function getColumns()
+    protected function wrapImage($model, $image_column)
     {
-        $columns = [];
-        $model = $this->getModelName();
-        $table = $this->getTableName();
-        $array = array_merge($this->image_columns, $this->columns, $this->boolean_columns, $this->count_columns);
-        foreach ($array as $key => $column) {
-            $string = join([$table, $column], ".");
-            $title = trans('admin.fields.' . join([$model, $column], '.'));
-            $orderAndSearch = $key < (count($array) - count($this->count_columns)) ? true : false;
-            array_push($columns, [
-                'data' => $column, 'name' => $string, 'title' => $title,
-                'orderable' => $orderAndSearch, 'searchable' => $orderAndSearch
-            ]);
-        }
-        foreach ($this->eager_columns as $key => $value) {
-            $string = join([$key, $value], ".");
-            $title = trans('admin.fields.' . $string);
-            array_push($columns, ['data' => $string, 'name' => $string, 'title' => $title]);
-        }
-        foreach ($this->common_columns as $column) {
-            $string = join([$table, $column], ".");
-            $title = trans('admin.fields.' . $column);
-            array_push($columns, ['data' => $column, 'name' => $string, 'title' => $title]);
-        }
-        if ($this->ops === true) {
-            $title = trans('admin.ops.name');
-            array_push($columns, [
-                'data' => 'ops', 'name' => 'ops', 'title' => $title,
-                'orderable' => false, 'searchable' => false
-            ]);
-        }
-        return $columns;
+        $url = asset($model->$image_column);
+        return "<a target='_blank' href='{$url}'>
+                    <img style='max-height:50px' class='img-responsive' src='{$url}'/>
+               </a>";
     }
 
     /**

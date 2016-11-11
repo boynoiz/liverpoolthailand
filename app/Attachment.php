@@ -1,11 +1,11 @@
 <?php
 
-namespace LTF;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 /**
- * LTF\Attachment
+ * App\Attachment
  *
  * @mixin \Eloquent
  * @property integer $attach_id

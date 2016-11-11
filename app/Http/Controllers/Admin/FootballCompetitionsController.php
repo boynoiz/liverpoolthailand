@@ -1,20 +1,20 @@
 <?php
 
-namespace LTF\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
 use Kris\LaravelFormBuilder\FormBuilder;
-use LTF\Forms\Admin\FootballCompForm;
-use LTF\FootballCompetition;
-use LTF\Http\Requests\Admin\FootballCompRequest;
-use LTF\Http\Controllers\Api\DataTables\CompetitionDataTable;
+use App\Forms\Admin\FootballCompForm;
+use App\FootballCompetition;
+use App\Http\Requests\Admin\FootballCompRequest;
+use App\Http\Controllers\Api\DataTables\CompetitionDataTable;
 use Jenssegers\Date\Date;
 use Laracasts\Flash\Flash;
 use Queue;
-use LTF\Jobs\ImageResizerJob;
-use LTF\Http\Requests;
-use LTF\Http\Controllers\Controller;
+use App\Jobs\ImageResizerJob;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 class FootballCompetitionsController extends Controller
 {

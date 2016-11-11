@@ -1,17 +1,17 @@
 <?php
 
-namespace LTF\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
 use Auth;
 use Queue;
 use Jenssegers\Date\Date;
-use LTF\FootballTeams;
-use LTF\Base\Controllers\AdminController;
-use LTF\Forms\Admin\FootballTeamsForm;
+use App\FootballTeams;
+use App\Base\Controllers\AdminController;
+use App\Forms\Admin\FootballTeamsForm;
 use Kris\LaravelFormBuilder\FormBuilder;
-use LTF\Http\Requests\Admin\FootballTeamsRequest;
+use App\Http\Requests\Admin\FootballTeamsRequest;
 use Laracasts\Flash\Flash;
-use LTF\Jobs\ImageResizerJob;
+use App\Jobs\ImageResizerJob;
 
 class FootballTeamsController extends AdminController
 {

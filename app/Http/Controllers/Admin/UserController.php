@@ -1,11 +1,11 @@
 <?php
 
-namespace LTF\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use LTF\Base\Controllers\AdminController;
-use LTF\Http\Controllers\Api\DataTables\UserDataTable;
-use LTF\Http\Requests\Admin\UserRequest;
-use LTF\User;
+use App\Base\Controllers\AdminController;
+use App\Http\Controllers\Api\DataTables\UserDataTable;
+use App\Http\Requests\Admin\UserRequest;
+use App\User;
 use Auth;
 
 class UserController extends AdminController

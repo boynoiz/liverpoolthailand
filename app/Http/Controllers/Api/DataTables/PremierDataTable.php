@@ -1,8 +1,8 @@
 <?php
 
-namespace LTF\Http\Controllers\Api\DataTables;
+namespace App\Http\Controllers\Api\DataTables;
 
-use LTF\FootballStanding;
+use App\FootballStanding;
 use Yajra\Datatables\Services\DataTable;
 
 class PremierDataTable extends DataTable

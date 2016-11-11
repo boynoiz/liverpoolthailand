@@ -118,7 +118,7 @@ if (!function_exists('rename_file')) {
         // remove extension first
         $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $filename);
         $filename = str_slug($filename, "-");
-        $filename = $filename . '_' . str_random(32) .  '.' . $mime;
+        $filename = '/' . $filename . '_' . str_random(32) .  '.' . $mime;
         return $filename;
     }
 }

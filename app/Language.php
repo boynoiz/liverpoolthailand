@@ -1,11 +1,11 @@
 <?php
 
-namespace LTF;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * LTF\Language
+ * App\Language
  *
  * @property integer $id
  * @property string $title
@@ -15,16 +15,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $site_description
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\LTF\Category[] $categories
- * @property-read \Illuminate\Database\Eloquent\Collection|\LTF\Page[] $pages
- * @method static \Illuminate\Database\Query\Builder|\LTF\Language whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Language whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Language whereFlag($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Language whereCode($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Language whereSiteTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Language whereSiteDescription($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Language whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\LTF\Language whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Category[] $categories
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Page[] $pages
+ * @method static \Illuminate\Database\Query\Builder|\App\Language whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Language whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Language whereFlag($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Language whereCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Language whereSiteTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Language whereSiteDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Language whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Language whereUpdatedAt($value)
  */
 class Language extends Model
 {

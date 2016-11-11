@@ -1,19 +1,19 @@
 <?php
 
-namespace LTF\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
 use Laracasts\Flash\Flash;
-use LTF\Base\Controllers\AdminController;
-use LTF\Category;
-use LTF\Http\Controllers\Api\DataTables\LanguageDataTable;
-use LTF\Http\Requests\Admin\LanguageRequest;
-use LTF\Language;
+use App\Base\Controllers\AdminController;
+use App\Category;
+use App\Http\Controllers\Api\DataTables\LanguageDataTable;
+use App\Http\Requests\Admin\LanguageRequest;
+use App\Language;
 use Input;
 use Redirect;
 
 /**
  * Class LanguageController
- * @package LTF\Http\Controllers\Admin
+ * @package App\Http\Controllers\Admin
  */
 class LanguageController extends AdminController
 {

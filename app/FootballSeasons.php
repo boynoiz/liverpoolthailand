@@ -1,12 +1,12 @@
 <?php
 
-namespace LTF;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 
 /**
- * LTF\FootballSeasons
+ * App\FootballSeasons
  *
  * @mixin \Eloquent
  * @method static Builder|FootballSeasons whereId($value)

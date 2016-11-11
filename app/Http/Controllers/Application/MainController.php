@@ -1,21 +1,21 @@
 <?php
 
-namespace LTF\Http\Controllers\Application;
+namespace App\Http\Controllers\Application;
 
 use Jenssegers\Date\Date;
-use LTF\Article;
-use LTF\Base\Controllers\ApplicationController;
-use LTF\Category;
-use LTF\FootballMatches;
-use LTF\FootballStanding;
-use LTF\Gallery;
-use LTF\Http\Requests;
-use LTF\Topic;
+use App\Article;
+use App\Base\Controllers\ApplicationController;
+use App\Category;
+use App\FootballMatches;
+use App\FootballStanding;
+use App\Gallery;
+use App\Http\Requests;
+use App\Topic;
 
 
 /**
  * Class MainController
- * @package LTF\Http\Controllers\Application
+ * @package App\Http\Controllers\Application
  */
 class MainController extends ApplicationController
 {
@@ -26,12 +26,12 @@ class MainController extends ApplicationController
     public $matches;
 
     /**
-     * @var \LTF\Http\Controllers\Application\FacebookController
+     * @var \App\Http\Controllers\Application\FacebookController
      */
     public $facebook;
 
     /**
-     * @var \LTF\Http\Controllers\Application\IPBoardController
+     * @var \App\Http\Controllers\Application\IPBoardController
      */
     public $ipb;
 

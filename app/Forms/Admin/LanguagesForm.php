@@ -1,8 +1,8 @@
 <?php
 
-namespace LTF\Forms\Admin;
+namespace App\Forms\Admin;
 
-use LTF\Base\Forms\AdminForm;
+use App\Base\Forms\AdminForm;
 
 class LanguagesForm extends AdminForm
 {
@@ -25,6 +25,6 @@ class LanguagesForm extends AdminForm
                 'label' => trans('admin.fields.language.flag'),
                 'attr' => ['class' => '']
             ]);
-        parent::buildForm();
+        $this->addButtons();
     }
 }

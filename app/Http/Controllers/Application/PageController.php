@@ -1,9 +1,9 @@
 <?php
 
-namespace LTF\Http\Controllers\Application;
+namespace App\Http\Controllers\Application;
 
-use LTF\Base\Controllers\ApplicationController;
-use LTF\Page;
+use App\Base\Controllers\ApplicationController;
+use App\Page;
 
 class PageController extends ApplicationController
 {
