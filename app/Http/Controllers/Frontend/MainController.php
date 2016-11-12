@@ -26,12 +26,12 @@ class MainController extends FrontendController
     public $matches;
 
     /**
-     * @var \App\Http\Controllers\Application\FacebookController
+     * @var \App\Http\Controllers\Frontend\FacebookController
      */
     public $facebook;
 
     /**
-     * @var \App\Http\Controllers\Application\IPBoardController
+     * @var \App\Http\Controllers\Frontend\IPBoardController
      */
     public $ipb;
 
