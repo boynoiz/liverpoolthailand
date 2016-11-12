@@ -5,7 +5,7 @@ namespace App\Base\Controllers;
 use App\Http\Controllers\Controller;
 use App\Language;
 
-abstract class ApplicationController extends Controller
+abstract class FrontendController extends Controller
 {
     /**
      * Get select list for languages
