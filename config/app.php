@@ -174,14 +174,15 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-         App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
         /*
          * Application Custom Service Providers...
          */
-//        App\Providers\HelperServiceProvider::class,
+        App\Providers\CollectionServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
 
         /*
          * Third Party Stuff
