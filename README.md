@@ -4,9 +4,6 @@ This is website for www.liverpoolthailand.com Base on Laravel 5.3 with <a target
 -----
 
 ## License
-
-This is free software distributed under the terms of the MIT license.
-
 Copyright 2015 Pathompong Pechkongtong
 
 -----
