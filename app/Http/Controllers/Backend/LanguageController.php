@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Backend;
 
 use Laracasts\Flash\Flash;
 use App\Base\Controllers\AdminController;
