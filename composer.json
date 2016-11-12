@@ -13,7 +13,7 @@
 		"laracasts/flash": "~2.0",
 		"cviebrock/eloquent-sluggable": "~4.0",
 		"barryvdh/laravel-elfinder": "^0.3.8",
-		"spatie/laravel-analytics": "~2.0",
+		"spatie/laravel-analytics": "^2.3",
 		"caffeinated/menus": "~3.0",
 		"yajra/laravel-datatables-oracle": "~6.0",
 		"mews/purifier": "~2.0",
