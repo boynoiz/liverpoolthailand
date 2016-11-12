@@ -1,47 +1,27 @@
 <?php
 
 return [
-    /*
-     * The siteId is used to retrieve and display Google Analytics statistics
-     * in the admin-section.
-     *
-     * Should look like: ga:xxxxxxxx.
-     */
-    'siteId' => env('ANALYTICS_SITE_ID', 'BlahBlahBlah'),
 
     /*
-     * Set the client id
-     *
-     * Should look like:
-     * xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com
+     * The view id of which you want to display data.
      */
-    'clientId' => env('ANALYTICS_CLIENT_ID', 'BlahBlahBlah'),
+    'view_id' => env('ANALYTICS_VIEW_ID','BlahBlahBlah'),
 
     /*
-     * Set the service account name
-     *
-     * Should look like:
-     * xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@developer.gserviceaccount.com
+     * Path to the client secret json file. Take a look at the README of this package
+     * to learn how to get this file.
      */
-    'serviceEmail' => env('ANALYTICS_SERVICE_EMAIL', 'BlahBlahBlah'),
-
-    /*
-     * You need to download a p12-certifciate from the Google API console
-     * Be sure to store this file in a secure location.
-     */
-    'certificatePath' => storage_path('analytics/'.env('ANALYTICS_FILENAME', 'BlahBlahBlah').'.p12'),
+    'service_account_credentials_json' => storage_path('analytics/'.env('ANALYTICS_FILENAME', 'BlahBlahBlah').'.json'),
 
     /*
      * The amount of minutes the Google API responses will be cached.
      * If you set this to zero, the responses won't be cached at all.
      */
-    'cacheLifetime' => 60 * 24 * 2,
+    'cache_lifetime_in_minutes' => 60 * 24,
 
     /*
-     * The amount of seconds the Google API responses will be cached for
-     * queries that use the real time query method. If you set this to zero,
-     * the responses of real time queries won't be cached at all.
+     * The directory where the underlying Google_Client will store it's cache files.
      */
-    'realTimeCacheLifetimeInSeconds' => 5,
+    'cache_location' => storage_path('app/laravel-google-analytics/google-cache/'),
 
 ];
