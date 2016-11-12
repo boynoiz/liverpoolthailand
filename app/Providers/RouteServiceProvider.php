@@ -20,7 +20,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'App\Http\Controllers\Application';
+    protected $namespace = 'App\Http\Controllers\Frontend';
 
     /**
      * @var string
@@ -35,7 +35,7 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * @var string
      */
-    protected $adminNamespace = 'App\Http\Controllers\Admin';
+    protected $adminNamespace = 'App\Http\Controllers\Backend';
 
     /**
      * Define your route model bindings, pattern filters, etc.
