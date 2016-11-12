@@ -79,6 +79,8 @@ use Illuminate\Database\Query\Builder;
  * @method static Builder|FootballStanding whereGd($value)
  * @method static Builder|FootballStanding wherePoints($value)
  * @method static Builder|FootballStanding whereDescription($value)
+ * @property string $comp_group
+ * @method static \Illuminate\Database\Query\Builder|\App\FootballStanding whereCompGroup($value)
  */
 class FootballStanding extends Model
 {

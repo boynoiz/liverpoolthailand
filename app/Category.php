@@ -28,6 +28,15 @@ use Carbon\Carbon;
  * @method static Builder|Category whereCreatedAt($value)
  * @method static Builder|Category whereUpdatedAt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Article[] $articles
+ * @property integer $user_id
+ * @property string $image_path
+ * @property string $image_name
+ * @property integer $updated_by
+ * @method static \Illuminate\Database\Query\Builder|\App\Category whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Category whereImagePath($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Category whereImageName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Category whereUpdatedBy($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Base\SluggableModel findSimilarSlugs($model, $attribute, $config, $slug)
  */
 class Category extends SluggableModel
 {

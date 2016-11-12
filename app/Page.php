@@ -2,13 +2,14 @@
 
 namespace App;
 
+use App\Base\Traits\SluggableEngine;
 use Baum\Node;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
-use App\Base\Traits\SluggableEngine;
 
 /**
  * App\Page
+ *
  * @mixin \Eloquent
  * @property integer $id
  * @property integer $language_id
@@ -41,6 +42,16 @@ use App\Base\Traits\SluggableEngine;
  * @method static Node withoutSelf()
  * @method static Node withoutRoot()
  * @method static Node limitDepth($limit)
+ * @property integer $user_id
+ * @property string $image_path
+ * @property string $image_name
+ * @property integer $updated_by
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Query\Builder|\App\Page whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Page whereImagePath($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Page whereImageName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Page whereUpdatedBy($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Page findSimilarSlugs($model, $attribute, $config, $slug)
  */
 class Page extends Node
 {
@@ -50,6 +61,18 @@ class Page extends Node
      * @var array
      */
     protected $fillable = ['content', 'user_id', 'description', 'language_id', 'title', 'image_path', 'image_name', 'update_by'];
+
+    /**
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

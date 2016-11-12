@@ -60,6 +60,9 @@ use Illuminate\Database\Query\Builder;
  * @method static Builder|FootballMatches whereEtScore($value)
  * @method static Builder|FootballMatches wherePenaltyLocal($value)
  * @method static Builder|FootballMatches wherePenaltyVisitor($value)
+ * @property-read \App\FootballCompetition $competition
+ * @property-read \App\FootballTeams $team_as_home
+ * @property-read \App\FootballTeams $team_as_away
  */
 
 class FootballMatches extends Model

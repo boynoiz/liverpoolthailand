@@ -10,6 +10,7 @@ use Illuminate\Database\Query\Builder;
 
 /**
  * App\User
+ *
  * @mixin \Eloquent
  * @property integer $id
  * @property string $name
@@ -33,6 +34,19 @@ use Illuminate\Database\Query\Builder;
  * @method static Builder|User whereLoggedOutAt($value)
  * @method static Builder|User whereIpAddress($value)
  * @method static Builder|User wherePicture($value)
+ * @property integer $updated_by
+ * @property string $image_path
+ * @property string $image_name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Category[] $categories
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Article[] $articles
+ * @property-read \Baum\Extensions\Eloquent\Collection|\App\Page[] $pages
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Language[] $languages
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $readNotifications
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $unreadNotifications
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereUpdatedBy($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereImagePath($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereImageName($value)
  */
 class User extends Authenticatable
 {

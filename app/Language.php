@@ -25,6 +25,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Language whereSiteDescription($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Language whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Language whereUpdatedAt($value)
+ * @property integer $user_id
+ * @property string $image_path
+ * @property string $image_name
+ * @property integer $updated_by
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Article[] $articles
+ * @method static \Illuminate\Database\Query\Builder|\App\Language whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Language whereImagePath($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Language whereImageName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Language whereUpdatedBy($value)
+ * @mixin \Eloquent
  */
 class Language extends Model
 {

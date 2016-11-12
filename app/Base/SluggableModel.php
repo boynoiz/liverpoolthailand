@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-write mixed $slug
  * @method static \Illuminate\Database\Query\Builder|\App\Base\SluggableModel whereSlug($slug)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|\App\Base\SluggableModel findSimilarSlugs($model, $attribute, $config, $slug)
  */
 class SluggableModel extends Model
 {

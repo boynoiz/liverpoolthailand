@@ -31,6 +31,15 @@ use Illuminate\Database\Query\Builder;
  * @method static Builder|FootballCompetition whereCompSeasonName($value)
  * @method static Builder|FootballCompetition whereCompLastmatchId($value)
  * @method static Builder|FootballCompetition whereCompNextmatchId($value)
+ * @property string $name
+ * @property string $region
+ * @property string $image_path
+ * @property string $image_name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\FootballMatches[] $match
+ * @method static \Illuminate\Database\Query\Builder|\App\FootballCompetition whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\FootballCompetition whereRegion($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\FootballCompetition whereImagePath($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\FootballCompetition whereImageName($value)
  */
 
 class FootballCompetition extends Model
