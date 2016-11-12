@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Application;
+namespace App\Http\Controllers\Frontend;
 
 use App\Article;
 use App\Events\ArticleWasViewed;
-use App\Base\Controllers\ApplicationController;
+use App\Base\Controllers\FrontendController;
 use Event;
 
-class ArticleController extends ApplicationController
+class ArticleController extends FrontendController
 {
     /**
      * @var FacebookController

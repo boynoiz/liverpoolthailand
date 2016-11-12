@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Application;
+namespace App\Http\Controllers\Frontend;
 
 use Jenssegers\Date\Date;
 use App\Article;
-use App\Base\Controllers\ApplicationController;
+use App\Base\Controllers\FrontendController;
 use App\Category;
 use App\FootballMatches;
 use App\FootballStanding;
@@ -17,7 +17,7 @@ use App\Topic;
  * Class MainController
  * @package App\Http\Controllers\Application
  */
-class MainController extends ApplicationController
+class MainController extends FrontendController
 {
 
     /**

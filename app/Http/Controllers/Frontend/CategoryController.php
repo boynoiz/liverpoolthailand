@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Application;
+namespace App\Http\Controllers\Frontend;
 
-use App\Base\Controllers\ApplicationController;
-use App\Page;
+use App\Category;
+use App\Base\Controllers\FrontendController;
 
-class PageController extends ApplicationController
+class CategoryController extends FrontendController
 {
     /**
      * @var FacebookController
@@ -23,7 +23,7 @@ class PageController extends ApplicationController
     protected $language;
 
     /**
-     * PageController constructor.
+     * CategoryController constructor.
      * @param FacebookController $fbLikes
      * @param IPBoardController $ipb
      */
@@ -31,18 +31,19 @@ class PageController extends ApplicationController
     {
         $this->fbLikes = $fbLikes;
         $this->ipb = $ipb;
-        $this->language = session('current_lang');
     }
+
     /**
-     * Show the page
+     * Show the category articles
      *
-     * @param Page $page
+     * @param Category $category
      * @return Response
      */
-    public function index(Page $page)
+    public function index(Category $category)
     {
         $fbLikeCounter = $this->fbLikes->facebookLike();
         $totalMembers = $this->ipb->getTotalMembers();
-        return view('application.page.index', compact('page', 'fbLikeCounter', 'totalMembers'));
+        $articles = $category->articles()->published()->orderBy('published_at', 'desc')->paginate(5);
+        return view('application.category.index', compact('articles', 'category', 'fbLikeCounter', 'totalMembers'));
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Application;
+namespace App\Http\Controllers\Frontend;
 
-use App\Base\Controllers\ApplicationController;
+use App\Base\Controllers\FrontendController;
 use Input;
 
-class LanguageController extends ApplicationController
+class LanguageController extends FrontendController
 {
     /**
      * Set the application language
