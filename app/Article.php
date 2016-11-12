@@ -34,6 +34,17 @@ use Illuminate\Database\Query\Builder;
  * @method static Builder|Article whereUpdatedAt($value)
  * @method static Article published()
  * @property integer $read_count
+ * @property integer $user_id
+ * @property string $image_path
+ * @property string $image_name
+ * @property integer $updated_by
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Query\Builder|\App\Article whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Article whereImagePath($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Article whereImageName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Article whereReadCount($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Article whereUpdatedBy($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Base\SluggableModel findSimilarSlugs($model, $attribute, $config, $slug)
  */
 class Article extends SluggableModel
 {
