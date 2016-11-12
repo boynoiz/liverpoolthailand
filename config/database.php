@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'fetch' => PDO::FETCH_CLASS,
+    'fetch' => PDO::FETCH_OBJ,
 
     /*
     |--------------------------------------------------------------------------
@@ -61,7 +61,8 @@ return [
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
-            'strict'    => false,
+            'strict' => true,
+            'engine' => null,
         ],
 
         'board' => [
@@ -74,10 +75,8 @@ return [
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => env('DB_PREFIX', ''),
-            'strict'    => false,
-            'options'   => array(
-                PDO::ATTR_PERSISTENT => true,
-            ),
+            'strict' => true,
+            'engine' => null,
         ],
 
         'pgsql' => [
