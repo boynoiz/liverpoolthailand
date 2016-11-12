@@ -210,23 +210,4 @@ class MainController extends FrontendController
 
         return $standing;
     }
-
-    public function testLeagueTable()
-    {
-        $season = '2016/2017';
-        $liverpoolId = '9249';
-
-        $standing = FootballStanding::whereSeason($season)
-            ->where('position', '>=', function ($query) use ($liverpoolId, $season) {
-                $getRank = $query->whereSeason($season)->whereTeamId($liverpoolId)->first();
-                $rank = $getRank->position - 3;
-                return  $rank <= 1 ? $rank === 1 : $rank;
-            })
-            ->select('season', 'team_id', 'team_name', 'position', 'overall_gp', 'gd', 'points')
-            ->orderBy('position', 'asc')
-            ->take(7)
-            ->get();
-
-        return $standing;
-    }
 }
