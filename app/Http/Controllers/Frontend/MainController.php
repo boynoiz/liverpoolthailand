@@ -194,6 +194,7 @@ class MainController extends FrontendController
 
     /**
      * Get data from Standing for render short table in first page
+     *
      * @return array|bool|\Illuminate\Database\Eloquent\Collection|static[]
      */
     public function LeagueTable()
